@@ -19,6 +19,6 @@ namespace Blog.Models
         public string Body { get; set; }
 
         //nav props
-        public IEnumerable<Tag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 }

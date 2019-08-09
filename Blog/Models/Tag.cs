@@ -14,6 +14,6 @@ namespace Blog.Models
         public string Name { get; set; }
 
         //nav props
-        public IEnumerable<Post> Posts { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
 }
