@@ -6,17 +6,25 @@ using System.Web.Mvc;
 using Blog.Models;
 using System.Text;
 using System.Data.Entity;
+using PagedList;
 
 namespace Blog.Controllers
 {
     public class PostsController : Controller
     {
         BlogContext context = new BlogContext();
-        public ActionResult Index()
+
+        public ActionResult Index(int? page)
         {
-            var Posts = context.Posts.OrderBy(p => p.Time).ToList();
+            int currentPage = page ?? 1;
+            int pageSize = 4;
+
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            var Posts = context.Posts
+                .OrderBy(p => p.Time).ToList();
+
             ViewBag.IsAdmin = IsAdmin;
-            return View(Posts);
+            return View(Posts.ToPagedList(currentPage, pageSize));
         } 
 
         public ActionResult Edit(int? id)
