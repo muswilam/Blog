@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Blog.Models;
+using System.Text;
+using System.Data.Entity;
 
 namespace Blog.Controllers
 {
@@ -15,7 +17,20 @@ namespace Blog.Controllers
             return View();
         }
 
-        public ActionResult Update(int? id, string title, string body, DateTime dateTime, string tags)
+        public ActionResult Edit(int? id)
+        {
+            Post post = GetPost(id);
+            StringBuilder tagList = new StringBuilder();
+            foreach (var tag in post.Tags)
+            {
+                tagList.AppendFormat("{0} ", tag.Name);
+            }
+            ViewBag.Tags = tagList.ToString();
+            return View(post);
+        }
+
+        [ValidateInput(false)]
+        public ActionResult Update(Post formModel , string tags)
         {
             if (!IsAdmin)
             {
@@ -23,10 +38,10 @@ namespace Blog.Controllers
             }
 
             //edit
-            Post post = GetPost(id);
-            post.Title = title;
-            post.Time = dateTime;
-            post.Body = body;
+            Post post = GetPost(formModel.Id);
+            post.Title = formModel.Title;
+            post.Time = DateTime.Now;
+            post.Body = formModel.Body;
             post.Tags.Clear();
 
             //to avoid null referenece exception
@@ -40,7 +55,7 @@ namespace Blog.Controllers
             }
 
             //Create
-            if(!id.HasValue)
+            if(formModel.Id == 0)
             {
                 context.Posts.Add(post);
             }
@@ -51,12 +66,13 @@ namespace Blog.Controllers
 
         private Tag GetTagFromDb(string tagName)
         {
-            return context.Tags.Where(t => t.Name == tagName).First() ?? new Tag() { Name = tagName };
+            Tag tag = context.Tags.Where(t => t.Name == tagName).FirstOrDefault() ?? new Tag() { Name = tagName };
+            return tag;
         }
 
         private Post GetPost(int? id)
         {
-            return id.HasValue ? context.Posts.Where(p => p.Id == id).First() : new Post() { Id = -1 };
+            return (id.HasValue && id != 0) ? context.Posts.Include(p => p.Tags).Where(p => p.Id == id).First() : new Post() { Id = -1 , Tags = new List<Tag>()};
         }
 
         //Fix that later.
