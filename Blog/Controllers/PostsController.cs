@@ -14,8 +14,10 @@ namespace Blog.Controllers
         BlogContext context = new BlogContext();
         public ActionResult Index()
         {
-            return View();
-        }
+            var Posts = context.Posts.OrderBy(p => p.Time).ToList();
+            ViewBag.IsAdmin = IsAdmin;
+            return View(Posts);
+        } 
 
         public ActionResult Edit(int? id)
         {
