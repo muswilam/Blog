@@ -4,11 +4,12 @@
 
 @{
     ViewBag.Title = "Index";
+    bool isAdmin = ViewBag.IsAdmin ?? false;
 }
 
 @foreach (var post in Model)
 {
-    @post.Title <br />
+   @PostHelper.Render(post, Html, isAdmin, false)
 }
 
 <div>

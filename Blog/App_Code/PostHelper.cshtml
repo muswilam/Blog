@@ -1,0 +1,87 @@
+﻿@using Blog.Models;
+
+@helper Render(Post post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments)
+{
+    <div class="postTitle">
+        <a href="@Href("~/Posts/Details/" + post.Id)"> @post.Title </a>
+    </div>
+    <div class="postContainer">
+        <div class="postTabs">
+            <div class="dateTab" style="display:table-row">
+                @post.Time.ToString("MMM").ToUpper() @post.Time.ToString("dd")
+            </div>
+            <div class="commentsTab">
+                @if (post.Comments != null && post.Comments.Count() > 0)
+                {
+                    <a href="@Href("~/Posts/Details/" + post.Id + "#Comments")">@post.Comments.Count()</a>
+                }
+            </div>
+        </div>
+        <div class="postContent">
+            <div class="postBody">@html.Raw(post.Body)</div>
+            <div class="tagsList">
+                @foreach (var tag in post.Tags)
+                {
+                    <span class="tag"> <a href="@Href("~/Posts/Tags/" + tag.Name)">@tag.Name</a></span>
+                }
+            </div>
+            <div class="linkList">
+                @{
+                    string url = "http://localhost:65008/posts/details/" + post.Id;
+                    string encodedUrl = HttpUtility.UrlEncode(url);
+                    string encodedTitle = HttpUtility.UrlEncode(post.Title);
+                }
+                <a href="http://www.reddit.com/submit?url=@encodedUrl&title=@encodedTitle">
+                    <img src="~/Images/Reddit.png" alt="Reddit" width="20" />
+                </a>
+                <a class="twitter-share-button"
+                   href="https://twitter.com/share" date-url="@encodedUrl" date-text="@encodedTitle"
+                   data-size="large">
+                    Tweet
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    if (showComments)
+    {
+        <div id="commentContainer">
+            <a id="comments"></a>
+            @foreach (var comment in post.Comments.OrderBy(c => c.Time))
+            {
+                <div class="comment">
+                    <div class="commentName">
+                        @if (!string.IsNullOrWhiteSpace(comment.Email))
+                        {
+                            <a href="mailto:@comment.Email">@comment.Name</a>
+                        }
+                        else
+                        {
+                            @comment.Name
+                        }
+                    </div>
+                    said :
+                    <div class="commentBody">
+                        @html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))
+                    </div>
+                    <div class="commentTime">
+                        at
+                        @comment.Time.ToString("HH:mm") on @comment.Time.ToString("yyyy/MMM/dd")
+                    </div>
+                </div>
+            }
+
+            <div id="commentEditor">
+                <div id="commentPrompt">Leave a comment</div>
+                <form method="post" action="@Href("~/Posts/Comment/" + post.Id)">
+                    <input type="text" id="commentName" name="name" required /> Name (required) <br />
+                    <input type="text" id="commentEmail" name="email" /> Email (Optional) <br />
+                    <textarea id="commentBody" name="body" rows="10" cols="60"></textarea>
+                    <input type="submit" id="commentSubmit" name="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    }
+}

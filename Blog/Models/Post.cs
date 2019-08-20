@@ -20,5 +20,7 @@ namespace Blog.Models
 
         //nav props
         public ICollection<Tag> Tags { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

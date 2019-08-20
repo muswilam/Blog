@@ -3,6 +3,7 @@
 
 # Pics
 *.jpg
+*.png
 
 # User-specific files
 *.suo

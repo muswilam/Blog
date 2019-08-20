@@ -20,7 +20,7 @@ namespace Blog.Controllers
             int pageSize = 4;
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var Posts = context.Posts
+            var Posts = context.Posts.Include(p => p.Tags)
                 .OrderBy(p => p.Time).ToList();
 
             ViewBag.IsAdmin = IsAdmin;
