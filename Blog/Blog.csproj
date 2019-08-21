@@ -150,6 +150,10 @@
     <Compile Include="Migrations\201908091443589_InitializeBlogTables.Designer.cs">
       <DependentUpon>201908091443589_InitializeBlogTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908211742003_MakeEmailColumnNullableInCommentsTable.cs" />
+    <Compile Include="Migrations\201908211742003_MakeEmailColumnNullableInCommentsTable.Designer.cs">
+      <DependentUpon>201908211742003_MakeEmailColumnNullableInCommentsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\BlogContext.cs" />
@@ -258,6 +262,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908091443589_InitializeBlogTables.resx">
       <DependentUpon>201908091443589_InitializeBlogTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908211742003_MakeEmailColumnNullableInCommentsTable.resx">
+      <DependentUpon>201908211742003_MakeEmailColumnNullableInCommentsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

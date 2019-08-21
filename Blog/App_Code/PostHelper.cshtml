@@ -13,7 +13,7 @@
             <div class="commentsTab">
                 @if (post.Comments != null && post.Comments.Count() > 0)
                 {
-                    <a href="@Href("~/Posts/Details/" + post.Id + "#Comments")">@post.Comments.Count()</a>
+                    <a href="@Href("~/Posts/Details/" + post.Id + "#Comments")">@post.Comments.Count() Comments </a>
                 }
             </div>
         </div>
@@ -49,34 +49,39 @@
     {
         <div id="commentContainer">
             <a id="comments"></a>
-            @foreach (var comment in post.Comments.OrderBy(c => c.Time))
+            @if (post.Comments != null && post.Comments.Count() > 0)
             {
-                <div class="comment">
-                    <div class="commentName">
-                        @if (!string.IsNullOrWhiteSpace(comment.Email))
-                        {
-                            <a href="mailto:@comment.Email">@comment.Name</a>
-                        }
-                        else
-                        {
-                            @comment.Name
-                        }
+                foreach (var comment in post.Comments.OrderBy(c => c.Time))
+                {
+                    <div class="comment">
+                        <div class="commentName">
+                            @if (!string.IsNullOrWhiteSpace(comment.Email))
+                            {
+                                <a href="mailto:@comment.Email">@comment.Name</a>
+                            }
+                            else
+                            {
+                                @comment.Name 
+                            }
+                            <text> said : </text>
+                        </div>
+                        <div class="commentBody">
+                            @html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))
+                        </div>
+                        <div class="commentTime">
+                            at
+                            @comment.Time.ToString("HH:mm") on @comment.Time.ToString("dd-MMM-yyyy")
+                        </div>
                     </div>
-                    said :
-                    <div class="commentBody">
-                        @html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))
-                    </div>
-                    <div class="commentTime">
-                        at
-                        @comment.Time.ToString("HH:mm") on @comment.Time.ToString("yyyy/MMM/dd")
-                    </div>
-                </div>
+                    <br />
+                }
             }
-
+            
+            <hr />
             <div id="commentEditor">
                 <div id="commentPrompt">Leave a comment</div>
                 <form method="post" action="@Href("~/Posts/Comment/" + post.Id)">
-                    <input type="text" id="commentName" name="name" required /> Name (required) <br />
+                    <input type="text" id="commentName" name="name" required /> Name (Required) <br />
                     <input type="text" id="commentEmail" name="email" /> Email (Optional) <br />
                     <textarea id="commentBody" name="body" rows="10" cols="60"></textarea>
                     <input type="submit" id="commentSubmit" name="submit" value="Submit" />

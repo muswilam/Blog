@@ -34,6 +34,24 @@ namespace Blog.Controllers
             return View(post);
         }
 
+        [ValidateInput(false)]
+        public ActionResult Comment(int id , Comment commentForm)
+        {
+            var post = GetPost(id);
+            var comment = new Comment();
+          
+            comment.Name = commentForm.Name;
+            comment.Email = commentForm.Email;
+            comment.Body = commentForm.Body;
+            comment.Post = post;
+            comment.Time = DateTime.Now;
+
+            context.Comments.Add(comment);
+            context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = id });
+        }
+
         //get view of add & edit
         public ActionResult Edit(int? id)
         {
