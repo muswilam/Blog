@@ -25,8 +25,16 @@ namespace Blog.Controllers
 
             ViewBag.IsAdmin = IsAdmin;
             return View(Posts.ToPagedList(currentPage, pageSize));
-        } 
+        }
 
+        public ActionResult Details(int id)
+        {
+            var post = GetPost(id);
+            ViewBag.IsAdmin = IsAdmin;
+            return View(post);
+        }
+
+        //get view of add & edit
         public ActionResult Edit(int? id)
         {
             Post post = GetPost(id);
@@ -39,6 +47,7 @@ namespace Blog.Controllers
             return View(post);
         }
 
+        //post add & edit
         [ValidateInput(false)]
         public ActionResult Update(Post formModel , string tags)
         {
@@ -82,7 +91,11 @@ namespace Blog.Controllers
 
         private Post GetPost(int? id)
         {
-            return (id.HasValue && id != 0) ? context.Posts.Include(p => p.Tags).Where(p => p.Id == id).First() : new Post() { Id = -1 , Tags = new List<Tag>()};
+            return (id.HasValue && id != 0) ? context.Posts
+                .Include(p => p.Tags)
+                .Include(p => p.Comments)
+                .Where(p => p.Id == id)
+                .First() : new Post() { Id = -1 , Tags = new List<Tag>()};
         }
 
         //Fix that later.
