@@ -13,5 +13,5 @@
 }
 
 <div>
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, tagName = Request["tagName"] }))
 </div>

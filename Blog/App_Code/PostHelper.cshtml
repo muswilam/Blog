@@ -22,7 +22,7 @@
             <div class="tagsList">
                 @foreach (var tag in post.Tags)
                 {
-                    <span class="tag"> <a href="@Href("~/Posts/Tags/" + tag.Name)">@tag.Name</a></span>
+                    <span class="tag"> <a href="@Href("~/Posts/Tags?tagName=" + tag.Name)">@tag.Name</a></span>
                 }
             </div>
             <div class="linkList">

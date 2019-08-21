@@ -13,13 +13,18 @@ namespace Blog.Controllers
     public class PostsController : Controller
     {
         BlogContext context = new BlogContext();
+        int pageSize = 4;
 
-        public ActionResult Index(int? page)
+        public ActionResult Index(string tagName, int? page)
         {
-            int currentPage = page ?? 1;
-            int pageSize = 4;
+            if (!string.IsNullOrEmpty(tagName))
+            {
+                var tagPosts = GetTagsByTagName(tagName, page);
+                return View(tagPosts);
+            }
 
-            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            int currentPage = page ?? 1;
+
             var Posts = context.Posts.Include(p => p.Tags)
                 .OrderBy(p => p.Time).ToList();
 
@@ -50,6 +55,21 @@ namespace Blog.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Details", new { id = id });
+        }
+
+        public ActionResult Tags(string tagName, int? page)
+        {
+            var tagPosts = GetTagsByTagName(tagName, page);
+            return View("Index", tagPosts);
+        }
+
+        //get all posts of specific tag by tagName with pagination 
+        public IPagedList<Post> GetTagsByTagName(string tagName , int? page)
+        {
+            int currentPage = page ?? 1;
+            var tag = GetTagFromDb(tagName);
+            ViewBag.IsAdmin = IsAdmin;
+            return tag.Posts.ToPagedList(currentPage, pageSize);
         }
 
         //get view of add & edit
@@ -103,7 +123,7 @@ namespace Blog.Controllers
 
         private Tag GetTagFromDb(string tagName)
         {
-            Tag tag = context.Tags.Where(t => t.Name == tagName).FirstOrDefault() ?? new Tag() { Name = tagName };
+            Tag tag = context.Tags.Include(t => t.Posts).Where(t => t.Name == tagName).FirstOrDefault() ?? new Tag() { Name = tagName };
             return tag;
         }
 
