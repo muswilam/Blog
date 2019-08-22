@@ -41,6 +41,13 @@
                 </a>
             </div>
         </div>
+        @if (isAdmin)
+        {
+            <div class="postControlPanel">
+                <a href="@Href("~/Posts/Delete/" + post.Id)">Delete</a>
+                <a href="@Href("~/Posts/Edit/" + post.Id)">Edit</a>
+            </div>
+        }
     </div>
 
     <hr />
@@ -61,7 +68,7 @@
                             }
                             else
                             {
-                                @comment.Name 
+                                @comment.Name
                             }
                             <text> said : </text>
                         </div>
@@ -72,12 +79,19 @@
                             at
                             @comment.Time.ToString("HH:mm") on @comment.Time.ToString("dd-MMM-yyyy")
                         </div>
+                        @if (isAdmin)
+                        {
+                            <div class="commentControlPanel">
+                                <a href="@Href("~/Posts/DeleteComment/" + comment.Id)">Delete</a>
+                            </div>
+                        }
                     </div>
                     <br />
                 }
+                
+                <hr />
             }
-            
-            <hr />
+
             <div id="commentEditor">
                 <div id="commentPrompt">Leave a comment</div>
                 <form method="post" action="@Href("~/Posts/Comment/" + post.Id)">

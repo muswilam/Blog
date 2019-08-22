@@ -39,6 +39,78 @@ namespace Blog.Controllers
             return View(post);
         }
 
+        //get view of add & edit
+        public ActionResult Edit(int? id)
+        {
+            Post post = GetPost(id);
+            StringBuilder tagList = new StringBuilder();
+            foreach (var tag in post.Tags)
+            {
+                tagList.AppendFormat("{0} ", tag.Name);
+            }
+            ViewBag.Tags = tagList.ToString();
+            return View(post);
+        }
+
+        //post add & edit
+        [ValidateInput(false)]
+        public ActionResult Update(Post formModel, string tags)
+        {
+            if (!IsAdmin)
+            {
+                return RedirectToAction("Index");
+            }
+
+            //edit
+            Post post = GetPost(formModel.Id);
+            post.Title = formModel.Title;
+            post.Time = DateTime.Now;
+            post.Body = formModel.Body;
+            post.Tags.Clear();
+
+            //to avoid null referenece exception
+            tags = tags ?? string.Empty;
+
+            //stringSplitOption : for removing empty array from splitting
+            var tagNames = tags.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var tagName in tagNames)
+            {
+                post.Tags.Add(GetTagFromDb(tagName));
+            }
+
+            //Create
+            if (formModel.Id == 0)
+            {
+                context.Posts.Add(post);
+            }
+            context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = post.Id });
+        }
+
+        public ActionResult Delete(int id)
+        {
+            if (IsAdmin)
+            {
+                var post = GetPost(id);
+                context.Posts.Remove(post);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteComment(int id)
+        {
+            var comment = context.Comments.Where(c => c.Id == id).First();
+
+            if (IsAdmin)
+            {
+                context.Comments.Remove(comment);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Details", new { id = comment.PostId });
+        }
+
         [ValidateInput(false)]
         public ActionResult Comment(int id , Comment commentForm)
         {
@@ -70,55 +142,6 @@ namespace Blog.Controllers
             var tag = GetTagFromDb(tagName);
             ViewBag.IsAdmin = IsAdmin;
             return tag.Posts.ToPagedList(currentPage, pageSize);
-        }
-
-        //get view of add & edit
-        public ActionResult Edit(int? id)
-        {
-            Post post = GetPost(id);
-            StringBuilder tagList = new StringBuilder();
-            foreach (var tag in post.Tags)
-            {
-                tagList.AppendFormat("{0} ", tag.Name);
-            }
-            ViewBag.Tags = tagList.ToString();
-            return View(post);
-        }
-
-        //post add & edit
-        [ValidateInput(false)]
-        public ActionResult Update(Post formModel , string tags)
-        {
-            if (!IsAdmin)
-            {
-                return RedirectToAction("Index");
-            }
-
-            //edit
-            Post post = GetPost(formModel.Id);
-            post.Title = formModel.Title;
-            post.Time = DateTime.Now;
-            post.Body = formModel.Body;
-            post.Tags.Clear();
-
-            //to avoid null referenece exception
-            tags = tags ?? string.Empty;
-
-            //stringSplitOption : for removing empty array from splitting
-            var tagNames = tags.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var tagName in tagNames)
-            {
-                post.Tags.Add(GetTagFromDb(tagName));
-            }
-
-            //Create
-            if(formModel.Id == 0)
-            {
-                context.Posts.Add(post);
-            }
-            context.SaveChanges();
-
-            return RedirectToAction("Details", new { id = post.Id });
         }
 
         private Tag GetTagFromDb(string tagName)
