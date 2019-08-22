@@ -159,13 +159,11 @@ namespace Blog.Controllers
                 .First() : new Post() { Id = -1 , Tags = new List<Tag>()};
         }
 
-        //Fix that later.
         public bool IsAdmin 
         {
             get 
             {
-                return true;
-                //return Session["IsAdmin"] != null && (bool)Session["IsAdmin"];
+                return Session["IsAdmin"] != null && (bool)Session["IsAdmin"];
             } 
         }
     }
