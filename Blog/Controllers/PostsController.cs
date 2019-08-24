@@ -15,7 +15,7 @@ namespace Blog.Controllers
     {
         BlogContext context = new BlogContext();
         private int pageSize = 4;
-        private const int postsPerFeed = 2;
+        private const int postsPerFeed = 25;
 
         public ActionResult Index(string tagName, int? page)
         {
