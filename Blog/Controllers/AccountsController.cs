@@ -13,24 +13,25 @@ namespace Blog.Controllers
     {
         private BlogContext context = new BlogContext();
 
-        public ActionResult Login(string name , string hash)
+        public ActionResult Login(string name, string hash)
         {
-            if(string.IsNullOrWhiteSpace(hash))
+            if (string.IsNullOrWhiteSpace(hash))
             {
                 Random random = new Random(); //generate a random num
-                byte[] randomData = new byte[sizeof(long)]; 
+                byte[] randomData = new byte[sizeof(long)];
                 random.NextBytes(randomData); //store it in arry of bytes
                 string newNonce = BitConverter.ToUInt64(randomData, 0).ToString("X16"); //converting it to hexadecimal
                 Session["Nonce"] = newNonce; //store it in session to can use it again 
-                return View(model: newNonce); //show the login page
+
+                return View(model: newNonce); //model : because of preventing ambiguous of (string view name & string model)
             }
 
             var admin = context.Administrators.Where(a => a.Name == name).FirstOrDefault();
             string nonce = Session["Nonce"] as string; //get the current random num
 
-            if(admin == null || string.IsNullOrWhiteSpace(nonce))
+            if (admin == null || string.IsNullOrWhiteSpace(nonce))
             {
-                return View();
+                return View("Index","Posts");
             }
 
             string computeHash; //generate the hash
@@ -42,13 +43,13 @@ namespace Blog.Controllers
                 StringBuilder strBuilder = new StringBuilder();
                 foreach (var value in hashData)
                 {
-                    strBuilder.AppendFormat("{0:X2}",value);
+                    strBuilder.AppendFormat("{0:X2}", value);
                 }
                 computeHash = strBuilder.ToString();
             }
-            
+
             //the admin is loged in if the two hash match
-            Session["IsAdmin"] = ( computeHash.ToLower() == hash.ToLower() );
+            Session["IsAdmin"] = (computeHash.ToLower() == hash.ToLower());
             return RedirectToAction("Index", "Posts");
         }
 

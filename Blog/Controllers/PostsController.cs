@@ -7,13 +7,15 @@ using Blog.Models;
 using System.Text;
 using System.Data.Entity;
 using PagedList;
+using System.ServiceModel.Syndication;
 
 namespace Blog.Controllers
 {
     public class PostsController : Controller
     {
         BlogContext context = new BlogContext();
-        int pageSize = 4;
+        private int pageSize = 4;
+        private const int postsPerFeed = 2;
 
         public ActionResult Index(string tagName, int? page)
         {
@@ -30,6 +32,27 @@ namespace Blog.Controllers
 
             ViewBag.IsAdmin = IsAdmin;
             return View(Posts.ToPagedList(currentPage, pageSize));
+        }
+
+        public ActionResult RSS()
+        {
+            IEnumerable<SyndicationItem> posts = context.Posts
+                .Where(p => p.Time < DateTime.Now)
+                .OrderByDescending(p => p.Time)
+                .Take(postsPerFeed)
+                .ToList()
+                .Select(p => GetSyndicationItem(p));
+
+            //response is the feed of items
+            SyndicationFeed feed = new SyndicationFeed("Dev", "Dev Community", new Uri("https://dev.to/"), posts);
+            Rss20FeedFormatter formattedFeed = new Rss20FeedFormatter(feed);
+
+            return new FeedResult(formattedFeed);
+        }
+
+        private SyndicationItem GetSyndicationItem(Post post)
+        {
+            return new SyndicationItem(post.Title, post.Body, new Uri("http://localhost:65008/Posts/Details/" + post.Id));
         }
 
         public ActionResult Details(int id)
