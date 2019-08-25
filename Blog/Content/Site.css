@@ -1,12 +1,172 @@
 ﻿body {
-    font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    color: #232323;
-    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    color: black;
+    text-align: center;
+    font-family: Verdana, Tahoma , "Trebuchet MS" , sans-serif;
+    font-size: 14px;
+    background-image: url('/Images/background.png');
+    background-size:  cover;
 }
 
-header, footer, nav, section {
-    display: block;
+#header, nav, section {
+    padding: 10px;
+}
+
+#footer {
+    padding: 10px;
+    color: #808080;
+}
+
+/*.separate {
+    clear: both;
+    height: 50px;
+    background-image: url('/Images/separator.png');
+}*/
+
+#topSeparator {
+    margin-bottom: 20px;
+}
+
+#bottomSeparator {
+    margin-top: 20px;
+}
+
+.postTitle {
+    margin: auto;
+    text-align: left;
+    width: 615px;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "Palatino Linotype", Palatino;
+    padding-left: 85px;
+}
+
+.postTitle a:link , .postTitle a:visited , .postTitle a:hover , .postTitle a:active {
+    color: gray;
+    text-decoration: none;
+}
+
+.postTitle a:hover {
+    text-decoration: underline;
+}
+
+.postContainer {
+    width: 700px;
+    margin: 0 auto 50px auto;
+}
+
+.postTabs {
+    color: #ffffff;
+    float: left;
+    font-size: 12px;
+}
+
+.dateTab, .commentsTab  {
+    margin-top: 10px;
+    margin-right: 3px;
+    width: 60px;
+    padding: 5px;
+    background: #303030;
+}
+
+.commentsTab  {
+    margin-top: 10px;
+    margin-right: 3px;
+    width: 60px;
+    padding: 5px;
+    background: #1b2165;
+}
+
+.postContent {
+    padding: 15px 15px 30px 50px;
+    width: 600px;
+    margin-left: 35px;
+    color: AppWorkspace;
+    border:1px dotted #656363;
+}
+
+.postBody {
+    text-align:left;
+    line-height: 1.5em;
+}
+
+.tagsList {
+    float: left;
+    margin-top: 2px;
+}
+
+.tag {
+   
+}
+
+.linkList {
+    text-align:center;
+    float: right;
+    margin-top: 2px;
+}
+
+.linkImg {
+    width:20px;
+}
+
+.postControlPanel {
+
+}
+
+.comments , #commentPrompt {
+    text-align: left;
+    font-style: italic;
+    font-size: 30px;
+    color: AppWorkspace;
+}
+.comment , #commentEditor {
+    text-align: left;
+    padding: 15px 15px 30px 50px;
+    margin-bottom: 30px;
+    color: AppWorkspace;
+    border: 1px groove #656363;
+}
+
+#commentContainer {
+    width: 665px;
+    margin: auto;
+    padding-left: 35px;
+}
+
+.commentsTab img {
+    margin-right: 5px;
+    vertical-align: middle;
+    width: 30px;
+}
+
+.commentsTab a:link , .commentsTab a:visited , .commentsTab a:hover , .commentsTab a:active
+{
+    color: #ffffff;
+    text-decoration:none;
+}
+
+.comment a:link , .comment a:visited , .comment a:hover , .comment a:active {
+    color: #ffffff;
+    text-decoration:none;
+}
+
+.comment a:hover , .commentsTab a:hover {
+    text-decoration: underline;
+}
+
+.commentName {
+    font-style: italic;
+}
+
+.commentBody {
+    margin: 5px;
+}
+
+.commentTime {
+    font-style: italic;
+    text-align: right;
+    font-size: 10px;
 }
 
 

@@ -7,15 +7,21 @@
     </div>
     <div class="postContainer">
         <div class="postTabs">
-            <div class="dateTab" style="display:table-row">
-                @post.Time.ToString("MMM").ToUpper() @post.Time.ToString("dd")
+            <div class="dateTab">
+                @post.Time.ToString("dd") @post.Time.ToString("MMM").ToUpper() @post.Time.Year
             </div>
-            <div class="commentsTab">
-                @if (post.Comments != null && post.Comments.Count() > 0)
-                {
-                    <a href="@Href("~/Posts/Details/" + post.Id + "#Comments")">@post.Comments.Count() Comments </a>
-                }
-            </div>
+
+            @if (post.Comments != null && post.Comments.Count() > 0)
+            {
+                <div class="commentsTab">
+
+                    <a href="@Href("~/Posts/Details/" + post.Id + "#comments")">
+                        <img src="~/Images/comment.png" alt="Comment"  />
+                        @post.Comments.Count()
+                    </a>
+                </div>
+            }
+
         </div>
         <div class="postContent">
             <div class="postBody">@html.Raw(post.Body)</div>
@@ -32,12 +38,10 @@
                     string encodedTitle = HttpUtility.UrlEncode(post.Title);
                 }
                 <a href="http://www.reddit.com/submit?url=@encodedUrl&title=@encodedTitle">
-                    <img src="~/Images/Reddit.png" alt="Reddit" width="20" />
+                    <img class="linkImg" src="~/Images/Reddit.png" alt="Reddit" />
                 </a>
-                <a class="twitter-share-button"
-                   href="https://twitter.com/share" date-url="@encodedUrl" date-text="@encodedTitle"
-                   data-size="large">
-                    Tweet
+                <a class="twitter-share-button" href="https://twitter.com/share" date-url="@encodedUrl" date-text="@encodedTitle">
+                    <img class="linkImg" src="~/Images/twitter.png" alt="Twitter" />
                 </a>
             </div>
         </div>
@@ -50,14 +54,26 @@
         }
     </div>
 
-    <hr />
-
     if (showComments)
     {
         <div id="commentContainer">
+
+            <div id="commentPrompt">Leave a comment</div>
+
+            <div id="commentEditor">
+                <form method="post" action="@Href("~/Posts/Comment/" + post.Id)">
+                    <input type="text" id="commentName" name="name" required /> Name (Required) <br /> <br />
+                    <input type="text" id="commentEmail" name="email" /> Email (Optional) <br /> <br />
+                    <textarea id="commentBody" name="body" rows="10" cols="60"></textarea> <br /> <br />
+                    <input type="submit" id="commentSubmit" name="submit" value="Submit" />
+                </form>
+            </div>
+
             <a id="comments"></a>
             @if (post.Comments != null && post.Comments.Count() > 0)
             {
+                <div class="comments">Comments</div>
+                <div class="separate"></div>
                 foreach (var comment in post.Comments.OrderBy(c => c.Time))
                 {
                     <div class="comment">
@@ -88,19 +104,8 @@
                     </div>
                     <br />
                 }
-                
-                <hr />
             }
 
-            <div id="commentEditor">
-                <div id="commentPrompt">Leave a comment</div>
-                <form method="post" action="@Href("~/Posts/Comment/" + post.Id)">
-                    <input type="text" id="commentName" name="name" required /> Name (Required) <br />
-                    <input type="text" id="commentEmail" name="email" /> Email (Optional) <br />
-                    <textarea id="commentBody" name="body" rows="10" cols="60"></textarea>
-                    <input type="submit" id="commentSubmit" name="submit" value="Submit" />
-                </form>
-            </div>
         </div>
     }
 }

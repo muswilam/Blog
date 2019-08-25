@@ -11,15 +11,36 @@
 <body>
     <div id="header">
         <a href="@Href("~/")">
-            <img src="@Href("~/images/title.png")" alt="Title">
+            <img src="@Href("~/images/title.png")" alt="Sully">
         </a>
     </div>
     <div id="content">
-        @RenderBody()
+        <div id="topSeparator" class="separate"></div>
+        <div id="sidebar"></div>
+        <div id="main">
+            @RenderBody()
+        </div>
+        <div id="bottomSeparator" class="separate"></div>
     </div>
-    <div id="footer"></div>
+    <div id="footer">
+        <div id="copyright">Copyright &copy; @DateTime.Now.Year, Sully </div>
+        @if (ViewBag.IsAdmin ?? false)
+        {
+            <div class="controlPanel">
+                <a href="@Href("~/Posts/Edit")">New Post</a> |
+                <a href="@Href("~/Accounts/Logout")">Logout</a>
+            </div>
+        }
+        else
+        {
+            <div class="controlPanel">
+                <a href="@Href("~/accounts/Login")">Login</a>
+            </div>
+        }
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
+
 </html>
