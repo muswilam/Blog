@@ -11,6 +11,7 @@
 
 #header, nav, section {
     padding: 10px;
+    margin-right: 600px;
 }
 
 #footer {
@@ -24,13 +25,13 @@
     background-image: url('/Images/separator.png');
 }*/
 
-#topSeparator {
+/*#topSeparator {
     margin-bottom: 20px;
 }
 
 #bottomSeparator {
     margin-top: 20px;
-}
+}*/
 
 .postTitle {
     margin: auto;
@@ -169,23 +170,36 @@
     font-size: 10px;
 }
 
-#portrait {
-    width: 150px;
-    height: 230px;
-    border-color: AppWorkspace;
-}
+
 #sidebar {
     float: right;
     margin-right: 50px;
-    margin-top: 42px;
+   
     width: 200px;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.image {
+    position:relative;
+    overflow:hidden;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+}
+
+#portrait {
+    height: auto;
+    width: auto;    
+    max-width:100%;
 }
 
 #main {
     margin-right: 230px;
 }
 
-#portrait, #twitterHeader, #tweets, #feedList {
+.image, #twitterHeader, #tweets, #feedList {
     margin: 10px 0 10px 0;
 }
 
