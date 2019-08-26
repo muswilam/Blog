@@ -169,6 +169,26 @@
     font-size: 10px;
 }
 
+#portrait {
+    width: 150px;
+    height: 230px;
+    border-color: AppWorkspace;
+}
+#sidebar {
+    float: right;
+    margin-right: 50px;
+    margin-top: 42px;
+    width: 200px;
+}
+
+#main {
+    margin-right: 230px;
+}
+
+#portrait, #twitterHeader, #tweets, #feedList {
+    margin: 10px 0 10px 0;
+}
+
 
 /* Styles for basic forms
 -----------------------------------------------------------*/

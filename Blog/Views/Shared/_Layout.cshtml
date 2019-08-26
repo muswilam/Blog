@@ -16,7 +16,12 @@
     </div>
     <div id="content">
         <div id="topSeparator" class="separate"></div>
-        <div id="sidebar"></div>
+        <div id="sidebar">
+            <img id="portrait" src="~/Images/Sully.jpg" alt="Portrait" />
+            <div id="twitterHeader"> <a href="http://www.twitter.com/muswilam">Sully on Twitter</a> </div>
+            <div id="tweets"></div>
+            <div id="feedList"><a href="@Href("~/Posts/RSS")">RSS Feed</a></div>
+        </div>
         <div id="main">
             @RenderBody()
         </div>
