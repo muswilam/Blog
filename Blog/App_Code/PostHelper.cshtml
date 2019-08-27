@@ -62,10 +62,15 @@
 
             <div id="commentEditor">
                 <form method="post" action="@Href("~/Posts/Comment/" + post.Id)">
-                    <input type="text" id="commentName" name="name" required /> Name (Required) <br /> <br />
-                    <input type="text" id="commentEmail" name="email" /> Email (Optional) <br /> <br />
-                    <textarea id="commentBody" name="body" rows="10" cols="60"></textarea> <br /> <br />
-                    <input type="submit" id="commentSubmit" name="submit" value="Submit" />
+                    <label class="inputLabel"> Name</label> <br />
+                    <input type="text" class="inputTextBox" id="commentName" name="name" required placeholder="Please, Enter your name." /> <br />
+
+                    <label class="inputLabel"> Email </label> <br />
+                    <input type="text" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
+
+                    <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60"  placeholder="Comment..."></textarea>
+
+                    <input type="submit" class="commentSubmit" id="commentSubmit" name="submit" value="Send" />
                 </form>
             </div>
 
