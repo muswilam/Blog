@@ -4,14 +4,40 @@
     ViewBag.Title = "Edit";
 }
 
-<form action="@Url.Action("Update" , "Posts")" method="post" id="PostForm">
-    @if (Model.Id != -1) //this post is already exist and has an id
-    {
-        <input type="hidden" name="id" value="@Model.Id" />
-    }
-    
-    <input type="text" name="title" value="@Model.Title" /> Title <br />
-    <input type="text" name="tags" value="@ViewBag.Tags" /> Tags <br />
-    <textarea name="body" rows="10" cols="80">@Model.Body</textarea> <br />
-    <input type="submit" name="submit" value="Submit!" />
-</form>
+@if (Model.Id != -1)
+{
+    <div class="formHeader">
+       Edit Post
+    </div>
+}
+else
+{
+    <div class="formHeader">
+       New Post
+    </div>
+}
+
+
+<div class="form">
+    <form action="@Url.Action("Update" , "Posts")" method="post" id="postForm">
+        @if (Model.Id != -1) //this post is already exist and has an id
+        {
+            <input type="hidden" name="id" value="@Model.Id" />
+        }
+        <div class="inputContainer">
+            <label class="inputLabel">Title</label> <br />
+            <input type="text" class="inputTextBox" name="title" placeholder="Post title." value="@Model.Title" /> <br />
+        </div>
+
+        <div class="inputContainer">
+            <label class="inputLabel">Tags</label> <br />
+            <input type="text" class="inputTextBox" name="tags" placeholder="Tags name." value="@ViewBag.Tags" /> <br />
+        </div>
+
+        <div class="inputContainer">
+            <textarea name="body" class="inputTextBox" style="width:500px;" placeholder="Post..." rows="10" cols="80">@Model.Body</textarea> <br />
+        </div>
+
+        <input class="inputSubmit" type="submit" name="submit" value="Submit" />
+    </form>
+</div>

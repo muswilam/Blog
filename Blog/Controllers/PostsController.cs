@@ -72,6 +72,7 @@ namespace Blog.Controllers
                 tagList.AppendFormat("{0} ", tag.Name);
             }
             ViewBag.Tags = tagList.ToString();
+            ViewBag.IsAdmin = IsAdmin;
             return View(post);
         }
 

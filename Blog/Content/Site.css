@@ -19,15 +19,15 @@
     color: #808080;
 }
 
-.login {
-    height: 310px;
+.form {
+    height: auto;
 }
 
-.loginHeader {
+ .formHeader{
     color:#808080;
 }
 
-#loginForm {
+#loginForm , #postForm {
     padding: 30px 0 30px 0; 
     margin: 0 200px 0 200px;
 }
@@ -38,7 +38,7 @@
     font-size:18px;
 }
 
-.loginInput {
+.inputContainer {
     width: 1px;
     margin: 0 210px 0 210px;
 }
@@ -54,12 +54,12 @@
     transition: 0.5s;
 }
 
-.loginTxt:focus {
+.inputTextBox:focus {
     border-color: #808080;
     box-shadow: 0 0 8px 0 dodgerblue;
 }
 
-.loginSubmit {
+.inputSubmit {
    display: inline-block;
    padding: 0.35em 1.2em;
    border: 1px solid #ffffff;
@@ -75,7 +75,7 @@
    transition: all 0.2s;
 }
 
-.loginSubmit:hover {
+.inputSubmit:hover {
     color:#000000;
     background-color: #808080;
 }
@@ -94,7 +94,7 @@
     margin-top: 20px;
 }*/
 
-.postTitle , .loginHeader {
+.postTitle , .formHeader {
     margin: auto;
     text-align: left;
     width: 615px;
@@ -228,8 +228,9 @@
     font-style: italic;
 }
 
-.commentBody {
-    margin: 5px;
+#commentBody {
+    margin: 8px 0;
+    resize: vertical;
 }
 
 .commentTime {
