@@ -8,6 +8,7 @@ using System.Text;
 using System.Data.Entity;
 using PagedList;
 using System.ServiceModel.Syndication;
+using System.Web.Services;
 
 namespace Blog.Controllers
 {
@@ -136,11 +137,14 @@ namespace Blog.Controllers
         }
 
         [ValidateInput(false)]
-        public ActionResult Comment(int id , Comment commentForm)
+        [HttpPost]
+        public JsonResult Comment(int id, Comment commentForm)
         {
+            JsonResult json = new JsonResult();
+
             var post = GetPost(id);
             var comment = new Comment();
-          
+
             comment.Name = commentForm.Name;
             comment.Email = commentForm.Email;
             comment.Body = commentForm.Body;
@@ -148,9 +152,26 @@ namespace Blog.Controllers
             comment.Time = DateTime.Now;
 
             context.Comments.Add(comment);
-            context.SaveChanges();
+            bool result = context.SaveChanges() > 0;
 
-            return RedirectToAction("Details", new { id = id });
+            if (result)
+            {
+                return Json(new { success = true } , JsonRequestBehavior.AllowGet);
+            }
+            else
+               return Json(new { success = false, message = "OOPS!" } , JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
+        public JsonResult GetComments(int id)
+        {
+            //var post = GetPost(id);
+
+            //var comments = post.Comments.ToList();
+            var comments = context.Posts.Where(p => p.Id == id).Select(p => p.Comments).ToList();
+
+            return Json(new { comments = comments }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Tags(string tagName, int? page)

@@ -16,7 +16,7 @@
                 <div class="commentsTab">
 
                     <a href="@Href("~/Posts/Details/" + post.Id + "#comments")">
-                        <img src="~/Images/comment.png" alt="Comment"  />
+                        <img src="~/Images/comment.png" alt="Comment" />
                         @post.Comments.Count()
                     </a>
                 </div>
@@ -61,26 +61,33 @@
             <div id="commentPrompt">Leave a comment</div>
 
             <div id="commentEditor">
-                <form method="post" action="@Href("~/Posts/Comment/" + post.Id)">
+                <form id="commentForm">
                     <label class="inputLabel"> Name</label> <br />
                     <input type="text" class="inputTextBox" id="commentName" name="name" required placeholder="Please, Enter your name." /> <br />
 
                     <label class="inputLabel"> Email </label> <br />
                     <input type="text" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
 
-                    <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60"  placeholder="Comment..."></textarea>
+                    <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" placeholder="Comment..."></textarea>
 
-                    <input type="submit" class="commentSubmit" id="commentSubmit" name="submit" value="Send" />
+
+                    <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Id)" type="button" class="commentSubmit">
+                        Save
+                    </button>
+
                 </form>
             </div>
 
             <a id="comments"></a>
+
             @if (post.Comments != null && post.Comments.Count() > 0)
             {
-                <div class="comments">Comments</div>
-                <div class="separate"></div>
-                foreach (var comment in post.Comments.OrderBy(c => c.Time))
-                {
+                <div class="commentsText">Comments</div>
+                <br />
+                <div class="comments">
+
+                    @foreach (var comment in post.Comments.OrderByDescending(c => c.Time))
+                    {
                     <div class="comment">
                         <div class="commentName">
                             @if (!string.IsNullOrWhiteSpace(comment.Email))
@@ -108,9 +115,11 @@
                         }
                     </div>
                     <br />
-                }
+                    }
+                </div>
             }
 
         </div>
     }
 }
+

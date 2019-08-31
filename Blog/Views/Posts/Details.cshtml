@@ -4,6 +4,48 @@
     ViewBag.Title = "Details";
     bool isAdmin = ViewBag.IsAdmin ?? false;
 }
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
+<div id="postDetails">
+    @PostHelper.Render(Model, Html, isAdmin, true)
+</div>
 
-@PostHelper.Render(Model, Html, isAdmin, true)
+<script>
+    $('#commentSubmitBtn').click(function () {
+        var linkUrl = $(this).attr("data-href");
+        var linkTarget = $(this).attr("target-href");
+        $.ajax({
+            url: linkUrl,
+            type: 'Post',
+            data: $('#commentForm').serialize()
+        })
+        .done(function (result) {
+            if (result.success) {
+                $.ajax({
+                    url: linkTarget,
+                    type: 'Get',
+                    contentType: 'application/json; charset=utf-8',
+                })
+                .done(function (response) {
+                    var comments = response.comments
+
+                    $.each(comments, function (index, comment) {
+                        var value = comment[comment.length - 1];
+
+                        var commenthtml = "<div class='comment'> <div class='commentName'>" + value.Name + "  said : </div> <div class='commentBody'>"
+                            + value.Body + "</div> <div class='commentTime'>" + value.Time + "</div> </div> </br>";
+
+                        $(".comments").prepend(commenthtml);
+
+                        debugger;
+                    })
+                    debugger;
+                });
+                debugger;
+            }
+            debugger;
+        });
+        debugger;
+    });
+</script>
