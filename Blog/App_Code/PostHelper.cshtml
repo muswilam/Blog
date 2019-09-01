@@ -5,7 +5,9 @@
     <div class="postTitle">
         <a href="@Href("~/Posts/Details/" + post.Id)"> @post.Title </a>
     </div>
+   
     <div class="postContainer">
+        
         <div class="postTabs">
             <div class="dateTab">
                 @post.Time.ToString("dd") @post.Time.ToString("MMM").ToUpper() @post.Time.Year
@@ -47,10 +49,11 @@
         </div>
         @if (isAdmin)
         {
-            <div class="postControlPanel">
-                <a href="@Href("~/Posts/Delete/" + post.Id)">Delete</a>
-                <a href="@Href("~/Posts/Edit/" + post.Id)">Edit</a>
-            </div>
+        <div class="postControlPanel">
+            <a class="inputSubmit" style="color:red" href="@Href("~/Posts/Delete/" + post.Id)">Delete</a>
+
+            <a class="inputSubmit" style="color:green" href="@Href("~/Posts/Edit/" + post.Id)">Edit</a>
+        </div>
         }
     </div>
 
@@ -102,10 +105,17 @@
                 <div class="commentsText">Comments</div>
                 <br />
                 <div class="comments">
-
                     @foreach (var comment in post.Comments.OrderByDescending(c => c.Time))
                     {
                         <div class="comment">
+
+                            @if (isAdmin)
+                            {
+                                <div class="commentControlPanel">
+                                    <a href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">Delete</a>
+                                </div>
+                            }
+                            
                             <div class="commentName">
                                 @if (!string.IsNullOrWhiteSpace(comment.Email) && comment.IsAdmin)
                                 {
@@ -128,12 +138,7 @@
                                 at
                                 @comment.Time.ToString("HH:mm") on @comment.Time.ToString("dd-MM-yyyy")
                             </div>
-                            @if (isAdmin)
-                            {
-                                <div class="commentControlPanel">
-                                    <a href="@Href("~/Posts/DeleteComment/" + comment.Id)">Delete</a>
-                                </div>
-                            }
+                           
                         </div>
                         <br />
                     }

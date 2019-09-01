@@ -178,7 +178,7 @@
 }
 
 .postControlPanel {
-
+  
 }
 
 .commentsText , #commentPrompt {
@@ -193,6 +193,10 @@
     margin-bottom: 30px;
     color: AppWorkspace;
     border: 1px groove #656363;
+}
+
+.commentControlPanel {
+    float: right;
 }
 
 #commentEditor {

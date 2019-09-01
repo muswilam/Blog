@@ -4,6 +4,7 @@
     ViewBag.Title = "Details";
     bool isAdmin = ViewBag.IsAdmin ?? false;
 }
+
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
@@ -43,11 +44,10 @@
                             + value.Body + "</div> <div class='commentTime'>" + strDate + "</div> </div> </br>";
 
                         //first comment
-                        if (comment.length == 1)
-                        {
+                        if (comment.length == 1) {
                             var commentsText = $("<div class='commentsText'>Comments</div></br>");
                             var commentsHTML = $("<div class='comments'></div>");
-                            
+
                             $("#commentContainer").append(commentsText);
                             $("#commentContainer").append(commentsHTML);
                         }
@@ -58,4 +58,5 @@
             }
         });
     });
+   
 </script>
