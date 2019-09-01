@@ -166,9 +166,6 @@ namespace Blog.Controllers
         [HttpGet]
         public JsonResult GetComments(int id)
         {
-            //var post = GetPost(id);
-
-            //var comments = post.Comments.ToList();
             var comments = context.Posts.Where(p => p.Id == id).Select(p => p.Comments).ToList();
 
             return Json(new { comments = comments }, JsonRequestBehavior.AllowGet);

@@ -30,6 +30,7 @@
                 .done(function (response) {
                     var comments = response.comments
 
+                    //get the current date of comment 
                     var date = new Date();
                     var currentDay = (date.getDate() < 10 ? '0' : '') + date.getDate();
                     var currentMonth = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
@@ -41,16 +42,20 @@
                         var commenthtml = "<div class='comment'> <div class='commentName'>" + value.Name + "  said : </div> <div class='commentBody'>"
                             + value.Body + "</div> <div class='commentTime'>" + strDate + "</div> </div> </br>";
 
-                        $(".comments").prepend(commenthtml);
+                        //first comment
+                        if (comment.length == 1)
+                        {
+                            var commentsText = $("<div class='commentsText'>Comments</div></br>");
+                            var commentsHTML = $("<div class='comments'></div>");
+                            
+                            $("#commentContainer").append(commentsText);
+                            $("#commentContainer").append(commentsHTML);
+                        }
 
-                        debugger;
+                        $(".comments").prepend(commenthtml);
                     })
-                    debugger;
                 });
-                debugger;
             }
-            debugger;
         });
-        debugger;
     });
 </script>
