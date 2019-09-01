@@ -30,11 +30,16 @@
                 .done(function (response) {
                     var comments = response.comments
 
+                    var date = new Date();
+                    var currentDay = (date.getDate() < 10 ? '0' : '') + date.getDate();
+                    var currentMonth = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+                    var strDate = "at " + date.getHours() + ":" + date.getMinutes() + " on " + currentDay + "-" + currentMonth + "-" + date.getFullYear();
+
                     $.each(comments, function (index, comment) {
                         var value = comment[comment.length - 1];
 
                         var commenthtml = "<div class='comment'> <div class='commentName'>" + value.Name + "  said : </div> <div class='commentBody'>"
-                            + value.Body + "</div> <div class='commentTime'>" + value.Time + "</div> </div> </br>";
+                            + value.Body + "</div> <div class='commentTime'>" + strDate + "</div> </div> </br>";
 
                         $(".comments").prepend(commenthtml);
 
