@@ -150,6 +150,7 @@ namespace Blog.Controllers
             comment.Body = commentForm.Body;
             comment.Post = post;
             comment.Time = DateTime.Now;
+            comment.IsAdmin = commentForm.IsAdmin;
 
             context.Comments.Add(comment);
             bool result = context.SaveChanges() > 0;

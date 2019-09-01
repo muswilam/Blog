@@ -22,6 +22,8 @@ namespace Blog.Models
 
         public DateTime Time { get; set; }
 
+        public bool IsAdmin { get; set; }
+
         //nav props
         [ForeignKey("Post")]
         public int PostId { get; set; }
