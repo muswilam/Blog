@@ -72,6 +72,7 @@
         });
     });
 
+    // (on) need to use delegation based event handlers for wiring up future elements 
     $(document).on('click', '#deleteLink' ,function () {
         var link = $(this).attr("data-href");
         $.ajax({
@@ -80,7 +81,7 @@
         })
         .done(function (result) {
             if (result.success) {
-                $(".comments").load(window.location.href + " #commentsDiv");
+                $(".comments").load(window.location.href + " #commentsDiv"); // little space before # so important for adding not passing 
             } else {
                 alert(result.message);
             };

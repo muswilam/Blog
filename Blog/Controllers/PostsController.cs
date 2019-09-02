@@ -25,8 +25,9 @@ namespace Blog.Controllers
         {
             if (!string.IsNullOrEmpty(tagName))
             {
-                var tagPosts = GetTagsByTagName(tagName, page);
-                return View(tagPosts);
+                postModel.Posts = GetTagsByTagName(tagName, page);
+
+                return View(postModel);
             }
 
             int currentPage = page ?? 1;
@@ -191,8 +192,8 @@ namespace Blog.Controllers
 
         public ActionResult Tags(string tagName, int? page)
         {
-            var tagPosts = GetTagsByTagName(tagName, page);
-            return View("Index", tagPosts);
+            postModel.Posts = GetTagsByTagName(tagName, page);
+            return View("Index", postModel);
         }
 
         //get all posts of specific tag by tagName with pagination 
