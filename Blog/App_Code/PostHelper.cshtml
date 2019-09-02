@@ -4,6 +4,7 @@
 @helper Render(PostViewModel post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments)
 {
  
+    // index of posts
     if(!showComments)
     {
         foreach (var p in post.Posts)
@@ -12,6 +13,7 @@
         }
     }
 
+    // details of post
     if (showComments)
     {
         @PostCodeHelper.Render(post.Post, html, isAdmin);
@@ -59,15 +61,15 @@
             {
                 <div class="commentsText">Comments</div>
                 <br />
-                <div class="comments">
+                <div class="comments" id="commentsDiv">
                     @foreach (var comment in post.Comments)
                     {
-                        <div class="comment">
+                        <div class="comment" id="comment">
 
                             @if (isAdmin)
                             {
                                 <div class="commentControlPanel">
-                                    <a href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">Delete</a>
+                                    <button type="button" id="deleteLink" class="inputSubmit" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">Delete</button>
                                 </div>
                             }
                             

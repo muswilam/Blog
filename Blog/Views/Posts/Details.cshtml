@@ -48,6 +48,7 @@
                     var strDate = "at " + date.getHours() + ":" + date.getMinutes() + " on " + currentDay + "-" + currentMonth + "-" + date.getFullYear();
 
                     $.each(comments, function (index, comment) {
+                        //last comment that added
                         var value = comment[comment.length - 1];
 
                         var commenthtml = "<div class='comment'> <div class='commentName'>" + value.Name + "  said : </div> <div class='commentBody'>"
@@ -65,7 +66,24 @@
                         $(".comments").prepend(commenthtml);
                     })
                 });
-            }
+            } else {
+                alert(result.message);
+            };
+        });
+    });
+
+    $(document).on('click', '#deleteLink' ,function () {
+        var link = $(this).attr("data-href");
+        $.ajax({
+            url: link,
+            type: 'Post'
+        })
+        .done(function (result) {
+            if (result.success) {
+                $(".comments").load(window.location.href + " #commentsDiv");
+            } else {
+                alert(result.message);
+            };
         });
     });
 

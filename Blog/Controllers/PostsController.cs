@@ -135,16 +135,22 @@ namespace Blog.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult DeleteComment(int id)
+        [HttpPost]
+        public JsonResult DeleteComment(int id)
         {
             var comment = context.Comments.Where(c => c.Id == id).First();
 
+            bool result = false;
             if (IsAdmin)
             {
                 context.Comments.Remove(comment);
-                context.SaveChanges();
+                result = context.SaveChanges() > 0;
             }
-            return RedirectToAction("Details", new { id = comment.PostId });
+
+            if (result)
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+
+            return Json(new { success = false, message = "OPPS! Something went wrong." }, JsonRequestBehavior.AllowGet);
         }
 
         [ValidateInput(false)]
@@ -171,7 +177,7 @@ namespace Blog.Controllers
                 return Json(new { success = true } , JsonRequestBehavior.AllowGet);
             }
             else
-               return Json(new { success = false, message = "OOPS!" } , JsonRequestBehavior.AllowGet);
+               return Json(new { success = false, message = "OOPS! Something went wrong." } , JsonRequestBehavior.AllowGet);
 
         }
 
