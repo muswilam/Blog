@@ -9,13 +9,16 @@ using System.Data.Entity;
 using PagedList;
 using System.ServiceModel.Syndication;
 using System.Web.Services;
+using Blog.ViewModel;
+using Blog.Common;
 
 namespace Blog.Controllers
 {
     public class PostsController : Controller
     {
         BlogContext context = new BlogContext();
-        private int pageSize = 4;
+        PostViewModel postModel = new PostViewModel();
+
         private const int postsPerFeed = 25;
 
         public ActionResult Index(string tagName, int? page)
@@ -32,7 +35,9 @@ namespace Blog.Controllers
                 .OrderBy(p => p.Time).ToList();
 
             ViewBag.IsAdmin = IsAdmin;
-            return View(Posts.ToPagedList(currentPage, pageSize));
+
+            postModel.Posts = Posts.ToPagedList(currentPage, PageSize.pagePosts);
+            return View(postModel);
         }
 
         public ActionResult RSS()
@@ -56,11 +61,17 @@ namespace Blog.Controllers
             return new SyndicationItem(post.Title, post.Body, new Uri("http://localhost:65008/Posts/Details/" + post.Id));
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int id , int? page)
         {
+            int currentPage = page ?? 1;
+
             var post = GetPost(id);
+            postModel.Post = post;
+            postModel.Comments = post.Comments.OrderByDescending(c => c.Time).ToPagedList(currentPage, PageSize.pageComments);
+
             ViewBag.IsAdmin = IsAdmin;
-            return View(post);
+
+            return View(postModel);
         }
 
         //get view of add & edit
@@ -184,7 +195,7 @@ namespace Blog.Controllers
             int currentPage = page ?? 1;
             var tag = GetTagFromDb(tagName);
             ViewBag.IsAdmin = IsAdmin;
-            return tag.Posts.ToPagedList(currentPage, pageSize);
+            return tag.Posts.ToPagedList(currentPage, PageSize.pagePosts);
         }
 
         private Tag GetTagFromDb(string tagName)

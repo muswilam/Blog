@@ -1,4 +1,6 @@
-﻿@model Blog.Models.Post
+﻿@model Blog.ViewModel.PostViewModel
+
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Details";
@@ -10,6 +12,14 @@
 
 <div id="postDetails">
     @PostHelper.Render(Model, Html, isAdmin, true)
+</div>
+
+<div>
+    @Html.PagedListPager(Model.Comments, page => Href("~/Posts/Details/" + Model.Post.Id + "?page=" + page + "#comments")
+    , new PagedListRenderOptions
+    {
+        LinkToNextPageFormat = "More Comments"
+    })
 </div>
 
 <script>
@@ -31,7 +41,7 @@
                 .done(function (response) {
                     var comments = response.comments
 
-                    //get the current date of comment 
+                    //get the current date of comment
                     var date = new Date();
                     var currentDay = (date.getDate() < 10 ? '0' : '') + date.getDate();
                     var currentMonth = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
@@ -58,5 +68,5 @@
             }
         });
     });
-   
+
 </script>

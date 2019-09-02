@@ -1,0 +1,59 @@
+﻿@using Blog.Models;
+
+
+@helper Render(Post post , System.Web.Mvc.HtmlHelper html, bool isAdmin)
+{
+    <div class="postTitle">
+        <a href="@Href("~/Posts/Details/" + post.Id)"> @post.Title </a>
+    </div>
+
+    <div class="postContainer">
+
+        <div class="postTabs">
+            <div class="dateTab">
+                @post.Time.ToString("dd") @post.Time.ToString("MMM").ToUpper() @post.Time.Year
+            </div>
+
+            @if (post.Comments != null && post.Comments.Count > 0)
+            {
+                <div class="commentsTab">
+
+                    <a href="@Href("~/Posts/Details/" + post.Id + "#comments")">
+                        <img src="~/Images/comment.png" alt="Comment" />
+                        @post.Comments.Count
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="postContent">
+            <div class="postBody">@html.Raw(post.Body)</div>
+            <div class="tagsList">
+                @foreach (var tag in post.Tags)
+                {
+                    <span class="tag"> <a href="@Href("~/Posts/Tags?tagName=" + tag.Name)">@tag.Name</a></span>
+                }
+            </div>
+            <div class="linkList">
+                @{
+                    string url = "http://localhost:65008/posts/details/" + post.Id;
+                    string encodedUrl = HttpUtility.UrlEncode(url);
+                    string encodedTitle = HttpUtility.UrlEncode(post.Title);
+                }
+                <a href="http://www.reddit.com/submit?url=@encodedUrl&title=@encodedTitle">
+                    <img class="linkImg" src="~/Images/Reddit.png" alt="Reddit" />
+                </a>
+                <a class="twitter-share-button" href="https://twitter.com/share" date-url="@encodedUrl" date-text="@encodedTitle">
+                    <img class="linkImg" src="~/Images/twitter.png" alt="Twitter" />
+                </a>
+            </div>
+        </div>
+        @if (isAdmin)
+        {
+            <div class="postControlPanel">
+                <a class="inputSubmit" style="color:red" href="@Href("~/Posts/Delete/" + post.Id)">Delete</a>
+
+                <a class="inputSubmit" style="color:green" href="@Href("~/Posts/Edit/" + post.Id)">Edit</a>
+            </div>
+        }
+    </div>
+}

@@ -1,17 +1,18 @@
 ﻿@using PagedList.Mvc
 
-@model PagedList.IPagedList<Blog.Models.Post>
+@using Blog.ViewModel
+
+@model PostViewModel
 
 @{
     ViewBag.Title = "Index";
     bool isAdmin = ViewBag.IsAdmin ?? false;
 }
 
-@foreach (var post in Model)
-{
-   @PostHelper.Render(post, Html, isAdmin, false)
-}
+
+ @PostHelper.Render(Model, Html, isAdmin, false)
+
 
 <div>
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, tagName = Request["tagName"] }))
+    @Html.PagedListPager(Model.Posts, page => Url.Action("Index", new { page, tagName = Request["tagName"] }))
 </div>

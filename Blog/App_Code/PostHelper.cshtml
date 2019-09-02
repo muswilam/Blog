@@ -1,64 +1,21 @@
-﻿@using Blog.Models;
+﻿@using Blog.ViewModel;
 
-@helper Render(Post post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments)
+
+@helper Render(PostViewModel post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments)
 {
-    <div class="postTitle">
-        <a href="@Href("~/Posts/Details/" + post.Id)"> @post.Title </a>
-    </div>
-   
-    <div class="postContainer">
-        
-        <div class="postTabs">
-            <div class="dateTab">
-                @post.Time.ToString("dd") @post.Time.ToString("MMM").ToUpper() @post.Time.Year
-            </div>
-
-            @if (post.Comments != null && post.Comments.Count() > 0)
-            {
-                <div class="commentsTab">
-
-                    <a href="@Href("~/Posts/Details/" + post.Id + "#comments")">
-                        <img src="~/Images/comment.png" alt="Comment" />
-                        @post.Comments.Count()
-                    </a>
-                </div>
-            }
-
-        </div>
-        <div class="postContent">
-            <div class="postBody">@html.Raw(post.Body)</div>
-            <div class="tagsList">
-                @foreach (var tag in post.Tags)
-                {
-                    <span class="tag"> <a href="@Href("~/Posts/Tags?tagName=" + tag.Name)">@tag.Name</a></span>
-                }
-            </div>
-            <div class="linkList">
-                @{
-                    string url = "http://localhost:65008/posts/details/" + post.Id;
-                    string encodedUrl = HttpUtility.UrlEncode(url);
-                    string encodedTitle = HttpUtility.UrlEncode(post.Title);
-                }
-                <a href="http://www.reddit.com/submit?url=@encodedUrl&title=@encodedTitle">
-                    <img class="linkImg" src="~/Images/Reddit.png" alt="Reddit" />
-                </a>
-                <a class="twitter-share-button" href="https://twitter.com/share" date-url="@encodedUrl" date-text="@encodedTitle">
-                    <img class="linkImg" src="~/Images/twitter.png" alt="Twitter" />
-                </a>
-            </div>
-        </div>
-        @if (isAdmin)
+ 
+    if(!showComments)
+    {
+        foreach (var p in post.Posts)
         {
-        <div class="postControlPanel">
-            <a class="inputSubmit" style="color:red" href="@Href("~/Posts/Delete/" + post.Id)">Delete</a>
-
-            <a class="inputSubmit" style="color:green" href="@Href("~/Posts/Edit/" + post.Id)">Edit</a>
-        </div>
+            @PostCodeHelper.Render(p, html, isAdmin);
         }
-    </div>
+    }
 
     if (showComments)
     {
+        @PostCodeHelper.Render(post.Post, html, isAdmin);
+
         <div id="commentContainer">
 
             <div id="commentPrompt">Leave a comment</div>
@@ -87,11 +44,9 @@
 
                     }
 
-
                     <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" placeholder="Comment..."></textarea>
 
-
-                    <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Id)" type="button" class="commentSubmit">
+                    <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button" class="commentSubmit">
                         Save
                     </button>
 
@@ -100,12 +55,12 @@
 
             <a id="comments"></a>
 
-            @if (post.Comments != null && post.Comments.Count() > 0)
+            @if (post.Post.Comments != null && post.Post.Comments.Count > 0)
             {
                 <div class="commentsText">Comments</div>
                 <br />
                 <div class="comments">
-                    @foreach (var comment in post.Comments.OrderByDescending(c => c.Time))
+                    @foreach (var comment in post.Comments)
                     {
                         <div class="comment">
 
@@ -143,9 +98,9 @@
                         <br />
                     }
                 </div>
+             
             }
 
         </div>
     }
 }
-
