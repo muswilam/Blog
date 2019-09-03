@@ -25,7 +25,7 @@ namespace Blog.Controllers
         {
             if (!string.IsNullOrEmpty(tagName))
             {
-                postModel.Posts = GetTagsByTagName(tagName, page);
+                postModel.Posts = GetTagPostsByTagName(tagName, page);
                 postModel.TagName = tagName;
 
                 return View(postModel);
@@ -195,13 +195,20 @@ namespace Blog.Controllers
 
         public ActionResult Tags(string tagName, int? page)
         {
-            postModel.Posts = GetTagsByTagName(tagName, page);
+            postModel.Posts = GetTagPostsByTagName(tagName, page);
             postModel.TagName = tagName;
             return View("Index", postModel);
         }
 
+        [ChildActionOnly]
+        public PartialViewResult TrendingTags()
+        {
+            postModel.Tags = context.Tags.Where(t => t.Posts.Count() >= TotalTrendingTags.TrendingTagsNumber).Include(t => t.Posts).ToList();
+            return PartialView("_NavBar",postModel);
+        }
+
         //get all posts of specific tag by tagName with pagination 
-        public IPagedList<Post> GetTagsByTagName(string tagName , int? page)
+        public IPagedList<Post> GetTagPostsByTagName(string tagName , int? page)
         {
             int currentPage = page ?? 1;
             var tag = GetTagFromDb(tagName);

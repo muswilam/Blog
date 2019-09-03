@@ -1,5 +1,6 @@
 ﻿@using Blog.ViewModel;
 
+@using Blog.Common;
 
 @helper Render(PostViewModel post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments)
 {
@@ -9,8 +10,15 @@
     {
         if (!string.IsNullOrWhiteSpace(post.TagName))
         {
-            <div class="formHeader" style="color:rosybrown; margin-bottom:20px; margin-left:15px;">
-                Hashtag : <a href="@Href("~/Posts/Tags?tagName=" + post.TagName + "#postTitle")" style="color:rosybrown; text-decoration:none" >#@post.TagName</a>
+            <div class="formHeader" style="color:darkgoldenrod; margin-bottom:20px; margin-left:15px;">
+                Hashtag :
+                @if (post.Posts.TotalItemCount >= TotalTrendingTags.TrendingTagsNumber)
+                {
+                    <i class="fa fa-external-link-square" aria-hidden="true"></i>
+                }
+                <a href="@Href("~/Posts/Tags?tagName=" + post.TagName + "#postTitle")" style="color:darkgoldenrod; text-decoration:none">
+                    #@post.TagName (@post.Posts.TotalItemCount)
+                </a>
             </div>
         }
         foreach (var p in post.Posts)

@@ -3,12 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
+          rel="stylesheet" type='text/css'>
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("ExtraHeaders", required: false)
+
 </head>
 <body id="body">
+
+    @Html.Action("TrendingTags", "Posts")
+
     <div id="header">
         <a href="@Href("~/")">
             <img src="@Href("~/images/title.png")" alt="Sully">

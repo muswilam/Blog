@@ -1,0 +1,18 @@
+﻿@model Blog.ViewModel.PostViewModel
+
+<div class="navbar">
+    <a href="@Href("~/Posts/Index/#body")">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">
+            <i class="fa fa-external-link-square" aria-hidden="true"></i>
+            Trending Tags
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            @foreach (var tag in Model.Tags)
+            {
+                <a href="@Href("~/Posts/Tags?tagName=" + tag.Name)" style="color:darkgoldenrod">#@tag.Name (@tag.Posts.Count())</a>
+            }
+        </div>
+    </div>
+</div> 

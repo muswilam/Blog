@@ -144,6 +144,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\PageSize.cs" />
+    <Compile Include="Common\TotalTrendingTags.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\FeedResult.cs" />
     <Compile Include="Controllers\PostsController.cs" />
@@ -283,6 +284,7 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
