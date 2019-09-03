@@ -3,7 +3,7 @@
 
 @helper Render(Post post, System.Web.Mvc.HtmlHelper html, bool isAdmin)
 {
-    <div class="postTitle">
+    <div class="postTitle" id="postTitle">
         <a href="@Href("~/Posts/Details/" + post.Id)"> @post.Title </a>
     </div>
 
@@ -20,7 +20,7 @@
             @if (post.EditTime != null)
             {
                 <div class="dateTab">
-                   Edited : @post.EditTime.Value.ToString("dd") @post.EditTime.Value.ToString("MMM").ToUpper() @post.EditTime.Value.Year
+                    Edited : @post.EditTime.Value.ToString("dd") @post.EditTime.Value.ToString("MMM").ToUpper() @post.EditTime.Value.Year
                 </div>
             }
 
@@ -40,7 +40,11 @@
             <div class="tagsList">
                 @foreach (var tag in post.Tags)
                 {
-                    <span class="tag"> <a href="@Href("~/Posts/Tags?tagName=" + tag.Name)">@tag.Name</a></span>
+                    <span class="tag">
+                        <a class="inputLabel" style="color:darkgoldenrod; text-decoration:none" href="@Href("~/Posts/Tags?tagName=" + tag.Name)">
+                            #@tag.Name
+                        </a>
+                    </span>
                 }
             </div>
             <div class="linkList">

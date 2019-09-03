@@ -26,6 +26,7 @@ namespace Blog.Controllers
             if (!string.IsNullOrEmpty(tagName))
             {
                 postModel.Posts = GetTagsByTagName(tagName, page);
+                postModel.TagName = tagName;
 
                 return View(postModel);
             }
@@ -195,6 +196,7 @@ namespace Blog.Controllers
         public ActionResult Tags(string tagName, int? page)
         {
             postModel.Posts = GetTagsByTagName(tagName, page);
+            postModel.TagName = tagName;
             return View("Index", postModel);
         }
 

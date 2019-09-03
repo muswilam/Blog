@@ -3,10 +3,16 @@
 
 @helper Render(PostViewModel post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments)
 {
- 
+
     // index of posts
-    if(!showComments)
+    if (!showComments)
     {
+        if (!string.IsNullOrWhiteSpace(post.TagName))
+        {
+            <div class="formHeader" style="color:rosybrown; margin-bottom:20px; margin-left:15px;">
+                Hashtag : <a href="@Href("~/Posts/Tags?tagName=" + post.TagName + "#postTitle")" style="color:rosybrown; text-decoration:none" >#@post.TagName</a>
+            </div>
+        }
         foreach (var p in post.Posts)
         {
             @PostCodeHelper.Render(p, html, isAdmin);
@@ -18,91 +24,91 @@
     {
         @PostCodeHelper.Render(post.Post, html, isAdmin);
 
-        <div id="commentContainer">
+    <div id="commentContainer">
 
-            <div id="commentPrompt">Leave a comment</div>
+        <div id="commentPrompt">Leave a comment</div>
 
-            <div id="commentEditor">
-                <form id="commentForm">
+        <div id="commentEditor">
+            <form id="commentForm">
 
-                    @if (isAdmin)
-                    {
-                        <label class="inputLabel" style="color:ActiveBorder">Sully</label> <br />
-                        <input type="hidden" name="name" value="Sully" />
+                @if (isAdmin)
+                {
+                    <label class="inputLabel" style="color:ActiveBorder">Sully</label> <br />
+                    <input type="hidden" name="name" value="Sully" />
 
-                        <label class="inputLabel" style="color:ActiveBorder">jackswilam@gmail.com</label><br />
-                        <input type="hidden" name="email" value="jackswilam@gmail.com" />
+                    <label class="inputLabel" style="color:ActiveBorder">jackswilam@gmail.com</label><br />
+                    <input type="hidden" name="email" value="jackswilam@gmail.com" />
 
-                        <input type="hidden" name="isAdmin" value="true" />
-                    }
-                    else
-                    {
-                        <label class="inputLabel"> Name</label> <br />
-                        <input type="text" class="inputTextBox" id="commentName" name="name" required placeholder="Please, Enter your name." /> <br />
+                    <input type="hidden" name="isAdmin" value="true" />
+                }
+                else
+                {
+                    <label class="inputLabel"> Name</label> <br />
+                    <input type="text" class="inputTextBox" id="commentName" name="name" required placeholder="Please, Enter your name." /> <br />
 
 
-                        <label class="inputLabel"> Email </label> <br />
-                        <input type="text" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
+                    <label class="inputLabel"> Email </label> <br />
+                    <input type="text" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
 
-                    }
+                }
 
-                    <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" placeholder="Comment..."></textarea>
+                <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" placeholder="Comment..."></textarea>
 
-                    <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button" class="commentSubmit">
-                        Save
-                    </button>
+                <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button" class="commentSubmit">
+                    Save
+                </button>
 
-                </form>
+            </form>
+        </div>
+
+        <a id="comments"></a>
+
+        @if (post.Post.Comments != null && post.Post.Comments.Count > 0)
+        {
+            <div class="commentsText">Comments</div>
+            <br />
+            <div class="comments" id="commentsDiv">
+                @foreach (var comment in post.Comments)
+                {
+                    <div class="comment" id="comment">
+
+                        @if (isAdmin)
+                        {
+                            <div class="commentControlPanel">
+                                <button type="button" id="deleteLink" class="inputSubmit" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">Delete</button>
+                            </div>
+                        }
+
+                        <div class="commentName">
+                            @if (!string.IsNullOrWhiteSpace(comment.Email) && comment.IsAdmin)
+                            {
+                                <a href="mailto:@comment.Email" class="inputLabel" style="color:ActiveBorder">@comment.Name (Admin)</a>
+                            }
+                            else if (!string.IsNullOrWhiteSpace(comment.Email))
+                            {
+                                <a href="mailto:@comment.Email">@comment.Name</a>
+                            }
+                            else
+                            {
+                                @comment.Name
+                            }
+                            <text> said : </text>
+                        </div>
+                        <div class="commentBody">
+                            @html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))
+                        </div>
+                        <div class="commentTime">
+                            at
+                            @comment.Time.ToString("HH:mm") on @comment.Time.ToString("dd-MM-yyyy")
+                        </div>
+
+                    </div>
+                    <br />
+                }
             </div>
 
-            <a id="comments"></a>
+        }
 
-            @if (post.Post.Comments != null && post.Post.Comments.Count > 0)
-            {
-                <div class="commentsText">Comments</div>
-                <br />
-                <div class="comments" id="commentsDiv">
-                    @foreach (var comment in post.Comments)
-                    {
-                        <div class="comment" id="comment">
-
-                            @if (isAdmin)
-                            {
-                                <div class="commentControlPanel">
-                                    <button type="button" id="deleteLink" class="inputSubmit" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">Delete</button>
-                                </div>
-                            }
-                            
-                            <div class="commentName">
-                                @if (!string.IsNullOrWhiteSpace(comment.Email) && comment.IsAdmin)
-                                {
-                                    <a href="mailto:@comment.Email" class="inputLabel" style="color:ActiveBorder">@comment.Name (Admin)</a>
-                                }
-                                else if (!string.IsNullOrWhiteSpace(comment.Email))
-                                {
-                                    <a href="mailto:@comment.Email">@comment.Name</a>
-                                }
-                                else
-                                {
-                                    @comment.Name
-                                }
-                                <text> said : </text>
-                            </div>
-                            <div class="commentBody">
-                                @html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))
-                            </div>
-                            <div class="commentTime">
-                                at
-                                @comment.Time.ToString("HH:mm") on @comment.Time.ToString("dd-MM-yyyy")
-                            </div>
-                           
-                        </div>
-                        <br />
-                    }
-                </div>
-             
-            }
-
-        </div>
+    </div>
     }
 }

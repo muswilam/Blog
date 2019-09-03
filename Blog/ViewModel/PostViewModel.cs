@@ -14,5 +14,7 @@ namespace Blog.ViewModel
         public PagedList.IPagedList<Post> Posts { get; set; }
 
         public PagedList.IPagedList<Comment> Comments { get; set; }
+
+        public string TagName { get; set; }
     }
 }
