@@ -166,6 +166,14 @@
     <Compile Include="Migrations\201909031239232_RemoveEditTimeColumnAndMakeTimeColumnNotNullableInCommentsTable.Designer.cs">
       <DependentUpon>201909031239232_RemoveEditTimeColumnAndMakeTimeColumnNotNullableInCommentsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909031247506_AddEditTimeColumnInPostsTable.cs" />
+    <Compile Include="Migrations\201909031247506_AddEditTimeColumnInPostsTable.Designer.cs">
+      <DependentUpon>201909031247506_AddEditTimeColumnInPostsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909031248471_MakeTimeColumnNullableInPostsTable.cs" />
+    <Compile Include="Migrations\201909031248471_MakeTimeColumnNullableInPostsTable.Designer.cs">
+      <DependentUpon>201909031248471_MakeTimeColumnNullableInPostsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\BlogContext.cs" />
@@ -294,6 +302,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909031239232_RemoveEditTimeColumnAndMakeTimeColumnNotNullableInCommentsTable.resx">
       <DependentUpon>201909031239232_RemoveEditTimeColumnAndMakeTimeColumnNotNullableInCommentsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909031247506_AddEditTimeColumnInPostsTable.resx">
+      <DependentUpon>201909031247506_AddEditTimeColumnInPostsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909031248471_MakeTimeColumnNullableInPostsTable.resx">
+      <DependentUpon>201909031248471_MakeTimeColumnNullableInPostsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

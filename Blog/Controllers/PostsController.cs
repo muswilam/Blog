@@ -101,7 +101,7 @@ namespace Blog.Controllers
             //edit
             Post post = GetPost(formModel.Id);
             post.Title = formModel.Title;
-            post.Time = DateTime.Now;
+            post.EditTime = DateTime.Now;
             post.Body = formModel.Body;
             post.Tags.Clear();
 
@@ -118,6 +118,8 @@ namespace Blog.Controllers
             //Create
             if (formModel.Id == 0)
             {
+                post.EditTime = null;
+                post.Time = DateTime.Now;
                 context.Posts.Add(post);
             }
             context.SaveChanges();

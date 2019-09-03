@@ -1,7 +1,7 @@
 ﻿@using Blog.Models;
 
 
-@helper Render(Post post , System.Web.Mvc.HtmlHelper html, bool isAdmin)
+@helper Render(Post post, System.Web.Mvc.HtmlHelper html, bool isAdmin)
 {
     <div class="postTitle">
         <a href="@Href("~/Posts/Details/" + post.Id)"> @post.Title </a>
@@ -10,9 +10,19 @@
     <div class="postContainer">
 
         <div class="postTabs">
-            <div class="dateTab">
-                @post.Time.ToString("dd") @post.Time.ToString("MMM").ToUpper() @post.Time.Year
-            </div>
+            @if (post.Time != null)
+            {
+                <div class="dateTab">
+                    @post.Time.Value.ToString("dd") @post.Time.Value.ToString("MMM").ToUpper() @post.Time.Value.Year
+                </div>
+            }
+
+            @if (post.EditTime != null)
+            {
+                <div class="dateTab">
+                   Edited : @post.EditTime.Value.ToString("dd") @post.EditTime.Value.ToString("MMM").ToUpper() @post.EditTime.Value.Year
+                </div>
+            }
 
             @if (post.Comments != null && post.Comments.Count > 0)
             {

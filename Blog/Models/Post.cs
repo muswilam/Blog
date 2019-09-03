@@ -13,7 +13,9 @@ namespace Blog.Models
         [Required , MaxLength(225)]
         public string Title { get; set; }
 
-        public DateTime Time { get; set; }
+        public DateTime? Time { get; set; }
+
+        public DateTime? EditTime { get; set; }
 
         [Required]
         public string Body { get; set; }
