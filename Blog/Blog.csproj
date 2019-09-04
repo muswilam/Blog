@@ -175,6 +175,14 @@
     <Compile Include="Migrations\201909031248471_MakeTimeColumnNullableInPostsTable.Designer.cs">
       <DependentUpon>201909031248471_MakeTimeColumnNullableInPostsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909041703557_AddColumnsToAdminTable.cs" />
+    <Compile Include="Migrations\201909041703557_AddColumnsToAdminTable.Designer.cs">
+      <DependentUpon>201909041703557_AddColumnsToAdminTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909041707196_AddUserNameColumnInAdminTable.cs" />
+    <Compile Include="Migrations\201909041707196_AddUserNameColumnInAdminTable.Designer.cs">
+      <DependentUpon>201909041707196_AddUserNameColumnInAdminTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\BlogContext.cs" />
@@ -318,6 +326,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909031248471_MakeTimeColumnNullableInPostsTable.resx">
       <DependentUpon>201909031248471_MakeTimeColumnNullableInPostsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909041703557_AddColumnsToAdminTable.resx">
+      <DependentUpon>201909041703557_AddColumnsToAdminTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909041707196_AddUserNameColumnInAdminTable.resx">
+      <DependentUpon>201909041707196_AddUserNameColumnInAdminTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

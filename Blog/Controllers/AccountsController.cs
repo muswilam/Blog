@@ -13,7 +13,7 @@ namespace Blog.Controllers
     {
         private BlogContext context = new BlogContext();
 
-        public ActionResult Login(string name, string hash)
+        public ActionResult Login(string userName, string hash)
         {
             if (string.IsNullOrWhiteSpace(hash))
             {
@@ -26,7 +26,7 @@ namespace Blog.Controllers
                 return View(model: newNonce); //model : because of preventing ambiguous of (string view name & string model)
             }
 
-            var admin = context.Administrators.Where(a => a.Name == name).FirstOrDefault();
+            var admin = context.Administrators.Where(a => a.UserName == userName).FirstOrDefault();
             string nonce = Session["Nonce"] as string; //get the current random num
 
             if (admin == null || string.IsNullOrWhiteSpace(nonce))

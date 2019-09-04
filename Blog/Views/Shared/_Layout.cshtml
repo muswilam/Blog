@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    @*<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
-          rel="stylesheet" type='text/css'>*@
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
@@ -15,12 +13,6 @@
 <body id="body">
 
     @Html.Action("TrendingTags", "Posts")
-
-    @*<div id="header">
-        <a href="@Href("~/")">
-            <img src="@Href("~/images/title.png")" alt="Sully">
-        </a>
-    </div>*@
     <div id="content">
         <div id="topSeparator" class="separate"></div>
         <div id="sidebar">
