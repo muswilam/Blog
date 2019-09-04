@@ -301,6 +301,7 @@
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Accounts\AboutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

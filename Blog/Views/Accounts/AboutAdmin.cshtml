@@ -1,0 +1,52 @@
+﻿@model Blog.Models.Administrator
+
+@{
+    ViewBag.Title = "AboutAdmin";
+}
+
+<div class="about-section">
+    <div class="inner-width">
+        <h1></h1>
+        <div class="about-section-row">
+            <div class="about-section-col">
+                <div class="image">
+                    <img id="portrait" src="@Url.Content(Model.PicUrl)" alt="Portrait" />
+                </div>
+            </div>
+            <div class="about-section-col">
+                <div class="info">
+                    <label class="about-label"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @Model.Name </label>
+                    <label class="about-label"><i class="fa fa-university" aria-hidden="true"></i> @Model.Education </label>
+                    <label class="about-label"><i class="fa fa-calendar" aria-hidden="true"></i> Born on @Model.Birthdate.Value.Date.ToShortDateString() </label>
+                    <label class="about-label"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>  @Model.Country </label>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-section-row">
+        <div class="about-section-col">
+            <div class="info-bio">
+                <label class="about-label"><i class="fa fa-info-circle" aria-hidden="true"></i> Bio</label>
+                <label class="about-label" style="padding-top:1em;">@Model.Bio</label>
+            </div>
+            <div class="contact" style="display:block">
+                <label class="about-label" style="margin:70px 110px;">
+                    <a href="https://twitter.com/muswilam?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @@muswilam</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><a href="http"></a>
+                </label>
+                <label class="about-label" style="margin: 70px 80px;">
+                    <a href="https://www.linkedin.com/in/muhammad-swilam-a479a1b0/" style="text-decoration:none">
+                        <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+                    </a>
+                </label>
+                <label class="about-label" style="margin:70px 110px;">
+                    <a href="MailTo://@Model.Email" style="text-decoration:none">
+                        <i class="fa fa-envelope" aria-hidden="true"></i> @Model.Email
+                    </a>
+                </label>
+
+            </div>
+        </div>
+    </div>
+</div>

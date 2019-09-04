@@ -64,9 +64,7 @@
 
                 <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button" class="commentSubmit">
                     Save <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-
                 </button>
-
             </form>
         </div>
 
@@ -91,7 +89,6 @@
                                 </button>
                             </div>
                         }
-
                         <div class="commentName">
                             @if (!string.IsNullOrWhiteSpace(comment.Email) && comment.IsAdmin)
                             {
@@ -116,14 +113,11 @@
                             at
                             @comment.Time.ToString("HH:mm") on @comment.Time.ToString("dd-MM-yyyy")
                         </div>
-
                     </div>
                     <br />
                 }
             </div>
-
         }
-
     </div>
     }
 }

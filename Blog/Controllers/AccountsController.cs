@@ -59,5 +59,12 @@ namespace Blog.Controllers
             Session["IsAdmin"] = null;
             return RedirectToAction("Index" , "Posts");
         }
+
+        public ActionResult AboutAdmin()
+        {
+            var admin = context.Administrators.First();
+          
+            return View(admin);
+        }
     }
 }
