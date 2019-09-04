@@ -13,14 +13,18 @@
             @if (post.Time != null)
             {
                 <div class="dateTab">
-                    @post.Time.Value.ToString("dd") @post.Time.Value.ToString("MMM").ToUpper() @post.Time.Value.Year
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+
+                    @post.Time.Value.ToString("MMM").ToUpper()  @post.Time.Value.ToString("dd") @post.Time.Value.Year
                 </div>
             }
 
             @if (post.EditTime != null)
             {
                 <div class="dateTab">
-                    Edited : @post.EditTime.Value.ToString("dd") @post.EditTime.Value.ToString("MMM").ToUpper() @post.EditTime.Value.Year
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+
+                    Edited  @post.EditTime.Value.ToString("MMM").ToUpper() @post.EditTime.Value.ToString("dd") @post.EditTime.Value.Year
                 </div>
             }
 
@@ -29,7 +33,8 @@
                 <div class="commentsTab">
 
                     <a href="@Href("~/Posts/Details/" + post.Id + "#comments")">
-                        <img src="~/Images/comment.png" alt="Comment" />
+                        <i class="fa fa-comments fa-lg" aria-hidden="true"></i>
+
                         @post.Comments.Count
                     </a>
                 </div>
@@ -38,6 +43,8 @@
         <div class="postContent">
             <div class="postBody">@html.Raw(post.Body)</div>
             <div class="tagsList">
+                <i class="fa fa-tags fa-lg" aria-hidden="true"></i>
+
                 @foreach (var tag in post.Tags)
                 {
                     <span class="tag">
@@ -53,6 +60,8 @@
                     string encodedUrl = HttpUtility.UrlEncode(url);
                     string encodedTitle = HttpUtility.UrlEncode(post.Title);
                 }
+                <i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i>
+
                 <a href="http://www.reddit.com/submit?url=@encodedUrl&title=@encodedTitle">
                     <img class="linkImg" src="~/Images/Reddit.png" alt="Reddit" />
                 </a>
@@ -64,9 +73,13 @@
         @if (isAdmin)
         {
             <div class="postControlPanel">
-                <a class="inputSubmit" style="color:red" href="@Href("~/Posts/Delete/" + post.Id)">Delete</a>
+                <a class="inputSubmit" style="color:red" href="@Href("~/Posts/Delete/" + post.Id)">
+                    <i class="fa fa-trash-o"></i> Delete
+                </a>
 
-                <a class="inputSubmit" style="color:green" href="@Href("~/Posts/Edit/" + post.Id)">Edit</a>
+                <a class="inputSubmit" style="color:green" href="@Href("~/Posts/Edit/" + post.Id)">
+                    <i class="fa fa-pencil"></i> Edit
+                </a>
             </div>
         }
     </div>

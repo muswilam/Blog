@@ -1,7 +1,13 @@
 ﻿@model Blog.ViewModel.PostViewModel
 
 <div class="navbar">
-    <a href="@Href("~/Posts/Index/#body")">Home</a>
+    <a href="@Href("~/")">
+        <img src="@Href("~/images/logo.png")" alt="Logo" style="width:20px;" />
+        <img src="@Href("~/images/title.png")" alt="Sully" style="width:100px;">
+    </a>
+    <a href="@Href("~/Posts/Index/#body")">
+        <i class="fa fa-home" aria-hidden="true"></i> Home
+    </a>
     <div class="dropdown">
         <button class="dropbtn">
             <i class="fa fa-external-link-square" aria-hidden="true"></i>
