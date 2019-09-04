@@ -185,6 +185,7 @@
     <Compile Include="ViewModel\PostViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -240,10 +241,16 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="App_Code\PostHelper.cshtml" />
     <Content Include="App_Code\PostCodeHelper.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\background.png" />
     <Content Include="Images\comment.png" />
