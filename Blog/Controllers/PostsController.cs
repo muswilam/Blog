@@ -99,6 +99,12 @@ namespace Blog.Controllers
                 return RedirectToAction("Index");
             }
 
+            if(!ModelState.IsValid)
+            {
+                Post emptyPost = new Post();
+                return View("edit", emptyPost);
+            }
+
             //edit
             Post post = GetPost(formModel.Id);
             post.Title = formModel.Title;

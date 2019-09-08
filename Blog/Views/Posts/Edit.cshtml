@@ -24,18 +24,20 @@ else
         {
             <input type="hidden" name="id" value="@Model.Id" />
         }
-        <div class="inputContainer">
+        <div class="inputCenterContainer">
             <label class="inputLabel">Title</label> <br />
             <input type="text" class="inputTextBox" name="title" placeholder="Post title." value="@Model.Title" /> <br />
+            @Html.ValidationMessage("title", "", new { @class = "text-danger" })
         </div>
 
-        <div class="inputContainer">
+        <div class="inputCenterContainer">
             <label class="inputLabel">Tags</label> <br />
             <input type="text" class="inputTextBox" name="tags" placeholder="Tags name." value="@ViewBag.Tags" /> <br />
         </div>
 
-        <div class="inputContainer">
+        <div class="inputCenterContainer">
             <textarea name="body" class="inputTextBox" style="width:500px;" placeholder="Post..." rows="10" cols="80">@Model.Body</textarea> <br />
+            @Html.ValidationMessage("body", "", new { @class = "text-danger" })
         </div>
 
         <input class="inputSubmit" type="submit" name="submit" value="Submit" />

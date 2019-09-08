@@ -10,14 +10,14 @@ namespace Blog.Models
     {
         public int Id { get; set; }
 
-        [Required , MaxLength(225)]
+        [Required(ErrorMessage = "Please, Enter post title.") , MaxLength(225)]
         public string Title { get; set; }
 
         public DateTime? Time { get; set; }
 
         public DateTime? EditTime { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please, Enter post body.")]
         public string Body { get; set; }
 
         //nav props

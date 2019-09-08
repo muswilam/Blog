@@ -40,31 +40,33 @@
         <div id="commentEditor">
             <form id="commentForm">
 
-                @if (isAdmin)
-                {
-                    <label class="inputLabel" style="color:cornflowerblue">Sully</label> <br />
-                    <input type="hidden" name="name" value="Sully" />
+                <div class="inputContainer">
+                    @if (isAdmin)
+                    {
+                        <label class="inputLabel" style="color:cornflowerblue">Sully</label> <br />
+                        <input type="hidden" name="name" value="Sully" />
 
-                    <label class="inputLabel" style="color:cornflowerblue">jackswilam@gmail.com</label><br />
-                    <input type="hidden" name="email" value="jackswilam@gmail.com" />
+                        <input type="hidden" name="email" value="jackswilam@gmail.com" />
 
-                    <input type="hidden" name="isAdmin" value="true" />
-                }
-                else
-                {
-                    <label class="inputLabel"> Name</label> <br />
-                    <input type="text" class="inputTextBox" id="commentName" name="name" required placeholder="Please, Enter your name." /> <br />
+                        <input type="hidden" name="isAdmin" value="true" />
+                    }
+                    else
+                    {
+                        <div class="inputContainer">
+                            <label class="inputLabel"> Name</label> <br />
+                            <input type="text" class="inputTextBox" id="commentName" name="name" required placeholder="Please, Enter your name." /> <br />
 
-                    <label class="inputLabel"> Email </label>    <br />
-                    <input type="text" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
+                            <label class="inputLabel"> Email </label> <br />
+                            <input type="text" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
+                        </div>
+                    }
 
-                }
+                    <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" placeholder="Comment..."></textarea>
+                    <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button" class="commentSubmit">
+                        Save <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                    </button>
+                </div>
 
-                <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" placeholder="Comment..."></textarea>
-
-                <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button" class="commentSubmit">
-                    Save <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                </button>
             </form>
         </div>
 
@@ -92,7 +94,7 @@
                         <div class="commentName">
                             @if (!string.IsNullOrWhiteSpace(comment.Email) && comment.IsAdmin)
                             {
-                                <a href="mailto:@comment.Email" class="inputLabel" style="color: cornflowerblue">
+                                <a href="mailto:@comment.Email" style="color: cornflowerblue; font-size:15px;">
                                     <i class="fa fa-lock" aria-hidden="true"></i> @comment.Name
                                 </a>
                             }

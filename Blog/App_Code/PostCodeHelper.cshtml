@@ -47,11 +47,9 @@
 
                 @foreach (var tag in post.Tags)
                 {
-                    <span class="tag">
-                        <a class="inputLabel" style="color:darkgoldenrod; text-decoration:none" href="@Href("~/Posts/Tags?tagName=" + tag.Name)">
-                            #@tag.Name
-                        </a>
-                    </span>
+                    <a style="color:darkgoldenrod; text-decoration:none; font-size:18px;" href="@Href("~/Posts/Tags?tagName=" + tag.Name)">
+                        #@tag.Name
+                    </a>
                 }
             </div>
             <div class="linkList">
