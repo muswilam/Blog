@@ -98,6 +98,12 @@
 
  .formHeader{
     color:#808080;
+    text-align: left;
+    width: 615px;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "Palatino Linotype", Palatino;
+    padding-left: 185px;
 }
 
 #loginForm {
@@ -167,7 +173,7 @@
     background-color: #808080;
 }
 
-.postTitle , .formHeader {
+.postTitle {
     margin: auto;
     text-align: left;
     width: 615px;

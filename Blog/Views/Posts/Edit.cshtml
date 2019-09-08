@@ -1,17 +1,19 @@
 ﻿@model Blog.Models.Post
 
-@{
-    ViewBag.Title = "New Post";
-}
-
 @if (Model.Id != -1)
 {
+    
+    ViewBag.Title = "Edit Post";
+    
     <div class="formHeader">
        Edit Post
     </div>
 }
 else
 {
+    
+    ViewBag.Title = "New Post";
+    
     <div class="formHeader">
        New Post
     </div>

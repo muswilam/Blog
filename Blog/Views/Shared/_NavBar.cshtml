@@ -15,7 +15,7 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-            @foreach (var tag in Model.Tags)
+            @foreach (var tag in Model.Tags.OrderByDescending(t => t.Posts.Count()))
             {
                 <a href="@Href("~/Posts/Tags?tagName=" + tag.Name)" style="color:darkgoldenrod">#@tag.Name (@tag.Posts.Count())</a>
             }
