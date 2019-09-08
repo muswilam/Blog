@@ -24,12 +24,12 @@
             <input type="text" class="inputTextBox" name="userName" id="name" /> <br />
 
             <label class="inputLabel">Password</label><br />
-            <input type="password" class="inputTextBox" name="password" id="password" /> <br />
+            <input type="password" class="inputTextBox" name="password" id="password"/> <br />
 
             <input type="hidden" name="nonce" id="nonce" value="@Model" />
             <input type="hidden" name="hash" id="hash" value="" />
 
-            <input type="button" class="inputSubmit" onclick="getPasswordHash('#password', '#nonce', '#hash'); $('#loginForm').submit();" value="Login" />
+            <input type="button" class="inputSubmit" onclick="getPasswordHash('password', '#nonce', '#hash'); $('#loginForm').submit();" value="Login" />
         </div>
 
     </form>

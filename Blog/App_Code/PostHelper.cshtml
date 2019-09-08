@@ -57,11 +57,11 @@
                             <input type="text" class="inputTextBox" id="commentName" name="name" required placeholder="Please, Enter your name." /> <br />
 
                             <label class="inputLabel"> Email </label> <br />
-                            <input type="text" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
+                            <input type="email" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
                         </div>
                     }
 
-                    <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" placeholder="Comment..."></textarea>
+                    <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" required placeholder="Comment..."></textarea>
                     <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button" class="commentSubmit">
                         Save <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                     </button>

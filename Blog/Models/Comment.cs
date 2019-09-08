@@ -11,13 +11,13 @@ namespace Blog.Models
     {
         public int Id { get; set; }
 
-        [Required , MaxLength(128)]
+        [Required(ErrorMessage = "Name's Required.") , MaxLength(128)]
         public string Name { get; set; }
 
-        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Invalid Email.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Comment is Required.")]
         public string Body { get; set; }
 
         public DateTime Time { get; set; }

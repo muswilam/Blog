@@ -163,11 +163,17 @@ namespace Blog.Controllers
             return Json(new { success = false, message = "OPPS! Something went wrong." }, JsonRequestBehavior.AllowGet);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
-        public JsonResult Comment(int id, Comment commentForm)
+        public ActionResult Comment(int id, Comment commentForm)
         {
             JsonResult json = new JsonResult();
+
+            if(!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToList();
+                var errorMsg = String.Join("\n", errors);
+                return Json(new { modelNotValid = true, errors = errorMsg});
+            }
 
             var post = GetPost(id);
             var comment = new Comment();

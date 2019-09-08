@@ -32,6 +32,10 @@
             data: $('#commentForm').serialize()
         })
         .done(function (result) {
+            if (result.modelNotValid) {
+                alert(result.errors);
+                debugger;
+            }
             if (result.success) {
                 $.ajax({
                     url: linkTarget,
@@ -51,7 +55,7 @@
                         //last comment that added
                         var value = comment[comment.length - 1];
 
-                        var commenthtml = "<div class='comment'> <div class='commentName'>" + value.Name + "  said : </div> <div class='commentBody'>"
+                        var commenthtml = "<div class='comment'> <div class='commentName'> <i class='fa fa-user' aria-hidden='true'></i> " + value.Name + "  said : </div> <div class='commentBody'>"
                             + value.Body + "</div> <div class='commentTime'>" + strDate + "</div> </div> </br>";
 
                         //first comment
@@ -64,6 +68,7 @@
                         }
 
                         $(".comments").prepend(commenthtml);
+                        $("#commentBody").val('');
                     })
                 });
             } else {
