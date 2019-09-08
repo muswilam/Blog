@@ -24,4 +24,16 @@
     <a href="@Href("~/accounts/aboutadmin")">
         <i class="fa fa-user-circle-o" aria-hidden="true"></i> About Me
     </a>
+
+    @if (Model.IsAdmin)
+    {
+        <a style="float:right" href="@Href("~/Accounts/Logout")"> <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        <a style="float:right" href="@Href("~/Posts/Edit")"><i class="fa fa-plus-square" aria-hidden="true"></i> New Post</a>
+    }
+    else
+    {
+        <a id="loginLink" style="float:right" href="@Href("~/accounts/Login")" hidden><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+    }
 </div> 
+
+

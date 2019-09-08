@@ -18,5 +18,7 @@ namespace Blog.ViewModel
         public IEnumerable<Tag> Tags { get; set; }
 
         public string TagName { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

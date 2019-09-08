@@ -37,6 +37,7 @@ namespace Blog.Controllers
                 .OrderBy(p => p.Time).ToList();
 
             ViewBag.IsAdmin = IsAdmin;
+            postModel.IsAdmin = IsAdmin;
 
             postModel.Posts = Posts.ToPagedList(currentPage, PageSize.pagePosts);
             return View(postModel);
@@ -216,6 +217,7 @@ namespace Blog.Controllers
         public PartialViewResult TrendingTags()
         {
             postModel.Tags = context.Tags.Where(t => t.Posts.Count() >= TotalTrendingTags.TrendingTagsNumber).Include(t => t.Posts).ToList();
+            postModel.IsAdmin = IsAdmin;
             return PartialView("_NavBar",postModel);
         }
 
