@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Blog.Models;
 using System.Security.Cryptography;
 using System.Text;
+using Blog.ViewModel;
 
 namespace Blog.Controllers
 {
@@ -13,7 +14,26 @@ namespace Blog.Controllers
     {
         private BlogContext context = new BlogContext();
 
-        public ActionResult Login(string userName, string hash)
+        [HttpGet]
+        public ActionResult Login(string hash)
+        {
+            AdminViewModel adminModel = new AdminViewModel();
+            if (string.IsNullOrWhiteSpace(hash))
+            {
+                Random random = new Random(); //generate a random num
+                byte[] randomData = new byte[sizeof(long)];
+                random.NextBytes(randomData); //store it in arry of bytes
+                string newNonce = BitConverter.ToUInt64(randomData, 0).ToString("X16"); //converting it to hexadecimal
+                Session["Nonce"] = newNonce; //store it in session to can use it again 
+
+                return View(adminModel); //model : because of preventing ambiguous of (string view name & string model)
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(AdminViewModel adminModel , string hash)
         {
             if (string.IsNullOrWhiteSpace(hash))
             {
@@ -26,12 +46,19 @@ namespace Blog.Controllers
                 return View(model: newNonce); //model : because of preventing ambiguous of (string view name & string model)
             }
 
-            var admin = context.Administrators.Where(a => a.UserName == userName).FirstOrDefault();
+            AdminViewModel initAdminModel = new AdminViewModel();
+            if(!ModelState.IsValid)
+            {
+                return View(initAdminModel);
+            }
+            
+            var admin = context.Administrators.Where(a => a.UserName == adminModel.UserName).FirstOrDefault();
             string nonce = Session["Nonce"] as string; //get the current random num
 
             if (admin == null || string.IsNullOrWhiteSpace(nonce))
             {
-                return View("Index","Posts");
+                initAdminModel.AdminErrorMsg = "Invalid Admin";
+                return View(initAdminModel);
             }
 
             string computeHash; //generate the hash
@@ -49,7 +76,15 @@ namespace Blog.Controllers
             }
 
             //the admin is loged in if the two hash match
-            Session["IsAdmin"] = (computeHash.ToLower() == hash.ToLower());
+            bool passwordMatch = (computeHash.ToLower() == hash.ToLower());
+            if (passwordMatch)
+                Session["IsAdmin"] = passwordMatch;
+            else
+            {
+                initAdminModel.PassErrorMsg = "Invalid Password.";
+                return View(initAdminModel);
+            }
+
             return RedirectToAction("Index", "Posts");
         }
 

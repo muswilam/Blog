@@ -41,19 +41,6 @@
 
     <div id="footer">
         <div id="copyright">Copyright &copy; @DateTime.Now.Year, <label style="font-family: 'Space Age'">Sully</label> </div>
-        @*@if (ViewBag.IsAdmin ?? false)
-        {
-            <div class="controlPanel">
-                <a href="@Href("~/Posts/Edit")">New Post</a> |
-                <a href="@Href("~/Accounts/Logout")">Logout</a>
-            </div>
-        }
-        else
-        {
-            <div class="controlPanel">
-                <a href="@Href("~/accounts/Login")">Login</a>
-            </div>
-        }*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -64,6 +51,6 @@
 
 <script>
     $(".navbar").dblclick(function () {
-        $("#loginLink").show();
+        $("#loginLink").toggle();
     })
 </script>

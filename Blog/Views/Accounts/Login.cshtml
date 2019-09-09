@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model Blog.ViewModel.AdminViewModel
 
 @{
     ViewBag.Title = "Login";
@@ -21,12 +21,16 @@
 
         <div class="inputCenterContainer">
             <label class="inputLabel">User_Name</label> <br />
-            <input type="text" class="inputTextBox" name="userName" id="name" /> <br />
+            <input type="text" class="inputTextBox" name="userName" id="name"/>
+            <label id="lbl" class="text-danger">@Model.AdminErrorMsg</label><br />
+            @Html.ValidationMessageFor(x => x.UserName, "", new { id = "fieldValidate" , @class = "text-danger"})
+           
 
             <label class="inputLabel">Password</label><br />
-            <input type="password" class="inputTextBox" name="password" id="password"/> <br />
+            <input type="password" class="inputTextBox" name="password" id="password" required/> <br />
+            <label class="text-danger">@Model.PassErrorMsg</label><br />
 
-            <input type="hidden" name="nonce" id="nonce" value="@Model" />
+            <input type="hidden" name="nonce" id="nonce" value="@Session["Nonce"]" />
             <input type="hidden" name="hash" id="hash" value="" />
 
             <input type="button" class="inputSubmit" onclick="getPasswordHash('password', '#nonce', '#hash'); $('#loginForm').submit();" value="Login" />
