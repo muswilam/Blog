@@ -171,9 +171,37 @@ namespace Blog.Controllers
 
             if(!ModelState.IsValid)
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToList();
-                var errorMsg = String.Join("\n", errors);
-                return Json(new { modelNotValid = true, errors = errorMsg});
+
+                var errors = ModelState.Values.Select(v => v.Errors).ToList();
+
+                var nameError = errors[1].Select(e => e.ErrorMessage).FirstOrDefault();
+                var emailError = errors[2].Select(e => e.ErrorMessage).FirstOrDefault();
+                var commentError = errors[3].Select(e => e.ErrorMessage).FirstOrDefault();
+
+                return Json(new { modelNotValid = true , nameError = nameError , emailError = emailError , commentError = commentError });
+
+
+                //var errors = new List<string>();
+                //foreach (var val in ModelState.Values)
+                //{
+                //   var nameError = val.Errors.Where(e => e.ErrorMessage == "Name's Required.").Select(e => e.ErrorMessage).FirstOrDefault();
+                //   var commentError = val.Errors.Where(e => e.ErrorMessage == "Comment is Required.").Select(e => e.ErrorMessage).FirstOrDefault();
+
+                //   if(!string.IsNullOrWhiteSpace(nameError))
+                //   {
+                //       errors.Add(nameError);
+                //   }
+                //   if (!string.IsNullOrWhiteSpace(commentError))
+                //   {
+                //       errors.Add(commentError);
+                //   }
+                //}
+                //return Json(new { modelNotValid = true, nameError = errors[0], commentError = errors[1] });
+
+
+                //var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToList();
+                //var errorMsg = String.Join("\n", errors);
+                //return Json(new { modelNotValid = true, errors = errorMsg });
             }
 
             var post = GetPost(id);

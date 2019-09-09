@@ -33,8 +33,13 @@
         })
         .done(function (result) {
             if (result.modelNotValid) {
-                alert(result.errors);
-                debugger;
+                $("#nameError").empty();
+                $("#emailError").empty();
+                $("#commentError").empty();
+
+                $("#nameError").append(result.nameError);
+                $("#commentError").append(result.commentError);
+                $("#emailError").append(result.emailError);
             }
             if (result.success) {
                 $.ajax({
@@ -44,6 +49,10 @@
                 })
                 .done(function (response) {
                     var comments = response.comments
+
+                    $("#nameError").empty();
+                    $("#emailError").empty();
+                    $("#commentError").empty();
 
                     //get the current date of comment
                     var date = new Date();
@@ -72,7 +81,7 @@
                     })
                 });
             } else {
-                alert(result.message);
+                //alert(result.message);
             };
         });
     });
