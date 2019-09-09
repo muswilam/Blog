@@ -23,14 +23,14 @@
         }
         foreach (var p in post.Posts)
         {
-            @PostCodeHelper.Render(p, html, isAdmin);
+            @PostCodeHelper.Render(p, html, isAdmin,post.PageNumber);
         }
     }
 
     // details of post
     if (showComments)
     {
-        @PostCodeHelper.Render(post.Post, html, isAdmin);
+        @PostCodeHelper.Render(post.Post, html, isAdmin, post.PageNumber);
 
     <div id="commentContainer">
         <div id="commentPrompt">
@@ -89,7 +89,7 @@
                         @if (isAdmin)
                         {
                             <div class="commentControlPanel">
-                                <button type="button" id="deleteLink" class="inputSubmit" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">
+                                <button type="button" id="deleteLink" class="inputSubmit" onclick="return confirm('Are you sure. you wanna delete @comment.Name \'s comment');" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">
                                     <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
                                 </button>
                             </div>

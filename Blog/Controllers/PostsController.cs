@@ -38,6 +38,7 @@ namespace Blog.Controllers
 
             ViewBag.IsAdmin = IsAdmin;
             postModel.IsAdmin = IsAdmin;
+            postModel.PageNumber = currentPage;
 
             postModel.Posts = Posts.ToPagedList(currentPage, PageSize.pagePosts);
             return View(postModel);
@@ -135,15 +136,16 @@ namespace Blog.Controllers
             return RedirectToAction("Details", new { id = post.Id });
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id , int? page)
         {
+            int currentPage = page != 0 ? page.Value : 1;
             if (IsAdmin)
             {
                 var post = GetPost(id);
                 context.Posts.Remove(post);
                 context.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page = currentPage});
         }
 
         [HttpPost]

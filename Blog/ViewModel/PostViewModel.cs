@@ -20,5 +20,7 @@ namespace Blog.ViewModel
         public string TagName { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        public int PageNumber { get; set; }
     }
 }
