@@ -33,13 +33,35 @@
         })
         .done(function (result) {
             if (result.modelNotValid) {
-                $("#nameError").empty();
-                $("#emailError").empty();
-                $("#commentError").empty();
 
-                $("#nameError").append(result.nameError);
-                $("#commentError").append(result.commentError);
-                $("#emailError").append(result.emailError);
+                //validation if modelstate is not valid
+                var nameError = $("#nameError");
+                var emailError = $("#emailError");
+                var commentError = $("#commentError");
+
+                $("#commentName").removeClass("input-validation-error");
+                $("#commentEmail").removeClass("input-validation-error");
+                $("#commentBody").removeClass("input-validation-error");
+
+                nameError.empty();
+                emailError.empty();
+                commentError.empty();
+
+                nameError.append(result.nameError);
+                emailError.append(result.emailError);
+                commentError.append(result.commentError);
+
+                debugger;
+
+                if (nameError.text()) {
+                    $("#commentName").addClass("input-validation-error");
+                };
+                if (emailError.text()) {
+                    $("#commentEmail").addClass("input-validation-error");
+                };
+                if (commentError.text()) {
+                    $("#commentBody").addClass("input-validation-error");
+                };
             }
             if (result.success) {
                 $.ajax({
@@ -50,9 +72,15 @@
                 .done(function (response) {
                     var comments = response.comments
 
+                    //validation labels (Errors)
                     $("#nameError").empty();
                     $("#emailError").empty();
                     $("#commentError").empty();
+
+                    //validation input red-classes (errors)
+                    $("#commentName").removeClass("input-validation-error");
+                    $("#commentEmail").removeClass("input-validation-error");
+                    $("#commentBody").removeClass("input-validation-error");
 
                     //get the current date of comment
                     var date = new Date();
@@ -80,9 +108,11 @@
                         $("#commentBody").val('');
                     })
                 });
+                debugger;
             } else {
-                //alert(result.message);
-            };
+                $("#commentError").append(result.message);
+            }
+
         });
     });
 
