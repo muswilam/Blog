@@ -21,8 +21,9 @@ namespace Blog.Controllers
 
         private const int postsPerFeed = 25;
 
-        public ActionResult Index(string tagName, int? page)
+        public ActionResult Index(string tagName, int? page , string postSearch)
         {
+            //list posts by tags 
             if (!string.IsNullOrEmpty(tagName))
             {
                 postModel.Posts = GetTagPostsByTagName(tagName, page);
@@ -32,6 +33,18 @@ namespace Blog.Controllers
             }
 
             int currentPage = page ?? 1;
+            
+            //search
+            if(!string.IsNullOrWhiteSpace(postSearch))
+            {
+                postModel.Posts = context.Posts
+                    .Include(p => p.Tags)
+                    .Where(p => p.Title.StartsWith(postSearch))
+                    .OrderBy(p => p.Title)
+                    .ToPagedList(currentPage, PageSize.pagePosts);
+
+                return View(postModel);
+            }
 
             var Posts = context.Posts.Include(p => p.Tags)
                 .OrderBy(p => p.Time).ToList();

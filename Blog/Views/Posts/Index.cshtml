@@ -9,10 +9,17 @@
     bool isAdmin = ViewBag.IsAdmin ?? false;
 }
 
+ @if (Model.Posts.Count() == 0)
+ {
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <i class="fa fa-bell" aria-hidden="true"></i>  Sorry! No posts have been matched your search.
+    </div>
+ }
 
  @PostHelper.Render(Model, Html, isAdmin, false)
 
 
 <div>
-    @Html.PagedListPager(Model.Posts, page => Url.Action("Index", new { page, tagName = Request["tagName"] }))
+    @Html.PagedListPager(Model.Posts, page => Url.Action("Index", new { page, tagName = Request["tagName"] , postSearch = Request["postSearch"] }))
 </div>
