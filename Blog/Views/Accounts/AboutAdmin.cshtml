@@ -12,6 +12,56 @@
                 <div class="image">
                     <img id="portrait" src="@Url.Content(Model.PicUrl)" alt="Portrait" />
                 </div>
+                @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true)
+                {
+                    <div class="edit-admin about" style="float:right">
+                        <a  id="myBtn">Edit</a>
+                    </div>
+                    <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                                <form class="pure-form pure-form-aligned">
+                                    <fieldset>
+                                        <input type="hidden" name="id" value="@Model.Id" />
+                                        <div class="pure-control-group">
+                                            <label for="name">Name</label>
+                                            <input id="name" name="name" type="text" value="@Model.Name" placeholder="Name.">
+                                        </div>
+
+                                        <div class="pure-control-group">
+                                            <label for="email">Email Address</label>
+                                            <input id="email" type="email" value="@Model.Email" placeholder="Email Address.">
+                                        </div>
+
+                                        <div class="pure-control-group">
+                                            <label for="education">Education</label>
+                                            <input id="education" name="education" type="text" value="@Model.Education" placeholder="Education.">
+                                        </div>
+
+                                        <div class="pure-control-group">
+                                            <label for="birthdate">Birthdate</label>
+                                            <input id="birthdate" name="birthdate" value="@Model.Birthdate" type="date">
+                                        </div>
+
+                                        <div class="pure-control-group">
+                                            <label for="biography">Biography</label>
+                                            <textarea id="Biography" name="Biography" type="text" placeholder="Bio.">@Model.Bio</textarea>
+                                        </div>
+                                        <div class="pure-control-group">
+                                            <label for="Country">Location</label>
+                                            @Html.DropDownListFor(x => x.Country, new SelectList(ViewBag.countries), new { @class = "pure-input-1-2" })
+                                        </div>
+
+                                        <div class="pure-controls">
+                                            <button type="submit" class="pure-button pure-button-primary">Save</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                    </div>
+                }
             </div>
             <div class="about-section-col">
                 <div class="info">
@@ -37,7 +87,7 @@
                 <div class="about-section-col" style="height:auto">
                     <div class=" about" style="padding:10px;">
                         <h1 class="about-label"><i class="fa fa-cogs" aria-hidden="true"></i> Skills</h1>
-                        <ul class="skillsList" style="position:static;">
+                        <ul class="skillsList" style="position:static; padding-top:20px;">
                             <li>ASP.NET MVC.</li>
                             <li>jQuery.</li>
                             <li>Javascript.</li>
@@ -54,7 +104,7 @@
                 <div class="about-section-col">
                     <h1 class="about-label" style="padding:10px;"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contact</h1>
                     <div class="about-section">
-                        <div class="about" style="display:grid; width:300px;">
+                        <div class="about" style="display:grid; width:300px; float:right">
                             <a href="https://twitter.com/muswilam">
                                 <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
                             </a>
@@ -74,3 +124,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

@@ -7,6 +7,7 @@ using Blog.Models;
 using System.Security.Cryptography;
 using System.Text;
 using Blog.ViewModel;
+using System.Globalization;
 
 namespace Blog.Controllers
 {
@@ -97,8 +98,24 @@ namespace Blog.Controllers
 
         public ActionResult AboutAdmin()
         {
-            var admin = context.Administrators.First();
-          
+            var admin = context.Administrators.Where(a => a.Name.Equals("Muhammad Swilam")).First();
+
+            //get list of countries 
+            List<string> countryList = new List<string>();
+            CultureInfo[] CInfoList = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+            foreach(CultureInfo CInfo in CInfoList)
+            {
+                RegionInfo r = new RegionInfo(CInfo.LCID);
+                if(!(countryList.Contains(r.EnglishName)))
+                {
+                    countryList.Add(r.EnglishName);
+                }
+            }
+
+            countryList.Sort();
+            ViewBag.countries = countryList;
+
             return View(admin);
         }
     }

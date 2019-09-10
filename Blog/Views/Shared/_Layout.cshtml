@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="@Url.Content("~/images/logo.png")" style="width:20px;" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
@@ -15,7 +16,7 @@
 
     @Html.Action("TrendingTags", "Posts")
 
-   <div id="content">
+    <div id="content">
         <div id="main">
             @RenderBody()
         </div>
@@ -36,6 +37,7 @@
     $(document).ready(function () {
         $(".navbar").dblclick(function () {
             $("#loginLink").toggle();
+            debugger;
         })
 
         $(function () {
