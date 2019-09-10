@@ -16,24 +16,6 @@
     @Html.Action("TrendingTags", "Posts")
 
    <div id="content">
-       <div>
-           @* <div id="topSeparator" class="separate"></div>
-                 <div id="sidebar">
-                <div class="image">
-                    <img id="portrait" src="~/Images/Sully.jpg" alt="Portrait" />
-                </div>
-                <div id="twitterHeader">
-                    <a href="https://twitter.com/muswilam?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @@muswilam</a>
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                </div>
-                <div id="tweets">
-                    <a class="twitter-timeline" data-theme="dark" data-height="300" data-chrome="noheader nofooter" href="https://twitter.com/muswilam?ref_src=twsrc%5Etfw"></a>
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                </div>
-                <div id="feedList"><a href="@Href("~/Posts/RSS")">RSS Feed</a></div>
-            </div>*@
-       </div>
-
         <div id="main">
             @RenderBody()
         </div>
@@ -44,13 +26,23 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 
 </html>
 
 <script>
-    $(".navbar").dblclick(function () {
-        $("#loginLink").toggle();
-    })
+    $(document).ready(function () {
+        $(".navbar").dblclick(function () {
+            $("#loginLink").toggle();
+        })
+
+        $(function () {
+            $("#postSearch").autocomplete({
+                source: '@Url.Action("GetCompeletedSearch")',
+            });
+        });
+
+    });
 </script>

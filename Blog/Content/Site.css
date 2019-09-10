@@ -541,15 +541,16 @@
   width: 50%;
 }
 
-ul {
-    list-style-type: square;
+.skillsList ,ul.ui-autocomplete.ui-menu {
+    list-style-type: circle;
     padding:5px;
     margin-top: 20px;
     margin-left: 50px;
     width: 250px;
+    position: fixed;
 }
 
-ul li {
+.skillsList li,ul.ui-autocomplete.ui-menu li  {
    padding: 5px;
    margin-left: 15px;
    text-align: left;

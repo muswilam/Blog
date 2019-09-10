@@ -264,6 +264,17 @@ namespace Blog.Controllers
                 .First() : new Post() { Id = -1 , Tags = new List<Tag>()};
         }
 
+        //autocomplete search
+        public JsonResult GetCompeletedSearch(string term)
+        {
+            var postComplete = context.Posts
+                .Where(p => p.Title.StartsWith(term))
+                .Select(p => p.Title)
+                .ToList();
+
+            return Json(postComplete, JsonRequestBehavior.AllowGet);
+        }
+
         public bool IsAdmin 
         {
             get 
