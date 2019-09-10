@@ -7,7 +7,8 @@ using Blog.Models;
 using System.Security.Cryptography;
 using System.Text;
 using Blog.ViewModel;
-using System.Globalization;
+using Blog.Common;
+using System.Data.Entity;
 
 namespace Blog.Controllers
 {
@@ -98,25 +99,39 @@ namespace Blog.Controllers
 
         public ActionResult AboutAdmin()
         {
-            var admin = context.Administrators.Where(a => a.Name.Equals("Muhammad Swilam")).First();
+            var admin = context.Administrators.Where(a => a.UserName.Equals("Admin")).First();
 
-            //get list of countries 
-            List<string> countryList = new List<string>();
-            CultureInfo[] CInfoList = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-
-            foreach(CultureInfo CInfo in CInfoList)
-            {
-                RegionInfo r = new RegionInfo(CInfo.LCID);
-                if(!(countryList.Contains(r.EnglishName)))
-                {
-                    countryList.Add(r.EnglishName);
-                }
-            }
-
-            countryList.Sort();
-            ViewBag.countries = countryList;
+            ViewBag.countries = CountriesList.Countries();
 
             return View(admin);
+        }
+
+        [HttpPost]
+        public JsonResult Edit([Bind(Exclude = "UserName,Password,PicUrl")] Administrator adminModel)
+        {
+            var admin = context.Administrators.Where(a => a.Id == adminModel.Id).First();
+
+            bool result;
+
+            if(!ModelState.IsValid)
+            {
+                return Json(new { success = false, message = "Invalid Inputs." });
+            }
+
+            admin.Name = adminModel.Name;
+            admin.Email = adminModel.Email;
+            admin.Education = adminModel.Education;
+            admin.Country = adminModel.Country;
+            admin.Birthdate = adminModel.Birthdate;
+            admin.Bio = adminModel.Bio;
+
+            context.Entry(admin).State = EntityState.Modified;
+            result = context.SaveChanges() > 0;
+
+            if (result)
+                return Json(new { success = true });
+            else
+                return Json(new { success = false, message = "OPPS! Something went wrong." });
         }
     }
 }

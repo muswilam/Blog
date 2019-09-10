@@ -4,6 +4,9 @@
     ViewBag.Title = "Swilam";
 }
 
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
 <div class="about-section">
     <div class="inner-width">
         <h1></h1>
@@ -22,17 +25,18 @@
                         <!-- Modal content -->
                         <div class="modal-content">
                             <span class="close">&times;</span>
-                                <form class="pure-form pure-form-aligned">
+
+                                <form class="pure-form pure-form-aligned" id="editForm">
                                     <fieldset>
                                         <input type="hidden" name="id" value="@Model.Id" />
                                         <div class="pure-control-group">
                                             <label for="name">Name</label>
-                                            <input id="name" name="name" type="text" value="@Model.Name" placeholder="Name.">
+                                            <input id="name" name="name" type="text" value="@Model.Name" required placeholder="Name.">
                                         </div>
 
                                         <div class="pure-control-group">
                                             <label for="email">Email Address</label>
-                                            <input id="email" type="email" value="@Model.Email" placeholder="Email Address.">
+                                            <input id="email" name="email" type="email" value="@Model.Email" required placeholder="Email Address.">
                                         </div>
 
                                         <div class="pure-control-group">
@@ -47,15 +51,22 @@
 
                                         <div class="pure-control-group">
                                             <label for="biography">Biography</label>
-                                            <textarea id="Biography" name="Biography" type="text" placeholder="Bio.">@Model.Bio</textarea>
+                                            <textarea id="bio" name="bio" type="text" placeholder="Bio.">@Model.Bio</textarea>
                                         </div>
+
                                         <div class="pure-control-group">
                                             <label for="Country">Location</label>
                                             @Html.DropDownListFor(x => x.Country, new SelectList(ViewBag.countries), new { @class = "pure-input-1-2" })
                                         </div>
 
+                                        <div class="pure-control-group">
+                                            <div id="errorDiv" class="alert" style="display:none"></div>
+                                        </div>
+
                                         <div class="pure-controls">
-                                            <button type="submit" class="pure-button pure-button-primary">Save</button>
+                                            <button type="button" id="save" data-href="@Href("~/accounts/edit")" class="pure-button pure-button-primary">
+                                                <i class="fa fa-save"></i> Save
+                                            </button>
                                         </div>
                                     </fieldset>
                                 </form>
@@ -78,7 +89,7 @@
     <div class="about-section-row">
         <div class="about">
             <h1 class="about-label" style="padding-left:10px;"><i class="fa fa-info-circle" aria-hidden="true"></i> Bio</h1>
-            <p class="about-label p1" style="padding-top:1em;">@Model.Bio</p>
+            <p class="about-label p1" style="padding-top:2em;">@Model.Bio</p>
         </div>
 
         <div class="about-section">
@@ -151,4 +162,25 @@
             modal.style.display = "none";
         }
     }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#save").click(function () {
+            var linkUrl = $(this).attr("data-href");
+            $.ajax({
+                url: linkUrl,
+                type: 'Post',
+                data: $("#editForm").serialize()
+            })
+            .done(function (result) {
+                if (result.success) {
+                    location.reload();
+                } else {
+                    $("#errorDiv").show();
+                    $("#errorDiv").html(result.message);
+                }
+            });
+        });
+    });
 </script>

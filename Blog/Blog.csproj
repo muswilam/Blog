@@ -143,6 +143,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\CountriesList.cs" />
     <Compile Include="Common\PageSize.cs" />
     <Compile Include="Common\TotalTrendingTags.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
