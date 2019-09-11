@@ -1,4 +1,4 @@
-﻿@model Blog.Models.Administrator
+﻿@model Blog.ViewModel.AboutAdminViewModel
 
 @{
     ViewBag.Title = "Swilam";
@@ -13,7 +13,7 @@
         <div class="about-section-row">
             <div class="about-section-col">
                 <div class="image">
-                    <img id="portrait" src="@Url.Content(Model.PicUrl)" alt="Portrait" />
+                    <img id="portrait" src="@Url.Content(Model.Administrator.PicUrl)" alt="Portrait" />
                 </div>
                 @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true)
                 {
@@ -28,35 +28,41 @@
 
                                 <form class="pure-form pure-form-aligned" id="editForm">
                                     <fieldset>
-                                        <input type="hidden" name="id" value="@Model.Id" />
+                                        <input type="hidden" name="id" value="@Model.Administrator.Id" />
                                         <div class="pure-control-group">
                                             <label for="name">Name</label>
-                                            <input id="name" name="name" type="text" value="@Model.Name" required placeholder="Name.">
+                                            <input id="name" name="name" type="text" value="@Model.Administrator.Name" required placeholder="Name.">
                                         </div>
 
                                         <div class="pure-control-group">
                                             <label for="email">Email Address</label>
-                                            <input id="email" name="email" type="email" value="@Model.Email" required placeholder="Email Address.">
+                                            <input id="email" name="email" type="email" value="@Model.Administrator.Email" required placeholder="Email Address.">
                                         </div>
 
                                         <div class="pure-control-group">
                                             <label for="education">Education</label>
-                                            <input id="education" name="education" type="text" value="@Model.Education" placeholder="Education.">
+                                            <input id="education" name="education" type="text" value="@Model.Administrator.Education" placeholder="Education.">
                                         </div>
 
                                         <div class="pure-control-group">
                                             <label for="birthdate">Birthdate</label>
-                                            <input id="birthdate" name="birthdate" value="@Model.Birthdate" type="date">
+                                            <input id="birthdate" name="birthdate" value="@Model.Administrator.Birthdate" type="date">
                                         </div>
 
                                         <div class="pure-control-group">
                                             <label for="biography">Biography</label>
-                                            <textarea id="bio" name="bio" type="text" placeholder="Bio.">@Model.Bio</textarea>
+                                            <textarea id="bio" name="bio" type="text" placeholder="Bio.">@Model.Administrator.Bio</textarea>
                                         </div>
 
                                         <div class="pure-control-group">
                                             <label for="Country">Location</label>
-                                            @Html.DropDownListFor(x => x.Country, new SelectList(ViewBag.countries), new { @class = "pure-input-1-2" })
+                                            @*@Html.DropDownListFor(x => x.Administrator.Country, new SelectList(ViewBag.countries), new { @class = "pure-input-1-2" })*@
+                                            <select class="pure-input-1-2" name="country">
+                                                @foreach (var country in ViewBag.countries)
+                                                {
+                                                    <option value="@country" @( country == Model.Administrator.Country ? "selected" : string.Empty)>@country</option>
+                                                }
+                                            </select>
                                         </div>
 
                                         <div class="pure-control-group">
@@ -76,10 +82,10 @@
             </div>
             <div class="about-section-col">
                 <div class="info">
-                    <label class="about-label"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @Model.Name </label>
-                    <label class="about-label"><i class="fa fa-university" aria-hidden="true"></i> @Model.Education </label>
-                    <label class="about-label"><i class="fa fa-calendar" aria-hidden="true"></i> Born on @Model.Birthdate.Value.Date.ToShortDateString() </label>
-                    <label class="about-label"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>  @Model.Country </label>
+                    <label class="about-label"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @Model.Administrator.Name </label>
+                    <label class="about-label"><i class="fa fa-university" aria-hidden="true"></i> @Model.Administrator.Education </label>
+                    <label class="about-label"><i class="fa fa-calendar" aria-hidden="true"></i> Born on @Model.Administrator.Birthdate.Value.Date.ToShortDateString() </label>
+                    <label class="about-label"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>  @Model.Administrator.Country </label>
                 </div>
             </div>
         </div>
@@ -89,7 +95,7 @@
     <div class="about-section-row">
         <div class="about">
             <h1 class="about-label" style="padding-left:10px;"><i class="fa fa-info-circle" aria-hidden="true"></i> Bio</h1>
-            <p class="about-label p1" style="padding-top:2em;">@Model.Bio</p>
+            <p class="about-label p1" style="padding-top:2em;">@Model.Administrator.Bio</p>
         </div>
 
         <div class="about-section">
@@ -126,7 +132,7 @@
                                 <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
                             </a>
                             <a href="MailTo://@Model.Email">
-                                <i class="fa fa-envelope" aria-hidden="true"></i> @Model.Email
+                                <i class="fa fa-envelope" aria-hidden="true"></i> @Model.Administrator.Email
                             </a>
                         </div>
                     </div>

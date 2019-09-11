@@ -99,17 +99,19 @@ namespace Blog.Controllers
 
         public ActionResult AboutAdmin()
         {
-            var admin = context.Administrators.Where(a => a.UserName.Equals("Admin")).First();
+            AboutAdminViewModel adminModel = new AboutAdminViewModel();
+
+            adminModel.Administrator = context.Administrators.Where(a => a.UserName.Equals("Admin")).First();
 
             ViewBag.countries = CountriesList.Countries();
 
-            return View(admin);
+            return View(adminModel);
         }
 
         [HttpPost]
-        public JsonResult Edit([Bind(Exclude = "UserName,Password,PicUrl")] Administrator adminModel)
+        public JsonResult Edit(AboutAdminViewModel adminModel)
         {
-            var admin = context.Administrators.Where(a => a.Id == adminModel.Id).First();
+            var adminFromDB = context.Administrators.Where(a => a.Id == adminModel.Id).First();
 
             bool result;
 
@@ -118,14 +120,14 @@ namespace Blog.Controllers
                 return Json(new { success = false, message = "Invalid Inputs." });
             }
 
-            admin.Name = adminModel.Name;
-            admin.Email = adminModel.Email;
-            admin.Education = adminModel.Education;
-            admin.Country = adminModel.Country;
-            admin.Birthdate = adminModel.Birthdate;
-            admin.Bio = adminModel.Bio;
+            adminFromDB.Name = adminModel.Name;
+            adminFromDB.Email = adminModel.Email;
+            adminFromDB.Education = adminModel.Education;
+            adminFromDB.Country = adminModel.Country;
+            adminFromDB.Birthdate = adminModel.Birthdate;
+            adminFromDB.Bio = adminModel.Bio;
 
-            context.Entry(admin).State = EntityState.Modified;
+            context.Entry(adminFromDB).State = EntityState.Modified;
             result = context.SaveChanges() > 0;
 
             if (result)
