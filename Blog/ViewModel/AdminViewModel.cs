@@ -41,5 +41,9 @@ namespace Blog.ViewModel
 
         [MaxLength(500)]
         public string Bio { get; set; }
+
+        public List<string> SkillsTypes { get; set; }
+
+        public Skill Skill { get; set; }
     }
 }

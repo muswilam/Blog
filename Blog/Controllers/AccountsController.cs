@@ -102,6 +102,8 @@ namespace Blog.Controllers
             AboutAdminViewModel adminModel = new AboutAdminViewModel();
 
             adminModel.Administrator = context.Administrators.Include(a => a.Skills).Where(a => a.UserName.Equals("Admin")).First();
+            adminModel.SkillsTypes = context.Skills.Select(s => s.Type).Distinct().ToList();
+            adminModel.Skill = new Skill();
 
             ViewBag.countries = CountriesList.Countries();
 
@@ -134,6 +136,55 @@ namespace Blog.Controllers
                 return Json(new { success = true });
             else
                 return Json(new { success = false, message = "OPPS! Something went wrong." });
+        }
+
+        public JsonResult AddSkill(int adminId , SkillViewModel skillModel)
+        {
+            var admin = context.Administrators.Include(a => a.Skills).Where(a => a.Id == adminId).First();
+
+            var skillDb = context.Skills.Where(s => s.Name.ToLower() == skillModel.Name.ToLower()).FirstOrDefault();
+
+            bool result = false;
+
+            if(!ModelState.IsValid)
+            {
+                return Json(new { success = false, message = "Invalid skill name" });
+            }
+
+            Skill skill = new Skill();
+            skill.Name = skillModel.Name;
+            skill.Type = skillModel.Type;
+
+            if(skillDb == null)
+            {
+                context.Skills.Add(skill);
+                admin.Skills.Add(skill);
+
+                result = context.SaveChanges() > 0;
+
+                if (result)
+                    return Json(new { success = true });
+                else
+                    return Json(new { success = false, message = "OPPS! Something went wrong." });
+            }
+            else
+            {
+                var skillExist = admin.Skills.Where(s => s.Name.ToLower() == skillDb.Name.ToLower()).FirstOrDefault();
+
+                if (skillExist == null)
+                {
+                    admin.Skills.Add(skill);
+
+                    result = context.SaveChanges() > 0;
+
+                    if (result)
+                        return Json(new { success = true });
+                    else
+                        return Json(new { success = false, message = "OPPS! Something went wrong." });
+                }
+
+                return Json(new { success = false, message = "Skill added before." });
+            }
         }
     }
 }

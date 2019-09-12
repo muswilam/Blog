@@ -26,32 +26,31 @@
                                 <input type="hidden" name="id" value="@Model.Administrator.Id" />
                                 <div class="pure-control-group">
                                     <label for="name">Name</label>
-                                    <input id="name" name="name" type="text" value="@Model.Administrator.Name" required placeholder="Name.">
+                                    <input id="name" name="name" type="text" class="pure-input-1-2" value="@Model.Administrator.Name" required placeholder="Name.">
                                 </div>
 
                                 <div class="pure-control-group">
                                     <label for="email">Email Address</label>
-                                    <input id="email" name="email" type="email" value="@Model.Administrator.Email" required placeholder="Email Address.">
+                                    <input id="email" name="email" type="email" class="pure-input-1-2" value="@Model.Administrator.Email" required placeholder="Email Address.">
                                 </div>
 
                                 <div class="pure-control-group">
                                     <label for="education">Education</label>
-                                    <input id="education" name="education" type="text" value="@Model.Administrator.Education" placeholder="Education.">
+                                    <input id="education" name="education" class="pure-input-1-2" type="text" value="@Model.Administrator.Education" placeholder="Education.">
                                 </div>
 
                                 <div class="pure-control-group">
                                     <label for="birthdate">Birthdate</label>
-                                    <input id="birthdate" name="birthdate" value="@Model.Administrator.Birthdate" type="date">
+                                    <input class="pure-input-1-2" id="birthdate" name="birthdate" value="@Model.Administrator.Birthdate" type="date">
                                 </div>
 
                                 <div class="pure-control-group">
                                     <label for="biography">Biography</label>
-                                    <textarea id="bio" name="bio" type="text" placeholder="Bio.">@Model.Administrator.Bio</textarea>
+                                    <textarea id="bio" name="bio" class="pure-input-1-2" type="text" placeholder="Bio.">@Model.Administrator.Bio</textarea>
                                 </div>
 
                                 <div class="pure-control-group">
                                     <label for="Country">Location</label>
-                                    @*@Html.DropDownListFor(x => x.Administrator.Country, new SelectList(ViewBag.countries), new { @class = "pure-input-1-2" })*@
                                     <select class="pure-input-1-2" name="country">
                                         @foreach (var country in ViewBag.countries)
                                         {
@@ -59,7 +58,6 @@
                                         }
                                     </select>
                                 </div>
-
                                 <div class="pure-control-group">
                                     <div id="errorDiv" class="alert" style="display:none"></div>
                                 </div>
@@ -73,14 +71,14 @@
                         </form>
                     </div>
                 }
-                
+
                 <div class="image">
                     <img id="portrait" src="@Url.Content(Model.Administrator.PicUrl)" alt="Portrait" />
                 </div>
 
             </div>
             <div class="about-section-col">
-              
+
                 <div class="info">
                     <label class="about-label"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @Model.Administrator.Name </label>
                     <label class="about-label"><i class="fa fa-university" aria-hidden="true"></i> @Model.Administrator.Education </label>
@@ -101,67 +99,137 @@
         </div>
 
         <div class="about-section">
+
             <div class="about-section-row">
-                @* auto for adding more skills." *@
                 <div class="about-section-col" style="height:auto">
                     <div class=" about" style="padding:10px;">
                         <h1 class="about-label" style="color:#9c279a"><i class="fa fa-cogs" aria-hidden="true"></i> Skills</h1>
 
-                        <div class="about">
-                            <a class="fronSkills" href="#front-skills-modal" rel="modal:open">Front-End</a>
-                        </div>
-                        <div class="about">
-                            <a class="backSkills" href="#back-skills-modal" rel="modal:open">Back-End</a>
-                        </div>
+                        @* Add Skill to admin *@
 
-                        <div id="front-skills-modal" class="modal">
-                            <label class="about-label" style="color:#3d6193">Front-End</label>
-                            <ul class="skillsList" style="position:static;">
-                                @foreach (var skill in Model.Administrator.Skills.Where(s => s.Type == "Front-End").ToList())
-                                {
-                                <li style="color:#3d6193">@skill.Name</li>
-                                }
-                            </ul>
-                        </div>
-
-                        <div id="back-skills-modal" class="modal">
-                            <label class="about-label" style="color:#9c279a">Back-End</label>
-                            <ul class="skillsList" style="position:static;">
-                                @foreach (var skill in Model.Administrator.Skills.Where(s => s.Type == "Back-End").ToList())
-                                {
-                                <li style="color:#9c279a">@skill.Name</li>
-                                }
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="about-section-col">
-                        <h1 class="about-label" style="padding:10px;color:#e74c3c"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contact</h1>
-                        <div class="about-section">
-                            <div class="about" style="display:grid; width:300px;">
-                                <a href="https://twitter.com/muswilam">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
-                                </a>
-                                <a href="https://github.com/muswilam">
-                                    <i class="fa fa-github" aria-hidden="true"></i> GitHub
-                                </a>
-                                <a href="https://www.linkedin.com/in/muhammad-swilam-a479a1b0/">
-                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
-                                </a>
-                                <a href="MailTo://@Model.Email">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i> @Model.Administrator.Email
-                                </a>
+                        @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true)
+                        {
+                            <div class="about">
+                                <a href="#add-skills" rel="modal:open" style="float:right; padding:7px 13px"><i class="fa fa-pencil"></i> Add Skills</a>
                             </div>
+
+                            <div id="add-skills" class="modal">
+                                <form class="pure-form pure-form-aligned" id="addSkillsForm">
+                                    <fieldset>
+                                        <input type="hidden" name="id" value="@Model.Skill.Id" />
+                                        <div class="pure-control-group">
+                                            <label for="skillName">Name</label>
+                                            <input id="skillName" name="name" class="pure-input-1-2" required placeholder="Skill name.."/>
+                                        </div>
+
+                                        <div class="pure-control-group">
+                                            <label for="type">Type</label>
+                                            <select class="pure-input-1-2" name="type">
+                                                @foreach (var skillType in Model.SkillsTypes)
+                                            {
+                                            <option value="@skillType">
+                                                @skillType
+                                            </option>
+                                            }
+                                            </select>
+                                        </div>
+
+                                        <div class="pure-control-group">
+                                            <div id="skillsErrorDiv" class="alert" style="display:none"> </div>
+                                        </div>
+
+                                        <div class="pure-controls">
+                                            <button type="button" id="addSkill" data-href="@Href("~/accounts/AddSkill?adminId="+Model.Administrator.Id)" class="pure-button pure-button-primary">
+                                                <i class="fa fa-save"></i> Save
+                                            </button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        }
+                    </div>
+
+                    @* Buttons for open modals : Front & back *@
+                    <div class="about">
+                        <div class="about-section-row" style="margin-top:30px; padding-left:40px;">
+                            <a class="fronSkills" href="#front-skills-modal" rel="modal:open" style="margin-right:5px;">Front-End</a>
+
+                            <a class="backSkills" href="#back-skills-modal" rel="modal:open" style="margin-right:5px;">Back-End</a>
+                        </div>
+                    </div>
+
+                    @* Front-End Skills Modal *@
+                    <div id="front-skills-modal" class="modal">
+                        <label class="about-label" style="color:#3d6193">Front-End</label>
+                        <ul class="skillsList" style="position:static;">
+                            @foreach (var skill in Model.Administrator.Skills.Where(s => s.Type == "Front-End").ToList())
+                            {
+                                <li style="color:#3d6193">@skill.Name</li>
+                            }
+                        </ul>
+                    </div>
+
+                    @* Back-End Skills Modal *@
+                    <div id="back-skills-modal" class="modal">
+                        <label class="about-label" style="color:#9c279a">Back-End</label>
+                        <ul class="skillsList" style="position:static;">
+                            @foreach (var skill in Model.Administrator.Skills.Where(s => s.Type == "Back-End").ToList())
+                            {
+                                <li style="color:#9c279a">@skill.Name</li>
+                            }
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="about-section-row">
+                <div class="about-section-col">
+                    <h1 class="about-label" style="padding:10px;color:#e74c3c"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contact</h1>
+                    <div class="about-section">
+                        <div class="about" style="display:grid; width:300px;">
+                            <a href="https://twitter.com/muswilam">
+                                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
+                            </a>
+                            <a href="https://github.com/muswilam">
+                                <i class="fa fa-github" aria-hidden="true"></i> GitHub
+                            </a>
+                            <a href="https://www.linkedin.com/in/muhammad-swilam-a479a1b0/">
+                                <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+                            </a>
+                            <a href="MailTo://@Model.Email">
+                                <i class="fa fa-envelope" aria-hidden="true"></i> @Model.Administrator.Email
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
+        $("#addSkill").click(function () {
+            var linkUrl = $(this).attr("data-href");
+            $.ajax({
+                url: linkUrl,
+                type: 'Post',
+                data: $("#addSkillsForm").serialize()
+            })
+            .done(function (result) {
+                if (result.success) {
+                    $("#skillName").val('');
+                    location.reload();
+                } else {
+                    $("#skillsErrorDiv").show();
+                    $("#skillsErrorDiv").html("<i class='fa fa-bell'></i> " + result.message);
+                }
+            });
+        })
+
         $("#save").click(function () {
             var linkUrl = $(this).attr("data-href");
             $.ajax({
@@ -174,7 +242,7 @@
                     location.reload();
                 } else {
                     $("#errorDiv").show();
-                    $("#errorDiv").html(result.message);
+                    $("#errorDiv").html("<i class='fa fa-bell'></i> " + result.message);
                 }
             });
         });
