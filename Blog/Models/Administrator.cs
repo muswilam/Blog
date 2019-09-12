@@ -35,5 +35,8 @@ namespace Blog.Models
 
         [MaxLength(200)]
         public string PicUrl { get; set; }
+
+        //nav props 
+        public ICollection<Skill> Skills { get; set; }
     }
 }

@@ -184,11 +184,20 @@
     <Compile Include="Migrations\201909041707196_AddUserNameColumnInAdminTable.Designer.cs">
       <DependentUpon>201909041707196_AddUserNameColumnInAdminTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909121147284_CreateSkillsTable.cs" />
+    <Compile Include="Migrations\201909121147284_CreateSkillsTable.Designer.cs">
+      <DependentUpon>201909121147284_CreateSkillsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909121156084_MakeManyToManyRelationshipBetweenAdminsAndSkillsTables.cs" />
+    <Compile Include="Migrations\201909121156084_MakeManyToManyRelationshipBetweenAdminsAndSkillsTables.Designer.cs">
+      <DependentUpon>201909121156084_MakeManyToManyRelationshipBetweenAdminsAndSkillsTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\BlogContext.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminViewModel.cs" />
@@ -335,6 +344,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909041707196_AddUserNameColumnInAdminTable.resx">
       <DependentUpon>201909041707196_AddUserNameColumnInAdminTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121147284_CreateSkillsTable.resx">
+      <DependentUpon>201909121147284_CreateSkillsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121156084_MakeManyToManyRelationshipBetweenAdminsAndSkillsTables.resx">
+      <DependentUpon>201909121156084_MakeManyToManyRelationshipBetweenAdminsAndSkillsTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

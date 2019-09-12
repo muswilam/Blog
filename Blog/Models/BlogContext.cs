@@ -16,5 +16,16 @@ namespace Blog.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //name bridge table between admin and skills 
+            modelBuilder.Entity<Administrator>()
+                .HasMany(a => a.Skills)
+                .WithMany(s => s.Administrators)
+                .Map
+                (m => m.ToTable("AdministratorSkills"));
+        }
     }
 }
