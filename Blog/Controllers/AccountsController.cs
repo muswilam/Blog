@@ -101,7 +101,7 @@ namespace Blog.Controllers
         {
             AboutAdminViewModel adminModel = new AboutAdminViewModel();
 
-            adminModel.Administrator = context.Administrators.Where(a => a.UserName.Equals("Admin")).First();
+            adminModel.Administrator = context.Administrators.Include(a => a.Skills).Where(a => a.UserName.Equals("Admin")).First();
 
             ViewBag.countries = CountriesList.Countries();
 

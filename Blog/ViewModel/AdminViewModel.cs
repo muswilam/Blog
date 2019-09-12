@@ -41,6 +41,5 @@ namespace Blog.ViewModel
 
         [MaxLength(500)]
         public string Bio { get; set; }
-
     }
 }
