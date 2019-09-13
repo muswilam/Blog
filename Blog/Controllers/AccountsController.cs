@@ -102,8 +102,14 @@ namespace Blog.Controllers
             AboutAdminViewModel adminModel = new AboutAdminViewModel();
 
             adminModel.Administrator = context.Administrators.Include(a => a.Skills).Where(a => a.UserName.Equals("Admin")).First();
+
+            DateTime dateTime = new DateTime(1900, 1, 1);
+            adminModel.Administrator.Birthdate = adminModel.Administrator.Birthdate ?? dateTime;
+
             adminModel.SkillsTypes = context.Skills.Select(s => s.Type).Distinct().ToList();
             adminModel.Skill = new Skill();
+
+            adminModel.IsAdmin = Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true;
 
             ViewBag.countries = CountriesList.Countries();
 
@@ -185,6 +191,24 @@ namespace Blog.Controllers
 
                 return Json(new { success = false, message = "Skill added before." });
             }
+        }
+
+        public JsonResult DeleteSkill(int id)
+        {
+            var skillDb = context.Skills.Where(s => s.Id == id).FirstOrDefault();
+
+            if (skillDb != null)
+            {
+                context.Skills.Remove(skillDb);
+                bool result = context.SaveChanges() > 0;
+
+                if (result)
+                    return Json(new { success = true });
+
+                return Json(new { success = false, message = "OPPS! Something went wrong." });
+            }
+
+            return Json(new { success = false, message = "Skill not exists." } , JsonRequestBehavior.AllowGet);
         }
     }
 }

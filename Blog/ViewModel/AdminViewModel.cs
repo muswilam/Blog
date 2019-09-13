@@ -7,6 +7,7 @@ using Blog.Models;
 
 namespace Blog.ViewModel
 {
+    //for login
     public class AdminViewModel
     {
         [Required(ErrorMessage = "User Name's Required")]
@@ -18,7 +19,8 @@ namespace Blog.ViewModel
 
         public string PassErrorMsg { get; set; }
     }
-
+    
+    //for editiing admin profile
     public class AboutAdminViewModel
     {
         public Administrator Administrator { get; set; }
@@ -45,5 +47,7 @@ namespace Blog.ViewModel
         public List<string> SkillsTypes { get; set; }
 
         public Skill Skill { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

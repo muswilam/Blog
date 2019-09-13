@@ -14,7 +14,7 @@
         <div class="about-section-row">
             <div class="about-section-col">
                 @* Edit Modal if you admin *@
-                @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true)
+                @if (Model.IsAdmin)
                 {
                     <div class="edit-admin about">
                         <a href="#myModal" rel="modal:open" style="float:right; padding:7px 13px"><i class="fa fa-pencil"></i> Edit profile</a>
@@ -41,7 +41,7 @@
 
                                 <div class="pure-control-group">
                                     <label for="birthdate">Birthdate</label>
-                                    <input class="pure-input-1-2" id="birthdate" name="birthdate" value="@Model.Administrator.Birthdate" type="date">
+                                    <input class="pure-input-1-2" id="birthdate" name="birthdate" value="@Model.Administrator.Birthdate.Value.ToShortDateString()" type="text" onfocus="this.type='date'">
                                 </div>
 
                                 <div class="pure-control-group">
@@ -107,7 +107,7 @@
 
                         @* Add Skill to admin *@
 
-                        @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true)
+                        @if (Model.IsAdmin)
                         {
                             <div class="about">
                                 <a href="#add-skills" rel="modal:open" style="float:right; padding:7px 13px"><i class="fa fa-pencil"></i> Add Skills</a>
@@ -119,18 +119,18 @@
                                         <input type="hidden" name="id" value="@Model.Skill.Id" />
                                         <div class="pure-control-group">
                                             <label for="skillName">Name</label>
-                                            <input id="skillName" name="name" class="pure-input-1-2" required placeholder="Skill name.."/>
+                                            <input id="skillName" name="name" class="pure-input-1-2" required placeholder="Skill name.." />
                                         </div>
 
                                         <div class="pure-control-group">
                                             <label for="type">Type</label>
                                             <select class="pure-input-1-2" name="type">
                                                 @foreach (var skillType in Model.SkillsTypes)
-                                            {
-                                            <option value="@skillType">
-                                                @skillType
-                                            </option>
-                                            }
+                                                {
+                                                    <option value="@skillType">
+                                                        @skillType
+                                                    </option>
+                                                }
                                             </select>
                                         </div>
 
@@ -159,28 +159,46 @@
                     </div>
 
                     @* Front-End Skills Modal *@
-                    <div id="front-skills-modal" class="modal">
+                    <div id="front-skills-modal" class="skillsModal modal">
                         <label class="about-label" style="color:#3d6193">Front-End</label>
                         <ul class="skillsList" style="position:static;">
                             @foreach (var skill in Model.Administrator.Skills.Where(s => s.Type == "Front-End").ToList())
                             {
-                                <li style="color:#3d6193">@skill.Name</li>
+                                <li style="color:#3d6193" data-id="@skill.Id">
+                                    @skill.Name
+
+                                    @if (Model.IsAdmin)
+                                    {
+                                        <span class="deleteSkill" style="float:right"> &times; </span>
+                                    }
+                                </li>
                             }
                         </ul>
+                        <div class="pure-control-group">
+                            <div class="deleteError alert" style="display:none"> </div>
+                        </div>
                     </div>
 
                     @* Back-End Skills Modal *@
-                    <div id="back-skills-modal" class="modal">
+                    <div id="back-skills-modal" class="skillsModal modal">
                         <label class="about-label" style="color:#9c279a">Back-End</label>
                         <ul class="skillsList" style="position:static;">
                             @foreach (var skill in Model.Administrator.Skills.Where(s => s.Type == "Back-End").ToList())
                             {
-                                <li style="color:#9c279a">@skill.Name</li>
+                                <li style="color:#9c279a" data-id="@skill.Id">
+                                    @skill.Name
+
+                                    @if (Model.IsAdmin)
+                                    {
+                                        <span class="deleteSkill" style="float:right"> &times; </span>
+                                    }
+                                </li>
                             }
                         </ul>
+                        <div class="pure-control-group">
+                            <div class="deleteError alert" style="display:none"> </div>
+                        </div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -245,6 +263,23 @@
                     $("#errorDiv").html("<i class='fa fa-bell'></i> " + result.message);
                 }
             });
+        });
+
+        $('.deleteSkill').on('click', function () {
+            var li = $(this).parent();
+            var liId = li.attr("data-id");
+            var linkUrl = "@Href("~/accounts/DeleteSkill/")" + liId;
+            $.ajax({
+                url: linkUrl,
+                type: 'Post',
+            }).done(function (result) {
+                if (result.success) {
+                    li.remove();
+                } else {
+                    $("#deleteError").show();
+                    $("#deleteError").html("<i class='fa fa-bell'></i> " + result.message);
+                }
+            })
         });
     });
 </script>

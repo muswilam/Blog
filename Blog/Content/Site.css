@@ -545,6 +545,12 @@
     color: #fff !important;
     background-color: #9c279a !important;
 }
+
+.deleteSkill {
+    cursor: pointer;
+    color: red;
+}
+
 .p1{
   width: 90%;
 }
