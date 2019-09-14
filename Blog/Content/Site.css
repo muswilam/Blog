@@ -432,6 +432,13 @@
     max-width:100%;
 }
 
+.img {
+    border-radius: 50%;
+    display: inline-block;
+    width: 20px;
+    height:20px;
+}
+
 #main {
     min-height: 380px;
     margin-top: 48px;

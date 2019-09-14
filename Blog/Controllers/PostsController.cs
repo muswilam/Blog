@@ -237,6 +237,8 @@ namespace Blog.Controllers
         {
             postModel.Tags = context.Tags.Where(t => t.Posts.Count() >= TotalTrendingTags.TrendingTagsNumber).Include(t => t.Posts).ToList();
             postModel.IsAdmin = IsAdmin;
+            ViewBag.adminPic = AdminPicUrl();
+
             return PartialView("_NavBar",postModel);
         }
 
@@ -246,7 +248,14 @@ namespace Blog.Controllers
             int currentPage = page ?? 1;
             var tag = GetTagFromDb(tagName);
             ViewBag.IsAdmin = IsAdmin;
+
             return tag.Posts.ToPagedList(currentPage, PageSize.pagePosts);
+        }
+
+        private string AdminPicUrl()
+        {
+            var adminDb = context.Administrators.Where(a => a.UserName.ToLower() == "admin").First();
+            return adminDb.PicUrl;
         }
 
         private Tag GetTagFromDb(string tagName)
