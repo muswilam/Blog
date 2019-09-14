@@ -407,23 +407,12 @@
     background-color: #0911a9;
 }
 
-
-
-/*#sidebar {
-    float: right;
-    margin-right: 50px;
-   
-    width: 200px;
-    position: fixed;
-    top: 0;
-    right: 0;
-}*/
-
 .image {
     overflow:hidden;
     border-radius: 50%;
     height: 200px;
     width: 200px;
+    border: 5px solid #3d6193;
 }
 
 #portrait {

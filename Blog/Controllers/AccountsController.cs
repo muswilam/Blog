@@ -132,6 +132,7 @@ namespace Blog.Controllers
             adminFromDB.Email = adminModel.Email;
             adminFromDB.Education = adminModel.Education;
             adminFromDB.Country = adminModel.Country;
+            adminFromDB.Headline = adminModel.Headline;
             adminFromDB.Birthdate = adminModel.Birthdate;
             adminFromDB.Bio = adminModel.Bio;
 

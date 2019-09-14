@@ -22,6 +22,9 @@ namespace Blog.Models
         [Required, MaxLength(128)]
         public string Password { get; set; }
 
+        [MaxLength(256)]
+        public string Headline { get; set; }
+
         public DateTime? Birthdate { get; set; }
 
         [MaxLength(200)]
