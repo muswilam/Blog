@@ -117,19 +117,25 @@
     });
 
     // (on) need to use delegation based event handlers for wiring up future elements 
-    $(document).on('click', '#deleteLink' ,function () {
+    $(document).on('click', '#deleteLink', function () {
+        var commentName = $(this).attr("data-name");
+        var confirmation = confirm("Are yoou sure, You wanna delete " + commentName + "'s comment.");
         var link = $(this).attr("data-href");
-        $.ajax({
-            url: link,
-            type: 'Post'
-        })
-        .done(function (result) {
-            if (result.success) {
-                $(".comments").load(window.location.href + " #commentsDiv"); // little space before # so important for adding not passing 
-            } else {
-                alert(result.message);
-            };
-        });
-    });
 
+        if (confirmation) {
+            $.ajax({
+                url: link,
+                type: 'Post'
+            })
+             .done(function (result) {
+                 if (result.success) {
+                     $(".comments").load(window.location.href + " #commentsDiv"); // little space before # so important for adding not passing 
+                 } else {
+                     alert(result.message);
+                 };
+             });
+            debugger;
+        }
+        debugger;
+    });
 </script>

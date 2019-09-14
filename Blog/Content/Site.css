@@ -563,6 +563,16 @@
 
 .modal {
     background-color: #181928 !important;
+    color: white !important;
+}
+
+.modal input[type] , .modal textarea , .modal select , .modal select option {
+    border: 1px solid #656363;
+    background-color: #17162c;
+}
+
+.modal input[type]:hover , .modal textarea:hover , .modal select:hover {
+   background-color: #656363;
 }
 
 .skillsList ,ul.ui-autocomplete.ui-menu {

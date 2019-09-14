@@ -21,7 +21,7 @@
 
         <div class="inputCenterContainer">
             <label class="inputLabel">User_Name</label> <br />
-            <input type="text" class="inputTextBox" name="userName" id="name"/>
+            <input type="text" class="inputTextBox" name="userName" id="name" autofocus="autofocus" />
             <label id="lbl" class="text-danger">@Model.AdminErrorMsg</label><br />
             @Html.ValidationMessageFor(x => x.UserName, "", new { id = "fieldValidate" , @class = "text-danger"})
            
@@ -39,3 +39,4 @@
     </form>
 
 </div>
+

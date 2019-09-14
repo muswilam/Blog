@@ -89,7 +89,7 @@
                         @if (isAdmin)
                         {
                             <div class="commentControlPanel">
-                                <button type="button" id="deleteLink" class="inputSubmit" onclick="return confirm('Are you sure. you wanna delete @comment.Name \'s comment');" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">
+                                <button type="button" id="deleteLink" class="inputSubmit" data-name="@comment.Name" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">
                                     <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
                                 </button>
                             </div>
