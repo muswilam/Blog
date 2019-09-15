@@ -59,7 +59,7 @@ namespace Blog.Controllers
 
             if (admin == null || string.IsNullOrWhiteSpace(nonce))
             {
-                initAdminModel.AdminErrorMsg = "Invalid Admin";
+                initAdminModel.AdminErrorMsg = "Invalid user name.";
                 return View(initAdminModel);
             }
 
@@ -83,7 +83,7 @@ namespace Blog.Controllers
                 Session["IsAdmin"] = passwordMatch;
             else
             {
-                initAdminModel.PassErrorMsg = "Invalid Password.";
+                initAdminModel.PassErrorMsg = "Invalid password.";
                 return View(initAdminModel);
             }
 

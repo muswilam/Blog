@@ -16,7 +16,7 @@ namespace Blog.Models
         [Required, MaxLength(128),]
         public string UserName { get; set; }
 
-        [Required, DataType(DataType.EmailAddress) , MaxLength(128)]
+        [Required,RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$") , MaxLength(128)]
         public string Email { get; set; }
 
         [Required, MaxLength(128)]
