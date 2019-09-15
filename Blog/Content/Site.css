@@ -8,7 +8,6 @@
     font-size: 14px;
     /*background-image: url('/Images/background.png');*/
     background-color: #181928;
-    height: 100%;
 }
 
 .navbar {
@@ -293,6 +292,8 @@
 .postBody {
     text-align:left;
     line-height: 1.5em;
+    white-space: pre-wrap;
+
 }
 
 .tagsList {
@@ -557,6 +558,10 @@
   width: 50%;
 }
 
+.bio {
+    white-space: pre-wrap;
+}
+
 .modal {
     background-color: #181928 !important;
     color: white !important;
@@ -617,6 +622,37 @@
 
   .about-section {
       margin-top: 80px;
+  }
+
+  .postTitle {
+      padding-left: 20px;
+      width: 200px;
+      font-size: 25px;
+      padding: 5px;
+  }
+
+  .postContainer {
+      width: 350px !important;
+      margin: 0;
+  }
+  .postContent {
+      width: 200px;
+      margin-left: 30px;
+      padding-bottom: 80px;
+  }
+  .tagsList{
+      margin-bottom: 30px;
+      width: 200px;
+      text-align:left;
+  }
+
+  .postControlPanel {
+      width: 300px;
+      display: inline-grid;
+  }
+
+  .index {
+      margin-top: 270px;
   }
 }
 

@@ -17,8 +17,9 @@
     </div>
  }
 
- @PostHelper.Render(Model, Html, isAdmin, false)
-
+<div class="index">
+    @PostHelper.Render(Model, Html, isAdmin, false)
+</div>
 
 <div>
     @Html.PagedListPager(Model.Posts, page => Url.Action("Index", new { page, tagName = Request["tagName"] , postSearch = Request["postSearch"] }))
