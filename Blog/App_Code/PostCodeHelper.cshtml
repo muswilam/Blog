@@ -1,7 +1,7 @@
 ﻿@using Blog.Models;
 
 
-@helper Render(Post post, System.Web.Mvc.HtmlHelper html, bool isAdmin , int? pageNumber)
+@helper Render(Post post, System.Web.Mvc.HtmlHelper html, System.Web.Mvc.UrlHelper url, bool isAdmin, int? pageNumber)
 {
     <div class="postTitle" id="postTitle">
         <a href="@Href("~/Posts/Details/" + post.Id)"> @post.Title </a>
@@ -41,7 +41,13 @@
             }
         </div>
         <div class="postContent">
-            <div class="postBody">@html.Raw(post.Body)</div>
+            @if (!string.IsNullOrWhiteSpace(post.PostImageUrl))
+            {
+                <img src="@url.Content(post.PostImageUrl)" width="600" height="300" />
+            }
+            <div class="postBody">
+                @html.Raw(post.Body)
+            </div>
             <div class="tagsList">
                 <i class="fa fa-tags fa-lg" aria-hidden="true"></i>
 
@@ -54,8 +60,8 @@
             </div>
             <div class="linkList">
                 @{
-                    string url = "http://localhost:65008/posts/details/" + post.Id;
-                    string encodedUrl = HttpUtility.UrlEncode(url);
+                    string linkUrl = "http://localhost:65008/posts/details/" + post.Id;
+                    string encodedUrl = HttpUtility.UrlEncode(linkUrl);
                     string encodedTitle = HttpUtility.UrlEncode(post.Title);
                 }
                 <i class="fa fa-share-alt-square fa-2x" aria-hidden="true"></i>

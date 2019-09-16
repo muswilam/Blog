@@ -13,6 +13,9 @@ namespace Blog.Models
         [Required(ErrorMessage = "Please, Enter post title.") , MaxLength(225)]
         public string Title { get; set; }
 
+        [MaxLength(300)]
+        public string PostImageUrl { get; set; }
+
         public DateTime? Time { get; set; }
 
         public DateTime? EditTime { get; set; }

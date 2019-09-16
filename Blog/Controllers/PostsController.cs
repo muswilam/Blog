@@ -11,6 +11,7 @@ using System.ServiceModel.Syndication;
 using System.Web.Services;
 using Blog.ViewModel;
 using Blog.Common;
+using System.IO;
 
 namespace Blog.Controllers
 {
@@ -107,7 +108,7 @@ namespace Blog.Controllers
 
         //post add & edit
         [ValidateInput(false)]
-        public ActionResult Update([Bind(Exclude = "Time,EditTime,Tags")] Post formModel, string tags)
+        public ActionResult Update(AddPostViewModel postModel, string tags)
         {
             if (!IsAdmin)
             {
@@ -120,11 +121,21 @@ namespace Blog.Controllers
                 return View("edit", emptyPost);
             }
 
+            //upload a pic
+            string fileName = Path.GetFileNameWithoutExtension(postModel.PostImageFile.FileName);
+            string extension = Path.GetExtension(postModel.PostImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+            postModel.PostImageUrl = "~/Images/Upload_Images/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/Images/Upload_Images"), fileName);
+            postModel.PostImageFile.SaveAs(fileName);
+
             //edit
-            Post post = GetPost(formModel.Id);
-            post.Title = formModel.Title;
+            Post post = GetPost(postModel.Id);
+            post.Title = postModel.Title;
             post.EditTime = DateTime.Now;
-            post.Body = formModel.Body;
+            post.Body = postModel.Body;
+            post.PostImageUrl = postModel.PostImageUrl;
             post.Tags.Clear();
 
             //to avoid null referenece exception
@@ -138,7 +149,7 @@ namespace Blog.Controllers
             }
 
             //Create
-            if (formModel.Id == 0)
+            if (postModel.Id == 0)
             {
                 post.EditTime = null;
                 post.Time = DateTime.Now;

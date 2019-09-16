@@ -2,7 +2,8 @@
 
 @using Blog.Common;
 
-@helper Render(PostViewModel post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments)
+
+@helper Render(PostViewModel post, System.Web.Mvc.HtmlHelper html, System.Web.Mvc.UrlHelper url, bool isAdmin, bool showComments)
 {
 
     // index of posts
@@ -23,14 +24,14 @@
         }
         foreach (var p in post.Posts)
         {
-            @PostCodeHelper.Render(p, html, isAdmin,post.PageNumber);
+            @PostCodeHelper.Render(p, html, url ,isAdmin,post.PageNumber);
         }
     }
 
     // details of post
     if (showComments)
     {
-        @PostCodeHelper.Render(post.Post, html, isAdmin, post.PageNumber);
+        @PostCodeHelper.Render(post.Post, html, url, isAdmin, post.PageNumber);
 
     <div id="commentContainer">
         <div id="commentPrompt">

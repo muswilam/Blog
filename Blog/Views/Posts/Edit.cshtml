@@ -14,7 +14,7 @@
         <label class="about-label"><i class="fa fa-sticky-note" aria-hidden="true"></i> New Post</label>
     }
 
-    <form id="postForm" method="post" action="@Url.Action("Update" , "Posts")" class="pure-form pure-form-stacked" style="padding-top:50px;">
+    <form id="postForm" method="post" action="@Url.Action("Update" , "Posts")" enctype="multipart/form-data" class="pure-form pure-form-stacked" style="padding-top:50px;">
 
         <fieldset style="padding:10px;">
             @if (Model.Id != -1) //this post is already exist and has an id
@@ -36,12 +36,15 @@
             <br />
 
             <div class="pure-control-group">
+                <label class="lbl" for="tags">Post Image</label>
+                <input type="file" class="pure-input-2-3" name="PostImageFile" />
+            </div>
+            <br />
+
+            <div class="pure-control-group">
                 @*<textarea name="body" id="postBody" class="text-area pure-input-1-2" style="width:400px;" required placeholder="Post body..." rows="10" cols="60">@Model.Body</textarea>*@ 
                 <textarea class="ckeditor" id="editor" name="body">@Model.Body</textarea>
                 @Html.ValidationMessageFor(x => x.Body, "", new { @class = "pure-form-message" })
-
-
-               
             </div>
             <br />
 

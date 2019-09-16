@@ -200,6 +200,10 @@
     <Compile Include="Migrations\201909141711260_AddHeadlineColumnToAdministratorsTable.Designer.cs">
       <DependentUpon>201909141711260_AddHeadlineColumnToAdministratorsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909161858322_AddPostImageUrlColumnInPostsTable.cs" />
+    <Compile Include="Migrations\201909161858322_AddPostImageUrlColumnInPostsTable.Designer.cs">
+      <DependentUpon>201909161858322_AddPostImageUrlColumnInPostsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\BlogContext.cs" />
@@ -1324,7 +1328,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\UploadPics\" />
+    <Folder Include="Images\Upload_Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1362,6 +1366,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909141711260_AddHeadlineColumnToAdministratorsTable.resx">
       <DependentUpon>201909141711260_AddHeadlineColumnToAdministratorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161858322_AddPostImageUrlColumnInPostsTable.resx">
+      <DependentUpon>201909161858322_AddPostImageUrlColumnInPostsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
