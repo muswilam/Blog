@@ -106,6 +106,7 @@ namespace Blog.Controllers
         }
 
         //post add & edit
+        [ValidateInput(false)]
         public ActionResult Update([Bind(Exclude = "Time,EditTime,Tags")] Post formModel, string tags)
         {
             if (!IsAdmin)

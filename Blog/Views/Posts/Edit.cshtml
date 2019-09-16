@@ -1,50 +1,8 @@
 ﻿@model Blog.Models.Post
 
-@*@if (Model.Id != -1)
-{
-    
-    ViewBag.Title = "Edit Post";
-    
-    <div class="formHeader">
-       Edit Post
-    </div>
-}
-else
-{
-    
-    ViewBag.Title = "New Post";
-    
-    <div class="formHeader">
-       New Post
-    </div>
-}*@
 
-
-@*<div class="form">
-    <form action="@Url.Action("Update" , "Posts")" method="post" id="postForm">
-        @if (Model.Id != -1) //this post is already exist and has an id
-        {
-            <input type="hidden" name="id" value="@Model.Id" />
-        }
-        <div class="inputCenterContainer">
-            <label class="inputLabel">Title</label> <br />
-            <input type="text" class="inputTextBox" name="title" placeholder="Post title." value="@Model.Title" /> <br />
-            @Html.ValidationMessage("title", "", new { @class = "text-danger" })
-        </div>
-
-        <div class="inputCenterContainer">
-            <label class="inputLabel">Tags</label> <br />
-            <input type="text" class="inputTextBox" name="tags" placeholder="Tags name." value="@ViewBag.Tags" /> <br />
-        </div>
-
-        <div class="inputCenterContainer">
-            <textarea name="body" class="inputTextBox" style="width:500px;" placeholder="Post..." rows="10" cols="80">@Model.Body</textarea> <br />
-            @Html.ValidationMessage("body", "", new { @class = "text-danger" })
-        </div>
-
-        <input class="inputSubmit" type="submit" name="submit" value="Submit" />
-    </form>
-</div>*@
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckfinder/ckfinder.js"></script>
 
 <div class="modal" style="position:static;display:inline-block">
     @if(Model.Id != -1)
@@ -78,8 +36,12 @@ else
             <br />
 
             <div class="pure-control-group">
-                <textarea name="body" id="postBody" class="text-area pure-input-1-2" style="width:400px;" required placeholder="Post body..." rows="10" cols="60">@Model.Body</textarea> 
+                @*<textarea name="body" id="postBody" class="text-area pure-input-1-2" style="width:400px;" required placeholder="Post body..." rows="10" cols="60">@Model.Body</textarea>*@ 
+                <textarea class="ckeditor" id="editor" name="body">@Model.Body</textarea>
                 @Html.ValidationMessageFor(x => x.Body, "", new { @class = "pure-form-message" })
+
+
+               
             </div>
             <br />
 
@@ -91,4 +53,40 @@ else
         </fieldset>
     </form>
 </div>
-@*  Stop here ************************************************************************************* *@
+
+<script>
+    CKEDITOR.replace('editor', {
+        // Define the toolbar groups as it is a more accessible solution.
+        toolbarGroups: [{
+            "name": "basicstyles",
+            "groups": ["basicstyles"]
+        },
+          {
+              "name": "links",
+              "groups": ["links"]
+          },
+          {
+              "name": "paragraph",
+              "groups": ["list", "blocks"]
+          },
+          {
+              "name": "document",
+              "groups": ["mode"]
+          },
+          {
+              "name": "insert",
+              "groups": ["insert"]
+          },
+          {
+              "name": "styles",
+              "groups": ["styles"]
+          },
+          {
+              "name": "about",
+              "groups": ["about"]
+          }
+        ],
+        // Remove the redundant buttons from toolbar groups defined above.
+        removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+    });
+</script>
