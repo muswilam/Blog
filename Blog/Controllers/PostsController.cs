@@ -103,6 +103,8 @@ namespace Blog.Controllers
             }
             ViewBag.Tags = tagList.ToString();
             ViewBag.IsAdmin = IsAdmin;
+            
+
             return View(post);
         }
 
@@ -121,21 +123,23 @@ namespace Blog.Controllers
                 return View("edit", emptyPost);
             }
 
-            //upload a pic
-            string fileName = Path.GetFileNameWithoutExtension(postModel.PostImageFile.FileName);
-            string extension = Path.GetExtension(postModel.PostImageFile.FileName);
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            if (postModel.PostImageFile != null)
+            {
+                //upload a pic
+                string fileName = Path.GetFileNameWithoutExtension(postModel.PostImageFile.FileName);
+                string extension = Path.GetExtension(postModel.PostImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
 
-            postModel.PostImageUrl = "~/Images/Upload_Images/" + fileName;
-            fileName = Path.Combine(Server.MapPath("~/Images/Upload_Images"), fileName);
-            postModel.PostImageFile.SaveAs(fileName);
+                postModel.PostImageUrl = "~/Images/Upload_Images/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Images/Upload_Images"), fileName);
+                postModel.PostImageFile.SaveAs(fileName);
+            }
 
             //edit
             Post post = GetPost(postModel.Id);
             post.Title = postModel.Title;
             post.EditTime = DateTime.Now;
             post.Body = postModel.Body;
-            post.PostImageUrl = postModel.PostImageUrl;
             post.Tags.Clear();
 
             //to avoid null referenece exception
@@ -153,6 +157,7 @@ namespace Blog.Controllers
             {
                 post.EditTime = null;
                 post.Time = DateTime.Now;
+                post.PostImageUrl = postModel.PostImageUrl ?? string.Empty;
                 context.Posts.Add(post);
             }
             context.SaveChanges();

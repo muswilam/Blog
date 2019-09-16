@@ -42,7 +42,6 @@
             <br />
 
             <div class="pure-control-group">
-                @*<textarea name="body" id="postBody" class="text-area pure-input-1-2" style="width:400px;" required placeholder="Post body..." rows="10" cols="60">@Model.Body</textarea>*@ 
                 <textarea class="ckeditor" id="editor" name="body">@Model.Body</textarea>
                 @Html.ValidationMessageFor(x => x.Body, "", new { @class = "pure-form-message" })
             </div>

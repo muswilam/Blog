@@ -24,14 +24,14 @@
         }
         foreach (var p in post.Posts)
         {
-            @PostCodeHelper.Render(p, html, url ,isAdmin,post.PageNumber);
+            @PostCodeHelper.Render(p, html, url ,isAdmin,post.PageNumber, showComments);
         }
     }
 
     // details of post
     if (showComments)
     {
-        @PostCodeHelper.Render(post.Post, html, url, isAdmin, post.PageNumber);
+        @PostCodeHelper.Render(post.Post, html, url, isAdmin, post.PageNumber, showComments);
 
     <div id="commentContainer">
         <div id="commentPrompt">

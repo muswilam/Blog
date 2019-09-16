@@ -1,7 +1,7 @@
 ﻿@using Blog.Models;
 
 
-@helper Render(Post post, System.Web.Mvc.HtmlHelper html, System.Web.Mvc.UrlHelper url, bool isAdmin, int? pageNumber)
+@helper Render(Post post, System.Web.Mvc.HtmlHelper html, System.Web.Mvc.UrlHelper url, bool isAdmin, int? pageNumber, bool showComments)
 {
     <div class="postTitle" id="postTitle">
         <a href="@Href("~/Posts/Details/" + post.Id)"> @post.Title </a>
@@ -15,7 +15,7 @@
                 <div class="dateTab">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
 
-                    @post.Time.Value.ToString("MMM").ToUpper()  @post.Time.Value.ToString("dd") @post.Time.Value.Year
+                    @post.Time.Value.ToString("MMM").ToUpper()  @post.Time.Value.ToString("dd")
                 </div>
             }
 
@@ -24,7 +24,7 @@
                 <div class="dateTab">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
 
-                    Edited  @post.EditTime.Value.ToString("MMM").ToUpper() @post.EditTime.Value.ToString("dd") @post.EditTime.Value.Year
+                    Edited  @post.EditTime.Value.ToString("MMM").ToUpper() @post.EditTime.Value.ToString("dd")
                 </div>
             }
 
@@ -39,15 +39,27 @@
                     </a>
                 </div>
             }
+            
         </div>
         <div class="postContent">
-            @if (!string.IsNullOrWhiteSpace(post.PostImageUrl))
+            @if (!showComments) //index
             {
-                <img src="@url.Content(post.PostImageUrl)" width="600" height="300" />
+                if (!string.IsNullOrWhiteSpace(post.PostImageUrl))
+                {
+                    <a href="@Href("~/Posts/Details/" + post.Id)"><img class="postImage" src="@url.Content(post.PostImageUrl)" /></a>
+                }
             }
-            <div class="postBody">
-                @html.Raw(post.Body)
-            </div>
+            else //details
+            {
+                if (!string.IsNullOrWhiteSpace(post.PostImageUrl))
+                {
+                    <img class="postImage" src="@url.Content(post.PostImageUrl)" />
+                }
+                <div class="postBody">
+                    @html.Raw(post.Body)
+                </div>
+            }
+           
             <div class="tagsList">
                 <i class="fa fa-tags fa-lg" aria-hidden="true"></i>
 

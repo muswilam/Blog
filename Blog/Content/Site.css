@@ -289,7 +289,14 @@
     width: 600px;
     margin-left: 35px;
     color: AppWorkspace;
-    border:1px dotted #656363;
+    /*border:1px dashed #656363;*/
+}
+
+.postImage{
+   border: 3px solid #e74c3c;
+   border-radius: 4%;
+   width:600px;
+   height:300px;
 }
 
 .postBody {
