@@ -25,44 +25,47 @@
                             <fieldset>
                                 <input type="hidden" name="id" value="@Model.Administrator.Id" />
 
-                                <div class="pure-control-group">
-                                    <label for="name">Picture</label>
-                                    <input id="selectPic" name="picture" type="file" class="pure-input-1-2" pic-href="@Href("~/accounts/UploadImage/" + @Model.Administrator.Id)">
-                                    <input type="hidden" name="picId" value="" />
-                                    <div id="picArea">
-                                       
+                                <div class="pure-control-group" style="text-align:center">
+                                    <div id="picArea" style="text-align:center">
+                                       @if (Model.Administrator.AdminProfile != null)
+                                       {
+                                        <div id="picTemplate">
+                                            <img src="@Url.Content(Model.Administrator.AdminProfile.ProfileUrl)" class="image" />
+                                        </div>
+                                       }
                                     </div>
-                                </div>
+                                    <input id="selectPic" name="picture" type="file" class="pure-input-1-2" pic-href="@Href("~/accounts/UploadImage/" + @Model.Administrator.Id)" />
+                                </div> <br />
 
                                 <div class="pure-control-group">
                                     <label for="name">Name</label>
                                     <input id="name" name="name" type="text" class="pure-input-1-2" value="@Model.Administrator.Name" required placeholder="Name.">
-                                </div>
+                                </div><br />
 
                                 <div class="pure-control-group">
                                     <label for="headline">Headline</label>
                                     <input id="headline" name="headline" type="text" class="pure-input-1-2" value="@Model.Administrator.Headline" placeholder="Headline.">
-                                </div>
+                                </div><br />
 
                                 <div class="pure-control-group">
                                     <label for="email">Email Address</label>
                                     <input id="email" name="email" type="email" class="pure-input-1-2" value="@Model.Administrator.Email" required placeholder="Email Address.">
-                                </div>
+                                </div><br />
 
                                 <div class="pure-control-group">
                                     <label for="education">Education</label>
                                     <input id="education" name="education" class="pure-input-1-2" type="text" value="@Model.Administrator.Education" placeholder="Education.">
-                                </div>
+                                </div><br />
 
                                 <div class="pure-control-group">
                                     <label for="birthdate">Birthdate</label>
                                     <input class="pure-input-1-2" id="birthdate" name="birthdate" value="@Model.Administrator.Birthdate.Value.ToShortDateString()" type="text" onfocus="this.type='date'">
-                                </div>
+                                </div><br />
 
                                 <div class="pure-control-group">
                                     <label for="biography">Biography</label>
                                     <textarea id="bio" name="bio" class="pure-input-1-2" type="text" placeholder="Bio.">@Model.Administrator.Bio</textarea>
-                                </div>
+                                </div><br />
 
                                 <div class="pure-control-group">
                                     <label for="Country">Location</label>
@@ -72,7 +75,7 @@
                                             <option value="@country" @( country == Model.Administrator.Country ? "selected" : string.Empty)>@country</option>
                                         }
                                     </select>
-                                </div>
+                                </div><br />
                                 <div class="pure-control-group">
                                     <div id="errorDiv" class="alert" style="display:none"></div>
                                 </div>
@@ -245,7 +248,7 @@
 </div>
 
 <div id="picTemplate" hidden>
-    <img src="" class="img-thumbnail" style="width:230px" onclick="removeMe(this)" />
+    <img src="" class="image" onclick="removeMe(this)" />
 </div>
 
 <script>
@@ -265,7 +268,14 @@
                 processData: false,
                 contentType: false
             })
-            .done(function (pic) {
+            .done(function (ImageUrl) {
+
+                $("#picArea").empty();
+
+                var imgHTML = $("#picTemplate").clone();
+                imgHTML.find("img").attr("src", ImageUrl);
+
+                $("#picArea").append(imgHTML.html());
                 debugger;
             })
             debugger;

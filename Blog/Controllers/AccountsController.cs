@@ -138,7 +138,7 @@ namespace Blog.Controllers
             bool result = context.SaveChanges() > 0;
 
             if (result)
-                json.Data = pic;
+                json.Data = picFromDb.ProfileUrl.Substring(1); //for ignoring ~ sign 
 
             return json;
         }
