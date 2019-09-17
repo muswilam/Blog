@@ -24,6 +24,16 @@
                         <form class="pure-form pure-form-aligned" id="editForm">
                             <fieldset>
                                 <input type="hidden" name="id" value="@Model.Administrator.Id" />
+
+                                <div class="pure-control-group">
+                                    <label for="name">Picture</label>
+                                    <input id="selectPic" name="picture" type="file" class="pure-input-1-2" pic-href="@Href("~/accounts/UploadImage/" + @Model.Administrator.Id)">
+                                    <input type="hidden" name="picId" value="" />
+                                    <div id="picArea">
+                                       
+                                    </div>
+                                </div>
+
                                 <div class="pure-control-group">
                                     <label for="name">Name</label>
                                     <input id="name" name="name" type="text" class="pure-input-1-2" value="@Model.Administrator.Name" required placeholder="Name.">
@@ -234,8 +244,33 @@
     </div>
 </div>
 
+<div id="picTemplate" hidden>
+    <img src="" class="img-thumbnail" style="width:230px" onclick="removeMe(this)" />
+</div>
+
 <script>
     $(document).ready(function () {
+
+        $("#selectPic").change(function () {
+            var pic = this.files[0];
+            var linkUrl = $(this).attr("pic-href");
+
+            var formData = new FormData();
+            formData.append("Picture", pic);
+
+            $.ajax({
+                url: linkUrl,
+                type: 'Post',
+                data:formData,
+                processData: false,
+                contentType: false
+            })
+            .done(function (pic) {
+                debugger;
+            })
+            debugger;
+        });
+
         $("#addSkill").click(function () {
             var linkUrl = $(this).attr("data-href");
             $.ajax({
@@ -287,7 +322,5 @@
                 }
             })
         });
-
-        
     });
 </script>

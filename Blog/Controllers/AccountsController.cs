@@ -9,6 +9,7 @@ using System.Text;
 using Blog.ViewModel;
 using Blog.Common;
 using System.Data.Entity;
+using System.IO;
 
 namespace Blog.Controllers
 {
@@ -114,6 +115,32 @@ namespace Blog.Controllers
             ViewBag.countries = CountriesList.Countries();
 
             return View(adminModel);
+        }
+
+        public JsonResult UploadImage(int id)
+        {
+            JsonResult json = new JsonResult();
+
+            var pic = Request.Files[0];
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(pic.FileName);
+            var filePath = Server.MapPath("~/Images/Upload_Images/") + fileName;
+
+            pic.SaveAs(filePath);
+
+            var picFromDb = context.AdminsProfiles.Where(ap => ap.AdminProfileId == id).FirstOrDefault();
+            if (picFromDb != null)
+            {
+                picFromDb.ProfileUrl = "~/Images/Upload_Images/" + fileName;
+            }
+
+            context.Entry(picFromDb).State = EntityState.Modified;
+            bool result = context.SaveChanges() > 0;
+
+            if (result)
+                json.Data = pic;
+
+            return json;
         }
 
         [HttpPost]
