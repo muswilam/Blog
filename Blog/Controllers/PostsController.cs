@@ -273,7 +273,7 @@ namespace Blog.Controllers
         private string AdminPicUrl()
         {
             var adminDb = context.Administrators.Where(a => a.UserName.ToLower() == "admin").First();
-            return adminDb.PicUrl;
+            return adminDb.AdminProfile.ProfileUrl;
         }
 
         private Tag GetTagFromDb(string tagName)

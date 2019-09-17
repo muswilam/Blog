@@ -36,10 +36,9 @@ namespace Blog.Models
         [MaxLength(500)]
         public string Bio { get; set; }
 
-        [MaxLength(200)]
-        public string PicUrl { get; set; }
-
         //nav props 
         public ICollection<Skill> Skills { get; set; }
+
+        public virtual AdminProfile AdminProfile { get; set; }
     }
 }

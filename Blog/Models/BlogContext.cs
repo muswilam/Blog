@@ -17,6 +17,7 @@ namespace Blog.Models
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<AdminProfile> AdminsProfiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

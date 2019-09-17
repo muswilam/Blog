@@ -204,8 +204,21 @@
     <Compile Include="Migrations\201909161858322_AddPostImageUrlColumnInPostsTable.Designer.cs">
       <DependentUpon>201909161858322_AddPostImageUrlColumnInPostsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909171514503_DeleteAdminPicColumnInAdminsTable.cs" />
+    <Compile Include="Migrations\201909171514503_DeleteAdminPicColumnInAdminsTable.Designer.cs">
+      <DependentUpon>201909171514503_DeleteAdminPicColumnInAdminsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171518586_CreateAdminsProfilesTable.cs" />
+    <Compile Include="Migrations\201909171518586_CreateAdminsProfilesTable.Designer.cs">
+      <DependentUpon>201909171518586_CreateAdminsProfilesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.cs" />
+    <Compile Include="Migrations\201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.Designer.cs">
+      <DependentUpon>201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\AdminProfile.cs" />
     <Compile Include="Models\BlogContext.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Post.cs" />
@@ -1369,6 +1382,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909161858322_AddPostImageUrlColumnInPostsTable.resx">
       <DependentUpon>201909161858322_AddPostImageUrlColumnInPostsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171514503_DeleteAdminPicColumnInAdminsTable.resx">
+      <DependentUpon>201909171514503_DeleteAdminPicColumnInAdminsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171518586_CreateAdminsProfilesTable.resx">
+      <DependentUpon>201909171518586_CreateAdminsProfilesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.resx">
+      <DependentUpon>201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
