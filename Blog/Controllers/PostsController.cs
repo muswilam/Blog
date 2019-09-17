@@ -48,7 +48,7 @@ namespace Blog.Controllers
             }
 
             var Posts = context.Posts.Include(p => p.Tags)
-                .OrderBy(p => p.Time).ToList();
+                .OrderByDescending(p => p.Time).ToList();
 
             ViewBag.IsAdmin = IsAdmin;
             postModel.IsAdmin = IsAdmin;
@@ -103,7 +103,6 @@ namespace Blog.Controllers
             }
             ViewBag.Tags = tagList.ToString();
             ViewBag.IsAdmin = IsAdmin;
-            
 
             return View(post);
         }
@@ -112,6 +111,8 @@ namespace Blog.Controllers
         [ValidateInput(false)]
         public ActionResult Update(AddPostViewModel postModel, string tags)
         {
+            Post post = GetPost(postModel.Id);
+
             if (!IsAdmin)
             {
                 return RedirectToAction("Index");
@@ -133,10 +134,12 @@ namespace Blog.Controllers
                 postModel.PostImageUrl = "~/Images/Upload_Images/" + fileName;
                 fileName = Path.Combine(Server.MapPath("~/Images/Upload_Images"), fileName);
                 postModel.PostImageFile.SaveAs(fileName);
+
+                post.PostImageUrl = postModel.PostImageUrl;
+                Session["PostImage"] = postModel.PostImageFile;
             }
 
             //edit
-            Post post = GetPost(postModel.Id);
             post.Title = postModel.Title;
             post.EditTime = DateTime.Now;
             post.Body = postModel.Body;
@@ -157,7 +160,6 @@ namespace Blog.Controllers
             {
                 post.EditTime = null;
                 post.Time = DateTime.Now;
-                post.PostImageUrl = postModel.PostImageUrl ?? string.Empty;
                 context.Posts.Add(post);
             }
             context.SaveChanges();

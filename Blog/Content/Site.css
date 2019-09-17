@@ -293,8 +293,8 @@
 }
 
 .postImage{
-   border: 3px solid #e74c3c;
-   border-radius: 4%;
+   border: 2px solid #b8bdb2;
+   border-radius: 2%;
    width:600px;
    height:300px;
 }
