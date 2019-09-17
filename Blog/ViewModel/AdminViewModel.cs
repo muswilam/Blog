@@ -52,5 +52,7 @@ namespace Blog.ViewModel
         public Skill Skill { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        public string ProfileImgUrl { get; set; }
     }
 }

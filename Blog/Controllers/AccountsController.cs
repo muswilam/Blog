@@ -117,7 +117,7 @@ namespace Blog.Controllers
             return View(adminModel);
         }
 
-        public JsonResult UploadImage(int id)
+        public JsonResult UploadImage()
         {
             JsonResult json = new JsonResult();
 
@@ -125,20 +125,11 @@ namespace Blog.Controllers
 
             var fileName = Guid.NewGuid() + Path.GetExtension(pic.FileName);
             var filePath = Server.MapPath("~/Images/Upload_Images/") + fileName;
+            var fileUrl = "/Images/Upload_Images/" + fileName;
 
             pic.SaveAs(filePath);
 
-            var picFromDb = context.AdminsProfiles.Where(ap => ap.AdminProfileId == id).FirstOrDefault();
-            if (picFromDb != null)
-            {
-                picFromDb.ProfileUrl = "~/Images/Upload_Images/" + fileName;
-            }
-
-            context.Entry(picFromDb).State = EntityState.Modified;
-            bool result = context.SaveChanges() > 0;
-
-            if (result)
-                json.Data = picFromDb.ProfileUrl.Substring(1); //for ignoring ~ sign 
+            json.Data = fileUrl;
 
             return json;
         }
@@ -162,6 +153,11 @@ namespace Blog.Controllers
             adminFromDB.Headline = adminModel.Headline;
             adminFromDB.Birthdate = adminModel.Birthdate;
             adminFromDB.Bio = adminModel.Bio;
+
+            //get profile pic from db
+            var profilePicFromDb = context.AdminsProfiles.Where(ap => ap.AdminProfileId == adminModel.Id).FirstOrDefault();
+            profilePicFromDb.ProfileUrl = adminModel.ProfileImgUrl;
+            context.Entry(profilePicFromDb).State = EntityState.Modified;
 
             context.Entry(adminFromDB).State = EntityState.Modified;
             result = context.SaveChanges() > 0;

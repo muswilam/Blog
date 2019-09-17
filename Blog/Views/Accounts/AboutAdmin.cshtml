@@ -34,7 +34,8 @@
                                         </div>
                                        }
                                     </div>
-                                    <input id="selectPic" name="picture" type="file" class="pure-input-1-2" pic-href="@Href("~/accounts/UploadImage/" + @Model.Administrator.Id)" />
+                                    <input id="selectPic" name="picture" type="file" class="pure-input-1-2" pic-href="@Href("~/accounts/UploadImage/")" />
+                                    <input type="hidden" id="profileImgUrl" name="ProfileImgUrl" value="@Model.Administrator.AdminProfile.ProfileUrl" />
                                 </div> <br />
 
                                 <div class="pure-control-group">
@@ -276,9 +277,9 @@
                 imgHTML.find("img").attr("src", ImageUrl);
 
                 $("#picArea").append(imgHTML.html());
+                $("#profileImgUrl").val("~" + ImageUrl);
                 debugger;
             })
-            debugger;
         });
 
         $("#addSkill").click(function () {
