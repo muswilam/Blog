@@ -9,14 +9,15 @@ namespace Blog.Models
 {
     public class AdminProfile
     {
-        [Key]
-        [ForeignKey("Administrator")]
         public int AdminProfileId { get; set; }
 
         [MaxLength(300)]
         public string ProfileUrl { get; set; }
 
         //nav prop
-        public virtual Administrator Administrator { get; set; }
+        public Administrator Administrator { get; set; }
+
+        [ForeignKey("Administrator")]
+        public int AdminId { get; set; }
     }
 }

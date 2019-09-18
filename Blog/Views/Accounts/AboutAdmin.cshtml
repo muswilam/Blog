@@ -27,15 +27,21 @@
 
                                 <div class="pure-control-group" style="text-align:center">
                                     <div id="picArea" style="text-align:center">
-                                       @if (Model.Administrator.AdminProfile != null)
-                                       {
-                                        <div id="picTemplate">
-                                            <img src="@Url.Content(Model.Administrator.AdminProfile.ProfileUrl)" class="image" />
-                                        </div>
-                                       }
+                                        @if (!string.IsNullOrEmpty(Model.Administrator.ProfilePic))
+                                        {
+                                            <div id="picTemplate">
+                                                <img src="@Url.Content(Model.Administrator.ProfilePic)" class="image" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div id="picTemplate">
+                                                <img src="@Href("~/Images/default_user.jpg")" alt="default" class="image" />
+                                            </div>
+                                        }
                                     </div>
                                     <input id="selectPic" name="picture" type="file" class="pure-input-1-2" pic-href="@Href("~/accounts/UploadImage/")" />
-                                    <input type="hidden" id="profileImgUrl" name="ProfileImgUrl" value="@Model.Administrator.AdminProfile.ProfileUrl" />
+                                    <input type="hidden" id="profileImgUrl" name="ProfileImgUrl" value="@Model.Administrator.ProfilePic" />
                                 </div> <br />
 
                                 <div class="pure-control-group">
@@ -88,12 +94,22 @@
                                 </div>
                             </fieldset>
                         </form>
+
                     </div>
                 }
 
-                <div class="image">
-                    <img id="portrait" src="@Url.Content(Model.Administrator.AdminProfile.ProfileUrl)" alt="portrait" />
-                </div>
+                @if (!string.IsNullOrEmpty(Model.Administrator.ProfilePic))
+                {
+                    <div class="image">
+                        <img id="portrait" src="@Url.Content(Model.Administrator.ProfilePic)" alt="portrait" />
+                    </div>
+                }
+                else
+                {
+                    <div class="image">
+                        <img id="portrait" src="@Href("~/Images/default_user.jpg")" alt="portrait" />
+                    </div>
+                }
 
                 <label class="about-label">@Model.Administrator.Headline</label>
             </div>
@@ -265,7 +281,7 @@
             $.ajax({
                 url: linkUrl,
                 type: 'Post',
-                data:formData,
+                data: formData,
                 processData: false,
                 contentType: false
             })

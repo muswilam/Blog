@@ -81,7 +81,10 @@ namespace Blog.Controllers
             //the admin is loged in if the two hash match
             bool passwordMatch = (computeHash.ToLower() == hash.ToLower());
             if (passwordMatch)
+            {
                 Session["IsAdmin"] = passwordMatch;
+                Session["AdminUserName"] = admin.UserName;
+            }
             else
             {
                 initAdminModel.PassErrorMsg = "Invalid password.";
@@ -95,6 +98,7 @@ namespace Blog.Controllers
         {
             Session["Nonce"] = null;
             Session["IsAdmin"] = null;
+            Session["AdminUserName"] = null;
             return RedirectToAction("Index" , "Posts");
         }
 
@@ -102,7 +106,12 @@ namespace Blog.Controllers
         {
             AboutAdminViewModel adminModel = new AboutAdminViewModel();
 
-            adminModel.Administrator = context.Administrators.Include(a => a.Skills).Where(a => a.UserName.Equals("Admin")).First();
+            string adminUserName = (string) Session["AdminUserName"]; 
+            
+            if(!string.IsNullOrEmpty(adminUserName))
+                adminModel.Administrator = context.Administrators.Include(a => a.Skills).Where(a => a.UserName.Equals(adminUserName.ToLower())).First();
+            else
+                adminModel.Administrator = context.Administrators.Include(a => a.Skills).Where(a => a.UserName.Equals(DefaultAdmin.defaultAdminUserName.ToLower())).First();
 
             DateTime dateTime = new DateTime(1900, 1, 1);
             adminModel.Administrator.Birthdate = adminModel.Administrator.Birthdate ?? dateTime;
@@ -124,8 +133,8 @@ namespace Blog.Controllers
             var pic = Request.Files[0];
 
             var fileName = Guid.NewGuid() + Path.GetExtension(pic.FileName);
-            var filePath = Server.MapPath("~/Images/Upload_Images/") + fileName;
-            var fileUrl = "/Images/Upload_Images/" + fileName;
+            var filePath = Server.MapPath("~/Images/Profiles_Pics/") + fileName;
+            var fileUrl = "/Images/Profiles_Pics/" + fileName;
 
             pic.SaveAs(filePath);
 
@@ -141,7 +150,7 @@ namespace Blog.Controllers
 
             bool result;
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Json(new { success = false, message = "Invalid Inputs." });
             }
@@ -153,12 +162,8 @@ namespace Blog.Controllers
             adminFromDB.Headline = adminModel.Headline;
             adminFromDB.Birthdate = adminModel.Birthdate;
             adminFromDB.Bio = adminModel.Bio;
-
-            //get profile pic from db
-            var profilePicFromDb = context.AdminsProfiles.Where(ap => ap.AdminProfileId == adminModel.Id).FirstOrDefault();
-            profilePicFromDb.ProfileUrl = adminModel.ProfileImgUrl;
-            context.Entry(profilePicFromDb).State = EntityState.Modified;
-
+            adminFromDB.ProfilePic = adminModel.ProfileImgUrl;
+            
             context.Entry(adminFromDB).State = EntityState.Modified;
             result = context.SaveChanges() > 0;
 

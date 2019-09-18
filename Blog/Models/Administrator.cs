@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -36,9 +37,10 @@ namespace Blog.Models
         [MaxLength(500)]
         public string Bio { get; set; }
 
+        [MaxLength(300)]
+        public string ProfilePic { get; set; }
+
         //nav props 
         public ICollection<Skill> Skills { get; set; }
-
-        public virtual AdminProfile AdminProfile { get; set; }
     }
 }

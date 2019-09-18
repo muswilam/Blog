@@ -148,6 +148,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\CountriesList.cs" />
+    <Compile Include="Common\DefaultAdmin.cs" />
     <Compile Include="Common\PageSize.cs" />
     <Compile Include="Common\TotalTrendingTags.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
@@ -215,6 +216,34 @@
     <Compile Include="Migrations\201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.cs" />
     <Compile Include="Migrations\201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.Designer.cs">
       <DependentUpon>201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181724165_AddAdminProfileIdForeignKeyColumnInAdminsTable.cs" />
+    <Compile Include="Migrations\201909181724165_AddAdminProfileIdForeignKeyColumnInAdminsTable.Designer.cs">
+      <DependentUpon>201909181724165_AddAdminProfileIdForeignKeyColumnInAdminsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181734036_DeleteAdminProfileColumnFromAdminsTable.cs" />
+    <Compile Include="Migrations\201909181734036_DeleteAdminProfileColumnFromAdminsTable.Designer.cs">
+      <DependentUpon>201909181734036_DeleteAdminProfileColumnFromAdminsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181804463_MakeIdIdentitySetToOnInAdminProfileTable.cs" />
+    <Compile Include="Migrations\201909181804463_MakeIdIdentitySetToOnInAdminProfileTable.Designer.cs">
+      <DependentUpon>201909181804463_MakeIdIdentitySetToOnInAdminProfileTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181853122_MakeAdminProfileIdIdentityNoneInAdminProfileTable.cs" />
+    <Compile Include="Migrations\201909181853122_MakeAdminProfileIdIdentityNoneInAdminProfileTable.Designer.cs">
+      <DependentUpon>201909181853122_MakeAdminProfileIdIdentityNoneInAdminProfileTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181910056_DeleteAssociationBetweenAdminAndProfileAdminTables.cs" />
+    <Compile Include="Migrations\201909181910056_DeleteAssociationBetweenAdminAndProfileAdminTables.Designer.cs">
+      <DependentUpon>201909181910056_DeleteAssociationBetweenAdminAndProfileAdminTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181925470_DeleteProfileAdminTable.cs" />
+    <Compile Include="Migrations\201909181925470_DeleteProfileAdminTable.Designer.cs">
+      <DependentUpon>201909181925470_DeleteProfileAdminTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181930044_AddProfilePicColumnInAdminsTable.cs" />
+    <Compile Include="Migrations\201909181930044_AddProfilePicColumnInAdminsTable.Designer.cs">
+      <DependentUpon>201909181930044_AddProfilePicColumnInAdminsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -1296,6 +1325,7 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\background.png" />
     <Content Include="Images\comment.png" />
+    <Content Include="Images\default_user.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\Reddit.png" />
     <Content Include="Images\separator.png" />
@@ -1341,6 +1371,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Profiles_Pics\" />
     <Folder Include="Images\Upload_Images\" />
   </ItemGroup>
   <ItemGroup>
@@ -1391,6 +1422,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.resx">
       <DependentUpon>201909171524165_MakeOneToOneRelationshipBetweenAdminsAndProfilesTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181724165_AddAdminProfileIdForeignKeyColumnInAdminsTable.resx">
+      <DependentUpon>201909181724165_AddAdminProfileIdForeignKeyColumnInAdminsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181734036_DeleteAdminProfileColumnFromAdminsTable.resx">
+      <DependentUpon>201909181734036_DeleteAdminProfileColumnFromAdminsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181804463_MakeIdIdentitySetToOnInAdminProfileTable.resx">
+      <DependentUpon>201909181804463_MakeIdIdentitySetToOnInAdminProfileTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181853122_MakeAdminProfileIdIdentityNoneInAdminProfileTable.resx">
+      <DependentUpon>201909181853122_MakeAdminProfileIdIdentityNoneInAdminProfileTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181910056_DeleteAssociationBetweenAdminAndProfileAdminTables.resx">
+      <DependentUpon>201909181910056_DeleteAssociationBetweenAdminAndProfileAdminTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181925470_DeleteProfileAdminTable.resx">
+      <DependentUpon>201909181925470_DeleteProfileAdminTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181930044_AddProfilePicColumnInAdminsTable.resx">
+      <DependentUpon>201909181930044_AddProfilePicColumnInAdminsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

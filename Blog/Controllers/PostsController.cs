@@ -58,21 +58,21 @@ namespace Blog.Controllers
             return View(postModel);
         }
 
-        public ActionResult RSS()
-        {
-            IEnumerable<SyndicationItem> posts = context.Posts
-                .Where(p => p.Time < DateTime.Now)
-                .OrderByDescending(p => p.Time)
-                .Take(postsPerFeed)
-                .ToList()
-                .Select(p => GetSyndicationItem(p));
+        //public ActionResult RSS()
+        //{
+        //    IEnumerable<SyndicationItem> posts = context.Posts
+        //        .Where(p => p.Time < DateTime.Now)
+        //        .OrderByDescending(p => p.Time)
+        //        .Take(postsPerFeed)
+        //        .ToList()
+        //        .Select(p => GetSyndicationItem(p));
 
-            //response is the feed of items
-            SyndicationFeed feed = new SyndicationFeed("Dev", "Dev Community", new Uri("https://dev.to/"), posts);
-            Rss20FeedFormatter formattedFeed = new Rss20FeedFormatter(feed);
+        //    //response is the feed of items
+        //    SyndicationFeed feed = new SyndicationFeed("Dev", "Dev Community", new Uri("https://dev.to/"), posts);
+        //    Rss20FeedFormatter formattedFeed = new Rss20FeedFormatter(feed);
 
-            return new FeedResult(formattedFeed);
-        }
+        //    return new FeedResult(formattedFeed);
+        //}
 
         private SyndicationItem GetSyndicationItem(Post post)
         {
@@ -272,8 +272,18 @@ namespace Blog.Controllers
 
         private string AdminPicUrl()
         {
-            var adminDb = context.Administrators.Where(a => a.UserName.ToLower() == "admin").First();
-            return adminDb.AdminProfile.ProfileUrl;
+            string adminUserName = (string) Session["AdminUserName"];
+
+            if (!string.IsNullOrEmpty(adminUserName))
+            {
+                var admin = context.Administrators.Where(a => a.UserName.ToLower() == adminUserName.ToLower()).First();
+                if (string.IsNullOrEmpty(admin.ProfilePic))
+                    return "~/Images/default_user.jpg";
+
+                return admin.ProfilePic;
+            }
+            else
+                return context.Administrators.Where(a => a.UserName.ToLower() == DefaultAdmin.defaultAdminUserName).First().ProfilePic;
         }
 
         private Tag GetTagFromDb(string tagName)

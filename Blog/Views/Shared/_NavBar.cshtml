@@ -15,18 +15,18 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-        @if(Model.Tags != null && Model.Tags.Count() > 0)
-        { 
-            foreach (var tag in Model.Tags.OrderByDescending(t => t.Posts.Count()))
+            @if (Model.Tags != null && Model.Tags.Count() > 0)
             {
-                <a href="@Href("~/Posts/Tags?tagName=" + tag.Name)" style="color:darkgoldenrod">#@tag.Name (@tag.Posts.Count())</a>
+                foreach (var tag in Model.Tags.OrderByDescending(t => t.Posts.Count()))
+                {
+                    <a href="@Href("~/Posts/Tags?tagName=" + tag.Name)" style="color:darkgoldenrod">#@tag.Name (@tag.Posts.Count())</a>
+                }
             }
-        }
         </div>
     </div>
 
     <a href="@Href("~/accounts/aboutadmin")">
-         <img src="@Url.Content(ViewBag.adminPic)" class="img" align="top"> Profile 
+        <img src="@Url.Content(ViewBag.adminPic)" class="img" align="top"> Profile
     </a>
 
     @if (Model.IsAdmin)
@@ -36,7 +36,7 @@
     }
     else
     {
-        <a id="loginLink" style="float:right; display:none;" href="@Href("~/accounts/Login")" ><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+        <a id="loginLink" style="float:right; display:none;" href="@Href("~/accounts/Login")"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
     }
     <div class="search-container">
         <form action="@Href("~/Posts/Index")">
@@ -44,6 +44,4 @@
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
-</div> 
-
-
+</div>
