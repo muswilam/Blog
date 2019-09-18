@@ -112,6 +112,8 @@
                 }
 
                 <label class="about-label">@Model.Administrator.Headline</label>
+
+                
             </div>
             <div class="about-section-col">
 
@@ -235,6 +237,44 @@
                             <div class="deleteError alert" style="display:none"> </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="about-section-row" style="margin-top:40px;margin-bottom:10px;">
+                <h1 class="about-label" style="padding:10px;color:#e74c3c"><i class="fa fa-address-book-o" aria-hidden="true"></i> Admins</h1>
+                <div class="about">
+                    <a href="#admins" rel="modal:open">Admins</a>
+                </div>
+
+                <div id="admins" class="modal">
+                    <label class="about-label" style="color:#3d6193">Admins</label>
+                    <ul class="skillsList" style="position:static;">
+                        @foreach (var admin in Model.Admins)
+                        {
+                            <li style="color:#3d6193">
+                                @admin.UserName
+                            </li>
+                        }
+                    </ul>
+                    <form class="pure-form pure-form-aligned" id="editForm">
+                        <fieldset>
+                            <legend>Add Admin</legend>
+                            <div class="pure-control-group" style="text-align:center">
+                                <input type="text" name="Name" id="name" placeholder="Name" required/>
+                                <input type="text" name="UserName" id="userName" placeholder="User Name" required/>
+                            </div>
+                          
+                            <div class="pure-control-group" style="text-align:center">
+                                <input type="email" name="Email" id="email" placeholder="Email" required/>
+                                <input type="password" name="Password" id="password" placeholder="Password" required/>
+                            </div>
+
+                            <div class="pure-control-group" style="text-align:center">
+                                <button type="button" class="pure-button button-a-mobile-collapsed">
+                                    Save
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
 

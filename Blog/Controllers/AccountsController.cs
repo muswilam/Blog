@@ -121,6 +121,8 @@ namespace Blog.Controllers
 
             adminModel.IsAdmin = Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true;
 
+            adminModel.Admins = context.Administrators.ToList();
+
             ViewBag.countries = CountriesList.Countries();
 
             return View(adminModel);

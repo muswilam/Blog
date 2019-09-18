@@ -54,5 +54,7 @@ namespace Blog.ViewModel
         public bool IsAdmin { get; set; }
 
         public string ProfileImgUrl { get; set; }
+
+        public List<Administrator> Admins { get; set; }
     }
 }
