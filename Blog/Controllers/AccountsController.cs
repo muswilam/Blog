@@ -241,5 +241,28 @@ namespace Blog.Controllers
 
             return Json(new { success = false, message = "Skill not exists." } , JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult AddAdmin(AddAdminViewModel adminModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return Json(new { success = false, message = "Invalid Inputs" });
+            }
+
+            Administrator admin = new Administrator();
+            admin.Name = adminModel.Name;
+            admin.UserName = adminModel.UserName;
+            admin.Email = adminModel.Email;
+            admin.Password = adminModel.Password;
+
+            context.Administrators.Add(admin);
+            bool result = context.SaveChanges() > 0;
+
+            if (result)
+                return Json(new { success = true });
+
+            return Json(new { success = false, message = "OPPS! Something went wrong" });
+        }
     }
 }

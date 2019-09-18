@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Blog.Models;
+using System.Web.Mvc;
 
 namespace Blog.ViewModel
 {
@@ -56,5 +57,23 @@ namespace Blog.ViewModel
         public string ProfileImgUrl { get; set; }
 
         public List<Administrator> Admins { get; set; }
+    }
+
+    //for adding admin
+    public class AddAdminViewModel
+    {
+        public int Id { get; set; }
+
+        [Required, MaxLength(128)]
+        public string Name { get; set; }
+
+        [Required, MaxLength(128)]
+        public string UserName { get; set; }
+
+        [Required, RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"), MaxLength(128)]
+        public string Email { get; set; }
+
+        [Required, MaxLength(128)]
+        public string Password { get; set; }
     }
 }

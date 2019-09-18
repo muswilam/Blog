@@ -255,7 +255,7 @@
                             </li>
                         }
                     </ul>
-                    <form class="pure-form pure-form-aligned" id="editForm">
+                    <form class="pure-form pure-form-aligned" id="addAdminForm">
                         <fieldset>
                             <legend>Add Admin</legend>
                             <div class="pure-control-group" style="text-align:center">
@@ -269,7 +269,7 @@
                             </div>
 
                             <div class="pure-control-group" style="text-align:center">
-                                <button type="button" class="pure-button button-a-mobile-collapsed">
+                                <button type="button" id="saveAdmin" data-href="@Href("~/Accounts/AddAdmin")" class="pure-button button-a-mobile-collapsed">
                                     Save
                                 </button>
                             </div>
@@ -310,6 +310,20 @@
 
 <script>
     $(document).ready(function () {
+
+        $("#saveAdmin").click(function () {
+            var linkUrl = $(this).attr("data-href");
+            $.ajax({
+                url: linkUrl,
+                type: "Post",
+                data: $("#addAdminForm").serialize()
+            })
+            .done(function (result) {
+                console.log(result);
+                debugger;
+            });
+            debugger;
+        });
 
         $("#selectPic").change(function () {
             var pic = this.files[0];
