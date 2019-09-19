@@ -119,7 +119,7 @@
     // (on) need to use delegation based event handlers for wiring up future elements 
     $(document).on('click', '#deleteLink', function () {
         var commentName = $(this).attr("data-name");
-        var confirmation = confirm("Are yoou sure, You wanna delete " + commentName + "'s comment.");
+        var confirmation = confirm("Are you sure, You wanna delete " + commentName + "'s comment.");
         var link = $(this).attr("data-href");
 
         if (confirmation) {

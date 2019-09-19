@@ -563,7 +563,7 @@
     background-color: #9c279a !important;
 }
 
-.deleteSkill {
+.deleteSkill , .deleteAdmin{
     cursor: pointer;
     color: red;
 }

@@ -253,8 +253,9 @@
                     <ul id="adminsList" class="adminsList" style="position:static;">
                         @foreach (var admin in Model.Admins)
                         {
-                            <li>
+                            <li data-id="@admin.Id" data-name="@admin.UserName">
                                 @admin.UserName
+                                <span class="deleteAdmin" style="float:right"> &times; </span>
                             </li>
                         }
                     </ul>
@@ -340,11 +341,34 @@
             });
         });
 
+        $('.deleteAdmin').on('click', function () {
+            var li = $(this).parent();
+            var liId = li.attr("data-id");
+            var liName = li.attr("data-name");
+
+            var confirmation = confirm("Are you sure, You wanna delete " + liName + ".");
+            var linkUrl = "@Href("~/accounts/DeleteAdmin/")" + liId;
+
+            if (confirmation) {
+                $.ajax({
+                    url: linkUrl,
+                    type: 'Post'
+                })
+                .done(function (result) {
+                    if (result.success) {
+                        li.remove();
+                    } else {
+                        $("#addAdminErrorDiv").show();
+                        $("#addAdminErrorDiv").html("<i class='fa fa-bell'></i> " + result.message);
+                    }
+                });
+            }
+        });
+
         //upload image
         $("#selectPic").change(function () {
             var pic = this.files[0];
             var linkUrl = $(this).attr("pic-href");
-
             var formData = new FormData();
             formData.append("Picture", pic);
 
@@ -368,24 +392,7 @@
             })
         });
 
-        //add skill
-        $("#addSkill").click(function () {
-            var linkUrl = $(this).attr("data-href");
-            $.ajax({
-                url: linkUrl,
-                type: 'Post',
-                data: $("#addSkillsForm").serialize()
-            })
-            .done(function (result) {
-                if (result.success) {
-                    $("#skillName").val('');
-                    location.reload();
-                } else {
-                    $("#skillsErrorDiv").show();
-                    $("#skillsErrorDiv").html("<i class='fa fa-bell'></i> " + result.message);
-                }
-            });
-        })
+
 
         //edit profile
         $("#save").click(function () {
@@ -404,6 +411,25 @@
                 }
             });
         });
+
+        //add skill
+        $("#addSkill").click(function () {
+            var linkUrl = $(this).attr("data-href");
+            $.ajax({
+                url: linkUrl,
+                type: 'Post',
+                data: $("#addSkillsForm").serialize()
+            })
+            .done(function (result) {
+                if (result.success) {
+                    $("#skillName").val('');
+                    location.reload();
+                } else {
+                    $("#skillsErrorDiv").show();
+                    $("#skillsErrorDiv").html("<i class='fa fa-bell'></i> " + result.message);
+                }
+            });
+        })
 
         //delete skill
         $('.deleteSkill').on('click', function () {

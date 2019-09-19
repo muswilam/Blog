@@ -272,5 +272,23 @@ namespace Blog.Controllers
 
             return Json(new { success = false, message = "OPPS! Something went wrong" });
         }
+
+        public JsonResult DeleteAdmin(int id)
+        {
+            var adminFromDb = context.Administrators.Where(a => a.Id == id).FirstOrDefault();
+
+            if(adminFromDb != null)
+            {
+                context.Administrators.Remove(adminFromDb);
+                bool result = context.SaveChanges() > 0;
+
+                if (result)
+                    return Json(new { success = true });
+                else
+                    return Json(new { success = false, message = "OPPS! Something went wrong." });
+            }
+
+            return Json(new { success = false , message = "Admin is not exist."} , JsonRequestBehavior.AllowGet );
+        }
     }
 }
