@@ -102,6 +102,7 @@ namespace Blog.Controllers
             return RedirectToAction("Index" , "Posts");
         }
 
+        //profile page 
         public ActionResult AboutAdmin()
         {
             AboutAdminViewModel adminModel = new AboutAdminViewModel();
@@ -109,7 +110,10 @@ namespace Blog.Controllers
             string adminUserName = (string) Session["AdminUserName"]; 
             
             if(!string.IsNullOrEmpty(adminUserName))
+            {
                 adminModel.Administrator = context.Administrators.Include(a => a.Skills).Where(a => a.UserName.Equals(adminUserName.ToLower())).First();
+                adminModel.AdminUserName = adminUserName;
+            }
             else
                 adminModel.Administrator = context.Administrators.Include(a => a.Skills).Where(a => a.UserName.Equals(DefaultAdmin.defaultAdminUserName.ToLower())).First();
 
@@ -175,6 +179,8 @@ namespace Blog.Controllers
                 return Json(new { success = false, message = "OPPS! Something went wrong." });
         }
 
+        //add skill
+        [HttpPost]
         public JsonResult AddSkill(int adminId , SkillViewModel skillModel)
         {
             var admin = context.Administrators.Include(a => a.Skills).Where(a => a.Id == adminId).First();
@@ -224,6 +230,8 @@ namespace Blog.Controllers
             }
         }
 
+        //delete skill
+        [HttpPost]
         public JsonResult DeleteSkill(int id)
         {
             var skillDb = context.Skills.Where(s => s.Id == id).FirstOrDefault();
@@ -242,6 +250,7 @@ namespace Blog.Controllers
             return Json(new { success = false, message = "Skill not exists." } , JsonRequestBehavior.AllowGet);
         }
 
+        //add admin 
         [HttpPost]
         public JsonResult AddAdmin(AddAdminViewModel adminModel)
         {
@@ -273,9 +282,11 @@ namespace Blog.Controllers
             return Json(new { success = false, message = "OPPS! Something went wrong" });
         }
 
-        public JsonResult DeleteAdmin(int id)
+        //delete admin by user name
+        [HttpPost]
+        public JsonResult DeleteAdmin(string userName)
         {
-            var adminFromDb = context.Administrators.Where(a => a.Id == id).FirstOrDefault();
+            var adminFromDb = context.Administrators.Where(a => a.UserName == userName).FirstOrDefault();
 
             if(adminFromDb != null)
             {

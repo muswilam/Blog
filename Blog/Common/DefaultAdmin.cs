@@ -7,6 +7,6 @@ namespace Blog.Common
 {
     public class DefaultAdmin
     {
-       public const string defaultAdminUserName = "admin";
+       public const string defaultAdminUserName = "muswilam";
     }
 }

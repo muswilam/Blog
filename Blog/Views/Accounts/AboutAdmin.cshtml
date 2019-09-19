@@ -1,5 +1,7 @@
 ﻿@model Blog.ViewModel.AboutAdminViewModel
 
+@using Blog.Common;
+
 @{
     ViewBag.Title = "Swilam";
 }
@@ -112,7 +114,7 @@
 
                 <label class="about-label">@Model.Administrator.Headline</label>
 
-                
+
             </div>
 
             <div class="about-section-col">
@@ -240,52 +242,54 @@
                 </div>
             </div>
 
-            <div class="about-section-row" style="margin-top:40px;margin-bottom:10px;">
-                <h1 class="about-label" style="padding:10px;"><i class="fa fa-users"></i> Admins</h1>
-                <div class="about" style="margin-left: 30px;">
-                    <div class="about-section-row" style="margin-left:50px;margin-top:30px;">
-                        <a class="admins" href="#admins" rel="modal:open">Admins</a>
+            @if (Model.AdminUserName != null && Model.AdminUserName == DefaultAdmin.defaultAdminUserName)
+            {
+                <div class="about-section-row" style="margin-top:40px;margin-bottom:10px;">
+                    <h1 class="about-label" style="padding:10px;"><i class="fa fa-users"></i> Admins</h1>
+                    <div class="about" style="margin-left: 30px;">
+                        <div class="about-section-row" style="margin-left:50px;margin-top:30px;">
+                            <a class="admins" href="#admins" rel="modal:open">Admins</a>
+                        </div>
+                    </div>
+
+                    <div id="admins" class="modal">
+                        <label class="about-label"><i class="fa fa-users"></i> Admins</label>
+                        <ul id="adminsList" class="adminsList" style="position:static;">
+                            @foreach (var admin in Model.Admins)
+                            {
+                                <li data-name="@admin.UserName">
+                                    @admin.UserName
+                                    <span class="deleteAdmin" style="float:right"> &times; </span>
+                                </li>
+                            }
+                        </ul>
+                        <form class="pure-form pure-form-aligned" id="addAdminForm">
+                            <fieldset>
+                                <legend style="color:white"><i class="fa fa-plus"></i> Add Admin</legend>
+                                <div class="pure-control-group" style="text-align:center">
+                                    <input type="text" name="Name" id="name" placeholder="Name.." required />
+                                    <input type="text" name="UserName" id="userName" placeholder="User Name.." required />
+                                </div>
+
+                                <div class="pure-control-group" style="text-align:center">
+                                    <input type="email" name="Email" id="email" placeholder="Email.." required />
+                                    <input type="password" name="Password" id="password" placeholder="Password.." required />
+                                </div>
+
+                                <div class="pure-control-group">
+                                    <div id="addAdminErrorDiv" class="alert" style="display:none"></div>
+                                </div>
+
+                                <div class="pure-control-group" style="text-align:center">
+                                    <button type="button" id="saveAdmin" data-href="@Href("~/Accounts/AddAdmin")" class="pure-button button-a-mobile-collapsed">
+                                        <i class="fa fa-save"></i>  Save
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
-
-                <div id="admins" class="modal">
-                    <label class="about-label" ><i class="fa fa-users"></i> Admins</label>
-                    <ul id="adminsList" class="adminsList" style="position:static;">
-                        @foreach (var admin in Model.Admins)
-                        {
-                            <li data-id="@admin.Id" data-name="@admin.UserName">
-                                @admin.UserName
-                                <span class="deleteAdmin" style="float:right"> &times; </span>
-                            </li>
-                        }
-                    </ul>
-                    <form class="pure-form pure-form-aligned" id="addAdminForm">
-                        <fieldset>
-                            <legend style="color:white"><i class="fa fa-plus"></i> Add Admin</legend>
-                            <div class="pure-control-group" style="text-align:center">
-                                <input type="text" name="Name" id="name" placeholder="Name.." required/>
-                                <input type="text" name="UserName" id="userName" placeholder="User Name.." required/>
-                            </div>
-                          
-                            <div class="pure-control-group" style="text-align:center">
-                                <input type="email" name="Email" id="email" placeholder="Email.." required/>
-                                <input type="password" name="Password" id="password" placeholder="Password.." required/>
-                            </div>
-
-                            <div class="pure-control-group">
-                                <div id="addAdminErrorDiv" class="alert" style="display:none"></div>
-                            </div>
-
-                            <div class="pure-control-group" style="text-align:center">
-                                <button type="button" id="saveAdmin" data-href="@Href("~/Accounts/AddAdmin")" class="pure-button button-a-mobile-collapsed">
-                                    <i class="fa fa-save"></i>  Save
-                                </button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-
+            }
             <div class="about-section-row">
                 <div class="about-section-col">
                     <h1 class="about-label" style="padding:10px;color:#e74c3c"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contact</h1>
@@ -320,7 +324,7 @@
     $(document).ready(function () {
 
         //add admin
-        $("#saveAdmin").click(function () {
+        $("#saveAdmin").on('click',function () {
             var linkUrl = $(this).attr("data-href");
             $.ajax({
                 url: linkUrl,
@@ -329,7 +333,7 @@
             })
             .done(function (result) {
                 if (result.success) {
-                    $("#adminsList").append("<li>" + result.adminUserName + "</li>")
+                    $("#adminsList").append("<li data-name='" + result.adminUserName + "'>" + result.adminUserName + "  <span class='deleteAdmin' style='float:right'> &times; </span> </li>")
                     $("#name").val('');
                     $("#userName").val('');
                     $("#email").val('');
@@ -343,11 +347,10 @@
 
         $('.deleteAdmin').on('click', function () {
             var li = $(this).parent();
-            var liId = li.attr("data-id");
             var liName = li.attr("data-name");
 
             var confirmation = confirm("Are you sure, You wanna delete " + liName + ".");
-            var linkUrl = "@Href("~/accounts/DeleteAdmin/")" + liId;
+            var linkUrl = "@Href("~/accounts/DeleteAdmin?userName=")" + liName;
 
             if (confirmation) {
                 $.ajax({
