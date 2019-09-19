@@ -323,8 +323,8 @@
 <script>
     $(document).ready(function () {
 
-        //add admin
-        $("#saveAdmin").on('click',function () {
+        //admins div : add admin
+        $("#admins").on('click', '#saveAdmin', function () {
             var linkUrl = $(this).attr("data-href");
             $.ajax({
                 url: linkUrl,
@@ -345,7 +345,8 @@
             });
         });
 
-        $('.deleteAdmin').on('click', function () {
+        //admins div : delete admin without refresh after addding 
+        $("#admins").on('click', '.deleteAdmin', function () {
             var li = $(this).parent();
             var liName = li.attr("data-name");
 
