@@ -247,8 +247,16 @@ namespace Blog.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return Json(new { success = false, message = "Invalid Inputs" });
+                return Json(new { success = false, message = "Invalid Inputs." });
             }
+
+            var userNameIsExist = context.Administrators.Where(a => a.UserName == adminModel.UserName).Any();
+            if (userNameIsExist)
+                return Json(new { success = false, message = "User Name is already exist." });
+
+            var emailIsExist = context.Administrators.Where(a => a.Email == adminModel.Email).Any();
+            if (emailIsExist)
+                return Json(new { success = false, message = "Email is already exist." });
 
             Administrator admin = new Administrator();
             admin.Name = adminModel.Name;
@@ -260,7 +268,7 @@ namespace Blog.Controllers
             bool result = context.SaveChanges() > 0;
 
             if (result)
-                return Json(new { success = true });
+                return Json(new { success = true , adminUserName = adminModel.UserName});
 
             return Json(new { success = false, message = "OPPS! Something went wrong" });
         }

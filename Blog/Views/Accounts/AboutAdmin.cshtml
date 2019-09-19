@@ -7,13 +7,12 @@
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-
 <div class="about-section">
     <div class="inner-width">
         <h1></h1>
         <div class="about-section-row">
             <div class="about-section-col">
-                @* Edit Modal if you admin *@
+                @* Edit profile if you admin *@
                 @if (Model.IsAdmin)
                 {
                     <div class="edit-admin about">
@@ -115,6 +114,7 @@
 
                 
             </div>
+
             <div class="about-section-col">
 
                 <div class="info">
@@ -132,8 +132,8 @@
 <div class="inner-width">
     <div class="about-section-row">
         <div class="about">
-            <h1 class="about-label" style="padding-left:10px;color:#7c975e"><i class="fa fa-info-circle" aria-hidden="true"></i> Bio</h1>
-            <p class="bio about-label p1" style="padding-top:2em; color:#7c975e">@Model.Administrator.Bio</p>
+            <h1 class="about-label" style="padding-left:10px;"><i class="fa fa-info-circle" aria-hidden="true"></i> Bio</h1>
+            <p class="bio about-label p1" style="padding-top:2em;">@Model.Administrator.Bio</p>
         </div>
 
         <div class="about-section">
@@ -190,7 +190,7 @@
                     @* Buttons for open modals : Front & back *@
                     <div class="about">
                         <div class="about-section-row" style="margin-top:30px; padding-left:40px;">
-                            <a class="fronSkills" href="#front-skills-modal" rel="modal:open" style="margin-right:5px;">Front-End</a>
+                            <a class="frontSkills" href="#front-skills-modal" rel="modal:open" style="margin-right:5px;">Front-End</a>
 
                             <a class="backSkills" href="#back-skills-modal" rel="modal:open" style="margin-right:5px;">Back-End</a>
                         </div>
@@ -239,38 +239,45 @@
                     </div>
                 </div>
             </div>
+
             <div class="about-section-row" style="margin-top:40px;margin-bottom:10px;">
-                <h1 class="about-label" style="padding:10px;color:#e74c3c"><i class="fa fa-address-book-o" aria-hidden="true"></i> Admins</h1>
-                <div class="about">
-                    <a href="#admins" rel="modal:open">Admins</a>
+                <h1 class="about-label" style="padding:10px;"><i class="fa fa-users"></i> Admins</h1>
+                <div class="about" style="margin-left: 30px;">
+                    <div class="about-section-row" style="margin-left:50px;margin-top:30px;">
+                        <a class="admins" href="#admins" rel="modal:open">Admins</a>
+                    </div>
                 </div>
 
                 <div id="admins" class="modal">
-                    <label class="about-label" style="color:#3d6193">Admins</label>
-                    <ul class="skillsList" style="position:static;">
+                    <label class="about-label" ><i class="fa fa-users"></i> Admins</label>
+                    <ul id="adminsList" class="adminsList" style="position:static;">
                         @foreach (var admin in Model.Admins)
                         {
-                            <li style="color:#3d6193">
+                            <li>
                                 @admin.UserName
                             </li>
                         }
                     </ul>
                     <form class="pure-form pure-form-aligned" id="addAdminForm">
                         <fieldset>
-                            <legend>Add Admin</legend>
+                            <legend style="color:white"><i class="fa fa-plus"></i> Add Admin</legend>
                             <div class="pure-control-group" style="text-align:center">
-                                <input type="text" name="Name" id="name" placeholder="Name" required/>
-                                <input type="text" name="UserName" id="userName" placeholder="User Name" required/>
+                                <input type="text" name="Name" id="name" placeholder="Name.." required/>
+                                <input type="text" name="UserName" id="userName" placeholder="User Name.." required/>
                             </div>
                           
                             <div class="pure-control-group" style="text-align:center">
-                                <input type="email" name="Email" id="email" placeholder="Email" required/>
-                                <input type="password" name="Password" id="password" placeholder="Password" required/>
+                                <input type="email" name="Email" id="email" placeholder="Email.." required/>
+                                <input type="password" name="Password" id="password" placeholder="Password.." required/>
+                            </div>
+
+                            <div class="pure-control-group">
+                                <div id="addAdminErrorDiv" class="alert" style="display:none"></div>
                             </div>
 
                             <div class="pure-control-group" style="text-align:center">
                                 <button type="button" id="saveAdmin" data-href="@Href("~/Accounts/AddAdmin")" class="pure-button button-a-mobile-collapsed">
-                                    Save
+                                    <i class="fa fa-save"></i>  Save
                                 </button>
                             </div>
                         </fieldset>
@@ -311,6 +318,7 @@
 <script>
     $(document).ready(function () {
 
+        //add admin
         $("#saveAdmin").click(function () {
             var linkUrl = $(this).attr("data-href");
             $.ajax({
@@ -319,12 +327,20 @@
                 data: $("#addAdminForm").serialize()
             })
             .done(function (result) {
-                console.log(result);
-                debugger;
+                if (result.success) {
+                    $("#adminsList").append("<li>" + result.adminUserName + "</li>")
+                    $("#name").val('');
+                    $("#userName").val('');
+                    $("#email").val('');
+                    $("#password").val('');
+                } else {
+                    $("#addAdminErrorDiv").show();
+                    $("#addAdminErrorDiv").html("<i class='fa fa-bell'></i> " + result.message);
+                }
             });
-            debugger;
         });
 
+        //upload image
         $("#selectPic").change(function () {
             var pic = this.files[0];
             var linkUrl = $(this).attr("pic-href");
@@ -352,6 +368,7 @@
             })
         });
 
+        //add skill
         $("#addSkill").click(function () {
             var linkUrl = $(this).attr("data-href");
             $.ajax({
@@ -370,6 +387,7 @@
             });
         })
 
+        //edit profile
         $("#save").click(function () {
             var linkUrl = $(this).attr("data-href");
             $.ajax({
@@ -387,6 +405,7 @@
             });
         });
 
+        //delete skill
         $('.deleteSkill').on('click', function () {
             var li = $(this).parent();
             var liId = li.attr("data-id");

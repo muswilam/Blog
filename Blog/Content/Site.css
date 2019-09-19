@@ -533,7 +533,7 @@
   background: #e74c3c;
 }
 
-.fronSkills {
+.frontSkills {
     color: #3d6193 !important;
     border: 2px solid #3d6193 !important;
 }
@@ -543,7 +543,17 @@
     border: 2px solid #9c279a !important;
 }
 
-.fronSkills:hover {
+.admins {
+     color: white !important;
+    border: 2px solid white !important;
+}
+
+.admins:hover {
+    color: black !important;
+    background-color: white !important;
+}
+
+.frontSkills:hover {
     color: white !important;
     background-color: #3d6193 !important;
 }
@@ -586,7 +596,7 @@
    background-color: #656363;
 }
 
-.skillsList ,ul.ui-autocomplete.ui-menu {
+.skillsList , .adminsList ,ul.ui-autocomplete.ui-menu {
     list-style-type: circle;
     padding:3px;
     margin-top: 20px;
@@ -597,7 +607,7 @@
     float:left;
 }
 
-.skillsList li,ul.ui-autocomplete.ui-menu li  {
+.skillsList li , .adminsList li ,ul.ui-autocomplete.ui-menu li  {
    padding: 3px;
    margin-left: 5px;
    font-size: 20px;
