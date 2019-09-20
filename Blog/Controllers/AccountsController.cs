@@ -125,7 +125,8 @@ namespace Blog.Controllers
 
             adminModel.IsAdmin = Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true;
 
-            adminModel.Admins = context.Administrators.ToList();
+            adminModel.Admins = context.Administrators.Where(a => !a.IsMaster).ToList();
+            adminModel.MasterAdmins = context.Administrators.Where(a => a.IsMaster).ToList();
 
             ViewBag.countries = CountriesList.Countries();
 
@@ -272,12 +273,13 @@ namespace Blog.Controllers
             admin.UserName = adminModel.UserName;
             admin.Email = adminModel.Email;
             admin.Password = adminModel.Password;
+            admin.IsMaster = adminModel.IsMaster;
 
             context.Administrators.Add(admin);
             bool result = context.SaveChanges() > 0;
 
             if (result)
-                return Json(new { success = true , adminUserName = adminModel.UserName});
+                return Json(new { success = true , isMaster = adminModel.IsMaster , adminUserName = adminModel.UserName});
 
             return Json(new { success = false, message = "OPPS! Something went wrong" });
         }

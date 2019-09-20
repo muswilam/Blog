@@ -254,7 +254,16 @@
 
                     <div id="admins" class="modal">
                         <label class="about-label"><i class="fa fa-users"></i> Admins</label>
+                        
+
                         <ul id="adminsList" class="adminsList" style="position:static;">
+                            @foreach (var masterAdmin in Model.MasterAdmins)
+                            {
+                                <li data-name="@masterAdmin.UserName" style="color:#08236d">
+                                    @masterAdmin.UserName <span style="float:right"> <i class="fa fa-shield"></i></span>
+                                </li>
+                            }
+                            
                             @foreach (var admin in Model.Admins)
                             {
                                 <li data-name="@admin.UserName">
@@ -262,18 +271,25 @@
                                     <span class="deleteAdmin" style="float:right"> &times; </span>
                                 </li>
                             }
+                            
                         </ul>
+                        
                         <form class="pure-form pure-form-aligned" id="addAdminForm">
                             <fieldset>
                                 <legend style="color:white"><i class="fa fa-plus"></i> Add Admin</legend>
                                 <div class="pure-control-group" style="text-align:center">
-                                    <input type="text" name="Name" id="name" placeholder="Name.." required />
+                                    <input type="text" name="Name" id="Name" placeholder="Name.." required />
                                     <input type="text" name="UserName" id="userName" placeholder="User Name.." required />
                                 </div>
 
                                 <div class="pure-control-group" style="text-align:center">
-                                    <input type="email" name="Email" id="email" placeholder="Email.." required />
+                                    <input type="email" name="Email" id="Email" placeholder="Email.." required />
                                     <input type="password" name="Password" id="password" placeholder="Password.." required />
+                                </div>
+                                <div class="pure-control-group" style="text-align:center">
+                                    <label for="isMaster">
+                                        <input id="isMaster" value="true" name="IsMaster" type="checkbox"> Admin is master
+                                    </label>
                                 </div>
 
                                 <div class="pure-control-group">
@@ -333,11 +349,17 @@
             })
             .done(function (result) {
                 if (result.success) {
-                    $("#adminsList").append("<li data-name='" + result.adminUserName + "'>" + result.adminUserName + "  <span class='deleteAdmin' style='float:right'> &times; </span> </li>")
-                    $("#name").val('');
+
+                    if (result.isMaster == false) {
+                        $("#adminsList").append("<li data-name='" + result.adminUserName + "'>" + result.adminUserName + "  <span class='deleteAdmin' style='float:right'> &times; </span> </li>")
+                    } else {
+                        $("#adminsList").prepend("<li data-name='" + result.adminUserName + "'style='color:#08236d'>" + result.adminUserName + "  <span  style='float:right'> <i class='fa fa-shield' ></i> </span> </li>")
+                    }
+                    $("#Name").val('');
+                    $("#Email").val('');
                     $("#userName").val('');
-                    $("#email").val('');
                     $("#password").val('');
+                    $("#isMaster").prop('checked', false);
                 } else {
                     $("#addAdminErrorDiv").show();
                     $("#addAdminErrorDiv").html("<i class='fa fa-bell'></i> " + result.message);

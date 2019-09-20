@@ -245,6 +245,10 @@
     <Compile Include="Migrations\201909181930044_AddProfilePicColumnInAdminsTable.Designer.cs">
       <DependentUpon>201909181930044_AddProfilePicColumnInAdminsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909201707193_AddIsMasterColumnInAdminsTable.cs" />
+    <Compile Include="Migrations\201909201707193_AddIsMasterColumnInAdminsTable.Designer.cs">
+      <DependentUpon>201909201707193_AddIsMasterColumnInAdminsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\AdminProfile.cs" />
@@ -1443,6 +1447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909181930044_AddProfilePicColumnInAdminsTable.resx">
       <DependentUpon>201909181930044_AddProfilePicColumnInAdminsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909201707193_AddIsMasterColumnInAdminsTable.resx">
+      <DependentUpon>201909201707193_AddIsMasterColumnInAdminsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

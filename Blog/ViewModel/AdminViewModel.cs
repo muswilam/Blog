@@ -58,6 +58,8 @@ namespace Blog.ViewModel
 
         public List<Administrator> Admins { get; set; }
 
+        public List<Administrator> MasterAdmins { get; set; }
+
         public string AdminUserName { get; set; }
     }
 
@@ -77,5 +79,7 @@ namespace Blog.ViewModel
 
         [Required, MaxLength(128)]
         public string Password { get; set; }
+
+        public bool IsMaster { get; set; }
     }
 }

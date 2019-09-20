@@ -41,6 +41,8 @@ namespace Blog.Models
         [MaxLength(300)]
         public string ProfilePic { get; set; }
 
+        public bool IsMaster { get; set; }
+
         //nav props 
         public ICollection<Skill> Skills { get; set; }
     }
