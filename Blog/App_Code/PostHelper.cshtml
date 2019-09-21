@@ -39,38 +39,40 @@
         </div>
 
         <div id="commentEditor">
-            <form id="commentForm">
+            <form id="commentForm" class="pure-form pure-form-aligned">
+                <fieldset>
+                    <div class="inputContainer">
+                        @if (isAdmin)
+                        {
+                            <label class="inputLabel" style="color:cornflowerblue">Sully</label> <br />
+                            <input type="hidden" name="name" value="Sully" />
 
-                <div class="inputContainer">
-                    @if (isAdmin)
-                    {
-                        <label class="inputLabel" style="color:cornflowerblue">Sully</label> <br />
-                        <input type="hidden" name="name" value="Sully" />
+                            <input type="hidden" name="email" value="jackswilam@gmail.com" />
 
-                        <input type="hidden" name="email" value="jackswilam@gmail.com" />
+                            <input type="hidden" name="isAdmin" value="true" />
+                        }
+                        else
+                        {
+                            <div class="pure-control-group">
+                                <input type="text" class="pure-input-2-2" id="commentName" name="name" required placeholder="Name required." /><br />
+                                <label id="nameError" style="text-align:left;font-size:14px;" class="text-danger"></label><br />
 
-                        <input type="hidden" name="isAdmin" value="true" />
-                    }
-                    else
-                    {
-                        <div class="inputContainer">
-                            <label class="inputLabel"> Name</label> <br />
-                            <input type="text" class="inputTextBox" id="commentName" name="name" required placeholder="Please, Enter your name." />
-                            <label id="nameError" class="text-danger"></label><br />
-
-                            <label class="inputLabel"> Email </label> <br />
-                            <input type="email" class="inputTextBox" id="commentEmail" name="email" placeholder="Optional" /><br />
-                            <label id="emailError" class="text-danger"></label><br />
+                                <input type="email" class="pure-input-2-2" id="commentEmail" name="email" placeholder="Email optional." /><br />
+                                <label id="emailError" style="text-align:left;font-size:14px;" class="text-danger"></label><br />
+                            </div>
+                        }
+                        <div class="pure-control-group">
+                            <textarea class="pure-input-2-2" id="commentBody" name="body" rows="3" style="width:250px;" cols="60" required placeholder="Comment..."></textarea>
+                            <label id="commentError" style="text-align:left;font-size:14px;" class="text-danger"></label>
                         </div>
-                    }
-
-                    <textarea class="inputTextBox" id="commentBody" name="body" rows="5" style="width:400px;" cols="60" required placeholder="Comment..."></textarea>
-                    <label id="commentError" class="text-danger"></label>
-                    <button id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button" class="commentSubmit">
-                        Save <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                    </button>
-                </div>
-
+                       
+                        <div class="pure-controls">
+                            <button class="pure-button" id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button">
+                                Save <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
             </form>
         </div>
 

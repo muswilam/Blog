@@ -337,10 +337,13 @@
 }
 .comment {
     text-align: left;
-    padding: 15px 15px 30px 50px;
+    padding: 15px 15px 10px 30px;
     margin-bottom: 30px;
-    color: AppWorkspace;
-    border: 1px groove #656363;
+    color: white;
+    border: 4px groove #e74c3c;
+    background-color:#393a5b;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 40px;
 }
 
 .commentControlPanel {
@@ -350,12 +353,13 @@
 #commentEditor {
     text-align: left;
     padding: 15px 15px 30px 0;
+    margin-left:50px;
     margin-bottom: 30px;
     color: AppWorkspace;
 }
 
 #commentContainer {
-    width: 665px;
+    width: 570px;
     margin: auto;
     padding-left: 35px;
 }
@@ -365,6 +369,7 @@
     vertical-align: middle;
     width: 30px;
 }
+
 
 .commentsTab a:link , .commentsTab a:visited , .commentsTab a:hover , .commentsTab a:active
 {
@@ -725,8 +730,8 @@ textarea {
 }
 
 .input-validation-error {
-    border: 1px solid #f00;
-    background-color: #fee;
+    border: 1px solid #f00 !important;
+    background-color: #a80000;
 }
 
 .validation-summary-errors {
