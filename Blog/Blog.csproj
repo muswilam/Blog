@@ -249,6 +249,10 @@
     <Compile Include="Migrations\201909201707193_AddIsMasterColumnInAdminsTable.Designer.cs">
       <DependentUpon>201909201707193_AddIsMasterColumnInAdminsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909211514119_AddPinCommentIdColumnInPostsTable.cs" />
+    <Compile Include="Migrations\201909211514119_AddPinCommentIdColumnInPostsTable.Designer.cs">
+      <DependentUpon>201909211514119_AddPinCommentIdColumnInPostsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\AdminProfile.cs" />
@@ -1331,6 +1335,7 @@
     <Content Include="Images\comment.png" />
     <Content Include="Images\default_user.jpg" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\pin.png" />
     <Content Include="Images\Reddit.png" />
     <Content Include="Images\separator.png" />
     <Content Include="Images\Sully.jpg" />
@@ -1450,6 +1455,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909201707193_AddIsMasterColumnInAdminsTable.resx">
       <DependentUpon>201909201707193_AddIsMasterColumnInAdminsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909211514119_AddPinCommentIdColumnInPostsTable.resx">
+      <DependentUpon>201909211514119_AddPinCommentIdColumnInPostsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

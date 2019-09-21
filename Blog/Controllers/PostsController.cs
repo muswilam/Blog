@@ -85,7 +85,15 @@ namespace Blog.Controllers
 
             var post = GetPost(id);
             postModel.Post = post;
-            postModel.Comments = post.Comments.OrderByDescending(c => c.Time).ToPagedList(currentPage, PageSize.pageComments);
+
+            if(post.PinCommentId.HasValue)
+            {
+                postModel.Comments = post.Comments.OrderByDescending(c => c.Id == post.PinCommentId.Value).ThenByDescending(c => c.Time).ToPagedList(currentPage, PageSize.pageComments);
+            }
+            else
+            {
+                postModel.Comments = post.Comments.OrderByDescending(c => c.Time).ToPagedList(currentPage, PageSize.pageComments);
+            }
 
             ViewBag.IsAdmin = IsAdmin;
 
@@ -241,6 +249,16 @@ namespace Blog.Controllers
             var comments = context.Posts.Where(p => p.Id == id).Select(p => p.Comments).ToList();
 
             return Json(new { comments = comments }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PinComment(int id, int commentId)
+        {
+            var post = GetPost(id);
+            post.PinCommentId = commentId;
+            context.Entry(post).State = EntityState.Modified;
+            bool result = context.SaveChanges() > 0;
+
+            return RedirectToAction("Details", new { id = id });
         }
 
         public ActionResult Tags(string tagName, int? page)

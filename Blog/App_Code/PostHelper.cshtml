@@ -24,7 +24,7 @@
         }
         foreach (var p in post.Posts)
         {
-            @PostCodeHelper.Render(p, html, url ,isAdmin,post.PageNumber, showComments);
+            @PostCodeHelper.Render(p, html, url, isAdmin, post.PageNumber, showComments);
         }
     }
 
@@ -65,7 +65,7 @@
                             <textarea class="pure-input-2-2" id="commentBody" name="body" rows="3" style="width:250px;" cols="60" required placeholder="Comment..."></textarea>
                             <label id="commentError" style="text-align:left;font-size:14px;" class="text-danger"></label>
                         </div>
-                       
+
                         <div class="pure-controls">
                             <button class="pure-button" id="commentSubmitBtn" data-href="@Href("~/Posts/Comment/" + post.Post.Id)" target-href="@Href("~/Posts/GetComments/" + post.Post.Id)" type="button">
                                 Save <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
@@ -88,6 +88,13 @@
                 @foreach (var comment in post.Comments)
                 {
                     <div class="comment" id="comment">
+                        <span data-href="@Href("~/posts/PinComment/" + @comment.PostId + "?commentId=" + @comment.Id)" class="pinComment">
+                            <img src="~/Images/pin.png" style="width:30px; float:right" />
+                            @if (post.Post.PinCommentId.HasValue && comment.Id == post.Post.PinCommentId.Value)
+                            {
+                                <label style="float:right">Pinned</label>
+                            }
+                        </span>
 
                         @if (isAdmin)
                         {

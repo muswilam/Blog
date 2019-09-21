@@ -23,6 +23,8 @@ namespace Blog.Models
         [Required(ErrorMessage = "Please, Enter post body.")]
         public string Body { get; set; }
 
+        public int? PinCommentId { get; set; }
+
         //nav props
         public ICollection<Tag> Tags { get; set; }
 
