@@ -1341,6 +1341,7 @@
     <Content Include="Images\Sully.jpg" />
     <Content Include="Images\title.png" />
     <Content Include="Images\twitter.png" />
+    <Content Include="Images\unpin.png" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

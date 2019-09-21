@@ -693,7 +693,7 @@
       font-size:20px;
 }
 
-.pinComment {
+.pinComment , .unPinComment {
     cursor: pointer;
 }
 

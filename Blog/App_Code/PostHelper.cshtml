@@ -88,16 +88,35 @@
                 @foreach (var comment in post.Comments)
                 {
                     <div class="comment" id="comment">
-                        <span data-href="@Href("~/posts/PinComment/" + @comment.PostId + "?commentId=" + @comment.Id)" class="pinComment">
-                            <img src="~/Images/pin.png" style="width:30px; float:right" />
-                            @if (post.Post.PinCommentId.HasValue && comment.Id == post.Post.PinCommentId.Value)
+                        @if (isAdmin)
+                        {
+                            if (post.Post.PinCommentId.HasValue && comment.Id == post.Post.PinCommentId.Value)
                             {
-                                <label style="float:right">Pinned</label>
+                                <span data-href="@Href("~/posts/UnPinComment/" + @comment.PostId )" class="unPinComment">
+                                    <img src="~/Images/unpin.png" style="width:30px; float:right" />
+                                    <label style="float:right">Pinned</label>
+                                </span>
                             }
-                        </span>
+                            else
+                            {
+                                <span data-href="@Href("~/posts/PinComment/" + @comment.PostId + "?commentId=" + @comment.Id)" class="pinComment">
+                                    <img src="~/Images/pin.png" style="width:30px; float:right" />
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            if (post.Post.PinCommentId.HasValue && comment.Id == post.Post.PinCommentId.Value)
+                            {
+                                <img src="~/Images/pin.png" style="width:30px; float:right" />
+                                <label style="float:right; background-color:#e74c3c; font-size:16px">Pinned by admin</label>
+                            }
+                        }
+
 
                         @if (isAdmin)
                         {
+
                             <div class="commentControlPanel">
                                 <button type="button" id="deleteLink" class="inputSubmit" data-name="@comment.Name" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">
                                     <i class="fa fa-trash-o" aria-hidden="true"></i> Delete

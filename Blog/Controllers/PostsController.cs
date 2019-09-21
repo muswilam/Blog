@@ -252,18 +252,33 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public ActionResult PinComment(int id, int commentId)
+        public JsonResult PinComment(int id, int commentId)
         {
             var post = GetPost(id);
             post.PinCommentId = commentId;
+
             context.Entry(post).State = EntityState.Modified;
             bool result = context.SaveChanges() > 0;
-
 
             if (result)
                 return Json(new { success = true });
 
-            return Json(new { success = false });
+            return Json(new { success = false , message = "OPPS! Something went wrong."});
+        }
+
+        [HttpPost]
+        public ActionResult UnPinComment(int id)
+        {
+            var post = GetPost(id);
+            post.PinCommentId = null;
+
+            context.Entry(post).State = EntityState.Modified;
+            bool result = context.SaveChanges() > 0;
+
+             if (result)
+                return Json(new { success = true });
+
+             return Json(new { success = false, message = "OPPS! Something went wrong." });
         }
 
         public ActionResult Tags(string tagName, int? page)

@@ -139,7 +139,7 @@
         debugger;
     });
 
-    $(document).on('click','.pinComment', function () {
+    $('.comments').on('click', '.pinComment', function () {
         var pinnedComment = $(this);
         var linkUrl = $(this).attr("data-href");
         $.ajax({
@@ -152,6 +152,31 @@
             } else {
                 alert(result.message);
             };
+        });
+    });
+
+    $('.comments').on('click', '.unPinComment', function () {
+        var linkUrl = $(this).attr("data-href");
+        $.ajax({
+            url: linkUrl,
+            type: 'Post',
         })
-    })
+        .done(function (result) {
+            if (result.success) {
+                debugger;
+                $(".comments").load(window.location.href + " #commentsDiv");
+            } else {
+                alert(result.message);
+            }
+        })
+        //.done(function (result) {
+        //    if (result.success) {
+        //        location.reload();
+        //    } else {
+        //        alert(result.message);
+        //    };
+        //    debugger;
+        //});
+        debugger;
+    });
 </script>
