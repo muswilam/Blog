@@ -251,6 +251,7 @@ namespace Blog.Controllers
             return Json(new { comments = comments }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public ActionResult PinComment(int id, int commentId)
         {
             var post = GetPost(id);
@@ -258,7 +259,11 @@ namespace Blog.Controllers
             context.Entry(post).State = EntityState.Modified;
             bool result = context.SaveChanges() > 0;
 
-            return RedirectToAction("Details", new { id = id });
+
+            if (result)
+                return Json(new { success = true });
+
+            return Json(new { success = false });
         }
 
         public ActionResult Tags(string tagName, int? page)

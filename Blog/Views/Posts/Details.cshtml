@@ -23,7 +23,7 @@
 </div>
 
 <script>
-    $('#commentSubmitBtn').click(function () {  
+    $('#commentSubmitBtn').click(function () {
         var linkUrl = $(this).attr("data-href");
         var linkTarget = $(this).attr("target-href");
         $.ajax({
@@ -116,7 +116,7 @@
         });
     });
 
-    // (on) need to use delegation based event handlers for wiring up future elements 
+    // (on) need to use delegation based event handlers for wiring up future elements
     $(document).on('click', '#deleteLink', function () {
         var commentName = $(this).attr("data-name");
         var confirmation = confirm("Are you sure, You wanna delete " + commentName + "'s comment.");
@@ -129,7 +129,7 @@
             })
              .done(function (result) {
                  if (result.success) {
-                     $(".comments").load(window.location.href + " #commentsDiv"); // little space before # so important for adding not passing 
+                     $(".comments").load(window.location.href + " #commentsDiv"); // little space before # so important for adding not passing
                  } else {
                      alert(result.message);
                  };
@@ -139,15 +139,19 @@
         debugger;
     });
 
-    $(".pinComment").click(function () {
+    $(document).on('click','.pinComment', function () {
         var pinnedComment = $(this);
         var linkUrl = $(this).attr("data-href");
         $.ajax({
             url: linkUrl,
             type: 'Post',
         })
-        .done(function () {
-            location.reload();
+        .done(function (result) {
+            if (result.success) {
+                $(".comments").load(window.location.href + " #commentsDiv"); // little space before # so important for adding not passing
+            } else {
+                alert(result.message);
+            };
         })
     })
 </script>
