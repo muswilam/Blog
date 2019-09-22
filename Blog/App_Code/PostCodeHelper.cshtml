@@ -14,17 +14,14 @@
             {
                 <div class="dateTab">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
-
-                    @post.Time.Value.ToString("MMM").ToUpper()  @post.Time.Value.ToString("dd")
+                    @post.Time.Value.ToString("MMM").ToUpper()  @post.Time.Value.ToString("dd"), @post.Time.Value.ToString("yy")
                 </div>
             }
 
             @if (post.EditTime != null)
             {
                 <div class="dateTab">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-
-                    Edited  @post.EditTime.Value.ToString("MMM").ToUpper() @post.EditTime.Value.ToString("dd")
+                    <i class="fa fa-edit"></i> Edited 
                 </div>
             }
 
@@ -33,9 +30,8 @@
                 <div class="commentsTab">
 
                     <a href="@Href("~/Posts/Details/" + post.Id + "#comments")">
+                        @post.Comments.Count @(post.Comments.Count() == 1 ? "comment" : "comments")
                         <i class="fa fa-comments fa-lg" aria-hidden="true"></i>
-
-                        @post.Comments.Count
                     </a>
                 </div>
             }

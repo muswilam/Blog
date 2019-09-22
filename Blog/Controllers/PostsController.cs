@@ -48,6 +48,7 @@ namespace Blog.Controllers
             }
 
             var Posts = context.Posts.Include(p => p.Tags)
+                .Include(p => p.Comments)
                 .OrderByDescending(p => p.Time).ToList();
 
             ViewBag.IsAdmin = IsAdmin;

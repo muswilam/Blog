@@ -249,7 +249,7 @@
 }
 
 .postTitle a:link , .postTitle a:visited , .postTitle a:hover , .postTitle a:active {
-    color: gray;
+    color: white !important;
     text-decoration: none;
 }
 
@@ -266,12 +266,13 @@
     color: #ffffff;
     float: left;
     font-size: 12px;
+    width:90px;
 }
 
 .dateTab, .commentsTab  {
     margin-top: 10px;
     margin-right: 3px;
-    width: 60px;
+    width: 90px;
     padding: 5px;
     background: #303030;
 }
@@ -279,7 +280,7 @@
 .commentsTab  {
     margin-top: 10px;
     margin-right: 3px;
-    width: 60px;
+    width:90px;
     padding: 5px;
     background: #1b2165;
 }
@@ -287,13 +288,13 @@
 .postContent {
     padding: 15px 15px 30px 50px;
     width: 600px;
-    margin-left: 35px;
+    margin-left: 60px;
     color: AppWorkspace;
     /*border:1px dashed #656363;*/
 }
 
 .postImage{
-   border: 2px solid #b8bdb2;
+   border: 2px solid white;
    border-radius: 2%;
    width:600px;
    height:300px;
@@ -331,9 +332,9 @@
 
 .commentsText , #commentPrompt {
     text-align: left;
-    font-style: italic;
+    font-family: 'Space Age';
     font-size: 30px;
-    color: AppWorkspace;
+    color: white;
 }
 .comment {
     text-align: left;
@@ -341,7 +342,7 @@
     margin-bottom: 30px;
     color: white;
     border: 4px groove #e74c3c;
-    background-color:#393a5b;
+    background-color:#262748;
     border-bottom-right-radius: 40px;
     border-top-left-radius: 40px;
 }
@@ -353,7 +354,7 @@
 #commentEditor {
     text-align: left;
     padding: 15px 15px 30px 0;
-    margin-left:50px;
+    /*margin-left:50px;*/
     margin-bottom: 30px;
     color: AppWorkspace;
 }
@@ -367,7 +368,7 @@
 .commentsTab img {
     margin-right: 5px;
     vertical-align: middle;
-    width: 30px;
+    width: 60px;
 }
 
 
@@ -425,10 +426,10 @@
 
 .image {
     overflow:hidden;
-    border-radius: 50%;
+    border-radius:50%;
     height: 200px;
     width: 200px;
-    border: 5px solid #3d6193;
+    border: 5px solid #393a5b;
 }
 
 #portrait {
@@ -660,11 +661,11 @@
       width: 350px !important;
       margin: 0;
   }
-  .postContent {
+  /*.postContent {
       width: 200px;
-      margin-left: 30px;
+      margin-left: 50px;
       padding-bottom: 80px;
-  }
+  }*/
   .tagsList{
       margin-bottom: 30px;
       width: 200px;
@@ -734,7 +735,7 @@ textarea {
 }
 
 .input-validation-error {
-    border: 1px solid #f00 !important;
+    border: 2px solid #e74c3c !important;
     background-color: #a80000;
 }
 

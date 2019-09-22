@@ -108,11 +108,9 @@
                         $("#commentBody").val('');
                     })
                 });
-                debugger;
             } else {
                 $("#commentError").append(result.message);
-            }
-
+            };
         });
     });
 
@@ -134,9 +132,7 @@
                      alert(result.message);
                  };
              });
-            debugger;
-        }
-        debugger;
+        };
     });
 
     $('.comments').on('click', '.pinComment', function () {
@@ -163,20 +159,10 @@
         })
         .done(function (result) {
             if (result.success) {
-                debugger;
                 $(".comments").load(window.location.href + " #commentsDiv");
             } else {
                 alert(result.message);
-            }
-        })
-        //.done(function (result) {
-        //    if (result.success) {
-        //        location.reload();
-        //    } else {
-        //        alert(result.message);
-        //    };
-        //    debugger;
-        //});
-        debugger;
+            };
+        });
     });
 </script>
