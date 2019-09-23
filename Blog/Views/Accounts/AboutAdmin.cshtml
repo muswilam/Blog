@@ -121,7 +121,7 @@
 
                 <div class="info">
                     <label class="about-label"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @Model.Administrator.Name </label>
-                    <label class="about-label"><i class="fa fa-university" aria-hidden="true"></i> @Model.Administrator.Education </label>
+                    <label class="about-label"><i class="fa fa-university" ></i>@Model.Administrator.Education</label>
                     <label class="about-label"><i class="fa fa-calendar" aria-hidden="true"></i> Born on @Model.Administrator.Birthdate.Value.Date.ToShortDateString() </label>
                     <label class="about-label"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>  @Model.Administrator.Country </label>
                 </div>
@@ -247,14 +247,14 @@
                 <div class="about-section-row" style="margin-top:40px;margin-bottom:10px;">
                     <h1 class="about-label" style="padding:10px;"><i class="fa fa-users"></i> Admins</h1>
                     <div class="about" style="margin-left: 30px;">
-                        <div class="about-section-row" style="margin-left:50px;margin-top:30px;">
-                            <a class="admins" href="#admins" rel="modal:open">Admins</a>
+                        <div class="admins about-section-row" style="margin-left:50px;margin-top:30px;">
+                            <a href="#admins" rel="modal:open">Admins</a>
                         </div>
                     </div>
 
                     <div id="admins" class="modal">
                         <label class="about-label"><i class="fa fa-users"></i> Admins</label>
-                        
+
 
                         <ul id="adminsList" class="adminsList" style="position:static;">
                             @foreach (var masterAdmin in Model.MasterAdmins)
@@ -263,7 +263,7 @@
                                     @masterAdmin.UserName <span style="float:right"> <i class="fa fa-shield"></i></span>
                                 </li>
                             }
-                            
+
                             @foreach (var admin in Model.Admins)
                             {
                                 <li data-name="@admin.UserName">
@@ -271,9 +271,9 @@
                                     <span class="deleteAdmin" style="float:right"> &times; </span>
                                 </li>
                             }
-                            
+
                         </ul>
-                        
+
                         <form class="pure-form pure-form-aligned" id="addAdminForm">
                             <fieldset>
                                 <legend style="color:white"><i class="fa fa-plus"></i> Add Admin</legend>
@@ -311,15 +311,18 @@
                     <h1 class="about-label" style="padding:10px;color:#e74c3c"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contact</h1>
                     <div class="about-section">
                         <div class="about" style="display:grid; width:300px;">
-                            <a href="https://twitter.com/muswilam">
-                                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
-                            </a>
-                            <a href="https://github.com/muswilam">
-                                <i class="fa fa-github" aria-hidden="true"></i> GitHub
-                            </a>
-                            <a href="https://www.linkedin.com/in/muhammad-swilam-a479a1b0/">
-                                <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
-                            </a>
+                            @if (Model.AdminUserName == null || Model.AdminUserName == DefaultAdmin.defaultAdminUserName)
+                            {
+                                <a href="https://twitter.com/muswilam">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
+                                </a>
+                                <a href="https://github.com/muswilam">
+                                    <i class="fa fa-github" aria-hidden="true"></i> GitHub
+                                </a>
+                                <a href="https://www.linkedin.com/in/muhammad-swilam-a479a1b0/">
+                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+                                </a>
+                            }
                             <a href="MailTo://@Model.Email">
                                 <i class="fa fa-envelope" aria-hidden="true"></i> @Model.Administrator.Email
                             </a>
@@ -367,7 +370,7 @@
             });
         });
 
-        //admins div : delete admin without refresh after addding 
+        //admins div : delete admin without refresh after addding
         $("#admins").on('click', '.deleteAdmin', function () {
             var li = $(this).parent();
             var liName = li.attr("data-name");

@@ -245,7 +245,7 @@
     font-size: 40px;
     font-weight: bold;
     font-family: "Palatino Linotype", Palatino;
-    padding-left: 85px;
+    padding-left: 135px;
 }
 
 .postTitle a:link , .postTitle a:visited , .postTitle a:hover , .postTitle a:active {
@@ -267,6 +267,7 @@
     float: left;
     font-size: 12px;
     width:90px;
+    margin-top: 5px;
 }
 
 .dateTab, .commentsTab  {
@@ -307,6 +308,10 @@
 
 }
 
+.postControlPanel {
+    margin-left: 110px;
+}
+
 .tagsList {
     float: left;
     margin-top: 2px;
@@ -324,10 +329,6 @@
 
 .linkImg {
     width:20px;
-}
-
-.postControlPanel {
-  
 }
 
 .commentsText , #commentPrompt {
@@ -549,12 +550,12 @@
     border: 2px solid #9c279a !important;
 }
 
-.admins {
+.admins a{
      color: white !important;
     border: 2px solid white !important;
 }
 
-.admins:hover {
+.admins a:hover {
     color: black !important;
     background-color: white !important;
 }
@@ -661,11 +662,11 @@
       width: 350px !important;
       margin: 0;
   }
-  /*.postContent {
+  .postContent {
       width: 200px;
       margin-left: 50px;
       padding-bottom: 80px;
-  }*/
+  }
   .tagsList{
       margin-bottom: 30px;
       width: 200px;

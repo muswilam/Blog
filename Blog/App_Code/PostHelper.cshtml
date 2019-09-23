@@ -44,7 +44,6 @@
                     <div class="pure-control-group" style="text-align:center">
                         @if (isAdmin)
                         {
-                            <label class="inputLabel" style="color:cornflowerblue">Sully</label> <br />
                             <input type="hidden" name="name" value="Sully" />
 
                             <input type="hidden" name="email" value="jackswilam@gmail.com" />
@@ -90,6 +89,7 @@
                 @foreach (var comment in post.Comments)
                 {
                     <div class="comment" id="comment">
+                        @* pin comment *@
                         @if (isAdmin)
                         {
                             if (post.Post.PinCommentId.HasValue && comment.Id == post.Post.PinCommentId.Value)
@@ -105,6 +105,12 @@
                                     <img src="~/Images/pin.png" style="width:30px; float:right" />
                                 </span>
                             }
+                            
+                            <div class="commentControlPanel">
+                                <button type="button" id="deleteLink" class="inputSubmit" data-name="@comment.Name" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+                                </button>
+                            </div>
                         }
                         else
                         {
@@ -114,16 +120,7 @@
                                 <label style="float:right; background-color:#e74c3c; font-size:16px">Pinned by admin</label>
                             }
                         }
-                        
-                        @if (isAdmin)
-                        {
-
-                            <div class="commentControlPanel">
-                                <button type="button" id="deleteLink" class="inputSubmit" data-name="@comment.Name" data-href="@Href("~/Posts/DeleteComment/" + comment.Id)" style="color:red">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                </button>
-                            </div>
-                        }
+                         
                         <div class="commentName">
                             @if (!string.IsNullOrWhiteSpace(comment.Email) && comment.IsAdmin)
                             {
