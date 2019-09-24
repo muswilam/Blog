@@ -16,6 +16,16 @@
 
     @Html.Action("TrendingTags", "Posts")
 
+    <img src="~/Images/weather.png" id="toggleMenu" onclick="toggleMenu()" style="width:60px;" alt="weather">
+
+    <nav id="menu">
+        <img class="weatherIcon"/>
+        <p class="description"></p>
+        <p class="cityName"></p>
+        <p class="temp"></p>
+    </nav>
+   
+
     <div id="content">
         <div id="main">
             @RenderBody()
@@ -49,4 +59,46 @@
         });
 
     });
+
+    var toggleStatus = 0;
+    function toggleMenu() {
+        if (toggleStatus == 1) {
+            document.getElementById("menu").style.left = "-200px";
+            document.getElementById("toggleMenu").style.left = "3px";
+            toggleStatus = 0;
+        } else if (toggleStatus == 0) {
+            document.getElementById("menu").style.left = "3px";
+            document.getElementById("toggleMenu").style.left = "200px";
+            toggleStatus = 1;
+        }
+    }
+</script>
+
+<script>
+   
+    if ("geolocation" in navigator) { //check geolocation available 
+           //try to get user current location using getCurrentPosition() method
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var lat = position.coords.latitude ;
+            var lon = position.coords.longitude;
+
+            debugger;
+            var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&APPID=768644037f130039fae040567559985f";
+
+            $.getJSON(url,function(data){
+                var icon = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+                var city = data.name;
+                var temp = data.main.temp;
+                var desc = data.weather[0].description;
+
+                $(".weatherIcon").attr("src", icon);
+                $(".weatherMain").append(desc);
+                $(".cityName").append(city);
+                $(".temp").append(temp + " °C");
+                $(".description").append(desc);
+            });
+        })
+     } else {
+        console.log("Browser doesn't support geolocation!");
+    }
 </script>

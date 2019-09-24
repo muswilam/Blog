@@ -10,6 +10,63 @@
     background-color: #181928;
 }
 
+nav {
+    width: 180px;
+    height: 250px;
+    background-color: #1a1f57;
+    position: fixed;
+    top: 130px;
+    bottom: 55px;
+    left: -200px;
+    z-index: 1000;
+    transition: all ease-in-out 200ms;
+    webkit-transition: all ease-in-out 200ms;
+    border-radius: 15px;
+    border: 3px solid #fff;
+}
+
+#toggleMenu {
+    width: 200px;
+    position: fixed;
+    top: 160px;
+    left: 3px;
+    z-index: 1050;
+    cursor: pointer;
+    transition: all ease-in-out 200ms;
+    webkit-transition: all ease-in-out 200ms;
+}
+
+#toggleMenu:hover {
+    opacity: 0.7;
+}
+
+.weatherIcon {
+    width: 100px;
+    margin: 5px 10px;
+    padding: 2px;
+    text-align:center;
+}
+
+.cityName {
+    margin-top:30px;
+    font-family:Arial;
+    font-size: 20px;
+    font-weight:bold;
+    color: #fff;
+}
+
+.temp {
+    color:#fff;
+    font-size: 20px;
+    padding-top: 2px;
+}
+
+.description {
+    font-size: 15px;
+    font-weight:100;
+    color:white;
+}
+
 .navbar {
     list-style-type: none;
     overflow: hidden;
